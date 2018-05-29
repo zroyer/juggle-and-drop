@@ -11,7 +11,7 @@ const App = () => (
   <Fragment>
     <Header />
     <Route exact path="/" component={Home} />
-    <Route path="/b/:boardId" component={Board} />
+    <Route path="/:boardId" component={Board} />
   </Fragment>
 );
 

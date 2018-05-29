@@ -1,7 +1,6 @@
-# Doing Things
+# [Doing Things](doing-things.surge.sh)
 
-A workflow app made with [react-beautiful-dnd](https://github.com/atlassian/react-beautiful-dnd)
-[doing-things.surge.sh](doing-things.surge.sh)
+A workflow app made with [react-beautiful-dnd](https://github.com/atlassian/react-beautiful-dnd)     
 
 ### Features (WIP)
 * Add, edit, and delete cards and lists

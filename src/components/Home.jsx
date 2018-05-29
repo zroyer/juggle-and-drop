@@ -20,7 +20,7 @@ class Home extends Component<Props> {
         {boards.map(board => (
           <Link
             key={board.id}
-            to={`/b/${board.id}/${slugify(board.title, { lower: true })}`}
+            to={`/${board.id}/${slugify(board.title, { lower: true })}`}
           >
             {board.title}
           </Link>

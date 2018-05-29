@@ -185,8 +185,8 @@ class List extends React.Component<Props, State> {
               className="list-title-button"
             >
               {list.title}
-              <FaTimesCircle onClick={this.deleteList} className="delete-list-button" />
             </button>
+            <FaTimesCircle onClick={this.deleteList} className="delete-list-button" />
           </div>
         )}
         <Droppable droppableId={list.id}>
@@ -259,7 +259,7 @@ class List extends React.Component<Props, State> {
                     <input
                       type="submit"
                       value="Add"
-                      className="submit-card-button"
+                      className="action-button submit-card-button"
                       disabled={newCardTitle === ""}
                     />
                   </form>
@@ -269,10 +269,12 @@ class List extends React.Component<Props, State> {
                 <div
                   className="open-composer-container"
                 >
-                  <FaPlusSquare
-                    className="open-composer-button"
+                  <button
+                    className="action-button open-composer-button"
                     onClick={this.toggleCardComposer}
-                  />
+                  >
+                      Add new card
+                  </button>
                 </div>
               )}
             </div>

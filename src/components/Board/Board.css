@@ -18,7 +18,7 @@
 .lists {
   display: flex;
   align-items: flex-start;
-  margin: 12px 7px;
+  margin: 8px;
   height: 100%;
 }
 
@@ -29,7 +29,7 @@
   border-radius: 4px;
   box-sizing: border-box;
   font-size: 14px;
-  margin: 0 5px 0 5px;
+  margin: 8px;
   display: flex;
   flex-direction: column;
   max-height: 100%;
@@ -38,7 +38,7 @@
 .list-title {
   display: flex;
   flex-shrink: 0;
-  height: 40px;
+  height: 48px;
   align-items: center;
 }
 
@@ -57,6 +57,7 @@
 }
 
 .delete-list-button {
+  margin-right: 10px;
   border: 0;
   border-radius: 4px;
   color: #333;
@@ -71,20 +72,25 @@
 }
 
 .list-title-textarea-wrapper {
-  padding: 10px;
+  height: 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 10px;
 }
 
 .list-title-textarea {
+  box-shadow: inset 0 0 0 2px rgba(0,0,0,0.1);
+  height: 32px;
   border-radius: 4px;
-  border: 2px solid #E2E2E2;
-  padding: 6px;
+  border: none;
+  padding: 8px;
   overflow: hidden;
   width: 100%;
-  border: 0;
   box-sizing: border-box;
   font-family: inherit;
   font-size: inherit;
-  font-weight: 700;
+  font-weight: 500;
   color: inherit;
   resize: none;
 }
@@ -96,7 +102,7 @@
 
 .card-title {
   background: #FFFFFF;
-  border: 2px solid #E2E2E2;
+  box-shadow: inset 0 0 0 2px rgba(0,0,0,0.1);
   border-radius: 4px;
   padding: 8px;
   margin: 0 10px 10px 10px;
@@ -109,7 +115,7 @@
 }
 
 .card-title:hover {
-  border-color: #9D9D9D;
+  box-shadow: inset 0 0 0 2px rgba(0,0,0,0.3);
 }
 
 .edit-card-button {
@@ -155,34 +161,60 @@
   display: flex;
   justify-content: center;
   background: #F8F8F8;
-  padding: 0 10px 10px 10px;
+  padding: 10px;
   border: none;
   cursor: pointer;
   border-bottom-left-radius: 4px;
   border-bottom-right-radius: 4px;
 }
 
-.open-composer-button {
-  font-size: 24px;
-  color: #01a9db;
+.action-button {
+  color: #4d4d4d;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 18px;
+  border-radius: 3px;
+  border: none;
+  padding: 4px 8px;
+  transition-duration: 0.085s;
+  transition-timing-function: ease-in;
 }
 
-.open-composer-button:hover,
-.open-composer-button:active {
-  opacity: 0.85;
+.action-button:hover,
+.action-button:focus,
+.action-button:active {
+  box-shadow: inset 0 0 0 2px rgba(0,0,0,0.1);
+}
+
+.open-composer-button {
+  background-color: #d0f0fd;
+  color: #4d4d4d;
+}
+
+.add-list-button {
+  background: #ede2fe;
+  color: #4d4d4d;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 270px;
+  height: 48px;
+  transition: background 0.2s;
+  margin: 8px;
 }
 
 .textarea-wrapper {
-  margin: 0 10px 10px 10px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: flex-end;
+  margin: 10px;
 }
 
 .list-textarea {
   border-radius: 4px;
-  border: 2px solid #E2E2E2;
+  box-shadow: inset 0 0 0 2px rgba(0,0,0,0.1);
+  border: none;
   padding: 8px;
   overflow: hidden;
   width: 100%;
@@ -195,47 +227,8 @@
 }
 
 .submit-card-button {
-  background: #5aac44;
-  color: #FFFFFF;
-  font-size: 14px;
-  font-weight: 500;
-  padding: 8px 12px 8px 12px;
-  margin: 8px 0 0 0;
-  border: none;
-  cursor: pointer;
-  border-radius: 4px;
-  transition: background 0.2s;
-}
-
-.submit-card-button:hover {
-  background: #4a9a34;
-}
-
-.submit-card-button:focus {
-  background: #3a8a24;
-}
-
-.add-list-button {
-  background: #f1f1f1;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 270px;
-  font-size: 14px;
-  color: #333;
-  font-size: 14px;
-  font-weight: 600;
-  padding: 10px;
-  border: none;
-  border-radius: 4px;
-  margin: 0 5px 0 5px;
-  transition: background 0.2s;
-}
-
-.add-list-button:hover,
-.add-list-button:focus {
-  background: #FFFFFF;
+  background: #d1f7c4;
+  margin: 10px 0 0 0;
 }
 
 .add-list-icon {

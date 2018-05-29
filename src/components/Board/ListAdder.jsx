@@ -49,9 +49,9 @@ class ListAdder extends Component<Props, State> {
       return (
         <button
           onClick={() => this.setState({ isListInEdit: true })}
-          className="add-list-button"
+          className="action-button add-list-button"
         >
-          <FaPlus className="add-list-icon"/> New list
+          Add new list
         </button>
       );
     }

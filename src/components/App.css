@@ -4,6 +4,10 @@ body {
   font-family: Helvetica Neue, Arial, Helvetica, sans-serif;
 }
 
+:focus {
+  outline: none;
+}
+
 #app {
   height: 100vh;
   display: flex;

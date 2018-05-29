@@ -6,7 +6,6 @@ import shortid from "shortid";
 import Textarea from "react-textarea-autosize";
 import FaPencil from "react-icons/lib/fa/pencil";
 import FaTimesCircle from "react-icons/lib/fa/times-circle";
-import FaPlusSquare from "react-icons/lib/fa/plus-square";
 import ClickOutside from "./ClickOutside";
 
 type Props = {

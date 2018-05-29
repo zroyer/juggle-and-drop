@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { Droppable, Draggable } from "react-beautiful-dnd";
 import shortid from "shortid";
 import Textarea from "react-textarea-autosize";
-import FaPencil from "react-icons/lib/fa/pencil";
+import FaEdit from "react-icons/lib/fa/edit";
 import FaTimesCircle from "react-icons/lib/fa/times-circle";
 import ClickOutside from "./ClickOutside";
 
@@ -210,12 +210,11 @@ class List extends React.Component<Props, State> {
                           data-react-beautiful-dnd-drag-handle="0"
                         >
                           <span>{card.title}</span>
-
                             <FaTimesCircle
                               onClick={() => this.deleteCard(card.id)}
                               className="delete-card-button"
                             />
-                            <FaPencil
+                            <FaEdit
                               onClick={() => this.openCardEditor(card)}
                               className="edit-card-button"
                             />

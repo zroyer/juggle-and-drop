@@ -38,43 +38,47 @@ type Action = {
 };
 
 const initialCardState = {
-  qwer: {
-    title: "Inspect how trello deals with loading boards, images",
-    id: "qwer"
+  aaaa: {
+    title: "water the plants",
+    id: "aaaa"
   },
-  asdf: {
-    title: "Make skeleton structure of whatever",
-    id: "asdf"
+  aaab: {
+    title: "oil change for the Grom",
+    id: "aaab"
   },
-  zxcv: {
-    title: "Do some stuff",
-    id: "zxcv"
+  aaac: {
+    title: "laundry",
+    id: "aaac"
   },
-  lkjhag: {
-    title:
-      "Maybe a really really long one: How should I manage board state, and generally state for components that are the same but have different data?",
-    id: "lkjhag"
+  aaad: {
+    title:"Set up new workstation",
+    id: "aaad"
   }
 };
 
 const initialListState = {
-  lgrnrirgi: {
-    title: "TODO Big picture",
-    id: "lgrnrirgi",
-    cards: ["qwer", "asdf"]
+  list1: {
+    title: "To Do",
+    id: "list1",
+    cards: ["aaaa", "aaab"]
   },
-  ogtpokpr: {
-    title: "TODO details",
-    id: "ogtpokpr",
-    cards: ["zxcv", "lkjhag"]
+  list2: {
+    title: "In Progress",
+    id: "list2",
+    cards: ["aaac"]
+  },
+  list3: {
+    title: "Done",
+    id: "list3",
+    cards: ["aaad"]
   }
 };
 
 const initialBoardState = {
-  abc123: {
-    title: "Test Board Hejsvejs",
-    id: "abc123",
-    lists: ["lgrnrirgi", "ogtpokpr"]
+  example: {
+    title: "Example Board",
+    id: "example",
+    lists: ["list1", "list2", "list3"]
   }
 };
 

@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import Textarea from "react-textarea-autosize";
 import shortid from "shortid";
+import FaPlus from "react-icons/lib/fa/plus";
 
 type Props = {
   dispatch: ({ type: string }) => void,
@@ -50,7 +51,7 @@ class ListAdder extends Component<Props, State> {
           onClick={() => this.setState({ isListInEdit: true })}
           className="add-list-button"
         >
-          Add a list...
+          <FaPlus className="add-list-icon"/> New list
         </button>
       );
     }

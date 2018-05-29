@@ -13,9 +13,9 @@ class Home extends Component<Props> {
   render = () => {
     const { boards } = this.props;
     return (
-      <div>
+      <div style={{padding: 16, textAlign: "center"}}>
         <Helmet>
-          <title>Home</title>
+          <title>Doing Things</title>
         </Helmet>
         {boards.map(board => (
           <Link

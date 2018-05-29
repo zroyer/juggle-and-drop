@@ -1,4 +1,3 @@
-// @flow
 import * as React from "react";
 import { Fragment} from "react";
 import { connect } from "react-redux";
@@ -6,8 +5,7 @@ import { Helmet } from "react-helmet";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import List from "./List";
 import ListAdder from "./ListAdder";
-// import DndExample from "./BeautifulDndExample";
-import "./Board.scss";
+import "./Board.css";
 
 type Props = {
   lists: Array<{ id: string }>,
@@ -52,11 +50,8 @@ class Board extends React.Component<Props> {
     return (
       <div className="board">
         <Helmet>
-          <title>{boardTitle} | Trello</title>
+          <title>Doing Things // {boardTitle}</title>
         </Helmet>
-        <div className="board-header">
-          <h1 className="board-title">{boardTitle}</h1>
-        </div>
         <DragDropContext onDragEnd={this.handleDragEnd}>
           <Droppable droppableId={boardId} type="COLUMN" direction="horizontal">
             {droppableProvided => (

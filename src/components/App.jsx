@@ -5,7 +5,7 @@ import { Route } from "react-router-dom";
 import Header from "./Header";
 import Home from "./Home";
 import Board from "./Board/Board";
-import "./App.scss";
+import "./App.css";
 
 const App = () => (
   <Fragment>

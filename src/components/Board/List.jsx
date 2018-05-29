@@ -6,6 +6,7 @@ import shortid from "shortid";
 import Textarea from "react-textarea-autosize";
 import FaPencil from "react-icons/lib/fa/pencil";
 import FaTimesCircle from "react-icons/lib/fa/times-circle";
+import FaPlusSquare from "react-icons/lib/fa/plus-square";
 import ClickOutside from "./ClickOutside";
 
 type Props = {
@@ -184,9 +185,7 @@ class List extends React.Component<Props, State> {
               className="list-title-button"
             >
               {list.title}
-            </button>
-            <button onClick={this.deleteList} className="delete-list-button">
-              <FaTimesCircle />
+              <FaTimesCircle onClick={this.deleteList} className="delete-list-button" />
             </button>
           </div>
         )}
@@ -212,18 +211,15 @@ class List extends React.Component<Props, State> {
                           data-react-beautiful-dnd-drag-handle="0"
                         >
                           <span>{card.title}</span>
-                          <button
-                            onClick={() => this.deleteCard(card.id)}
-                            className="delete-card-button"
-                          >
-                            <FaTimesCircle />
-                          </button>
-                          <button
-                            onClick={() => this.openCardEditor(card)}
-                            className="edit-card-button"
-                          >
-                            <FaPencil />
-                          </button>
+
+                            <FaTimesCircle
+                              onClick={() => this.deleteCard(card.id)}
+                              className="delete-card-button"
+                            />
+                            <FaPencil
+                              onClick={() => this.openCardEditor(card)}
+                              className="edit-card-button"
+                            />
                         </div>
                       ) : (
                         <div className="textarea-wrapper">
@@ -270,12 +266,14 @@ class List extends React.Component<Props, State> {
                 </ClickOutside>
               )}
               {cardComposerIsOpen || (
-                <button
-                  onClick={this.toggleCardComposer}
-                  className="open-composer-button"
+                <div
+                  className="open-composer-container"
                 >
-                  Add a card...
-                </button>
+                  <FaPlusSquare
+                    className="open-composer-button"
+                    onClick={this.toggleCardComposer}
+                  />
+                </div>
               )}
             </div>
           )}

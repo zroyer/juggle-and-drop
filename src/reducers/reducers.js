@@ -91,6 +91,11 @@ const initialBoardState = {
     title: "Example Board",
     id: "example",
     lists: ["list1", "list2", "list3"]
+  },
+  new: {
+    title: "New Board",
+    id: "new",
+    lists: []
   }
 };
 

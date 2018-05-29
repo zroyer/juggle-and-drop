@@ -17,14 +17,19 @@ class Home extends Component<Props> {
         <Helmet>
           <title>Doing Things</title>
         </Helmet>
-        {boards.map(board => (
-          <Link
-            key={board.id}
-            to={`/${board.id}/${slugify(board.title, { lower: true })}`}
-          >
-            {board.title}
-          </Link>
-        ))}
+        <ul>
+          {boards.map(board => (
+            <li key={board.id} style={{listStyle: "none"}}>
+              <Link
+
+                to={`/${board.id}/${slugify(board.title, { lower: true })}`}
+                >
+                  {board.title}
+                </Link>
+            </li>
+            ))}
+
+        </ul>
       </div>
     );
   };

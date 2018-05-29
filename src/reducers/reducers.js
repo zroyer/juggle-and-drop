@@ -47,12 +47,24 @@ const initialCardState = {
     id: "aaab"
   },
   aaac: {
-    title: "laundry",
+    title: "fold my laundry",
     id: "aaac"
   },
   aaad: {
     title:"Set up new workstation",
     id: "aaad"
+  },
+  aaae: {
+    title:"get a haircut",
+    id: "aaae"
+  },
+  aaaf: {
+    title:"call mom",
+    id: "aaaf"
+  },
+  aaag: {
+    title:"buy more toothpaste",
+    id: "aaag"
   }
 };
 
@@ -60,17 +72,17 @@ const initialListState = {
   list1: {
     title: "To Do",
     id: "list1",
-    cards: ["aaaa", "aaab"]
+    cards: ["aaaa", "aaab", "aaac", "aaag"]
   },
   list2: {
     title: "In Progress",
     id: "list2",
-    cards: ["aaac"]
+    cards: ["aaad"]
   },
   list3: {
     title: "Done",
     id: "list3",
-    cards: ["aaad"]
+    cards: ["aaaf", "aaae"]
   }
 };
 

@@ -3,7 +3,6 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import Textarea from "react-textarea-autosize";
 import shortid from "shortid";
-import FaPlus from "react-icons/lib/fa/plus";
 
 type Props = {
   dispatch: ({ type: string }) => void,

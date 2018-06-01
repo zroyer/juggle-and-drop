@@ -11,16 +11,6 @@ type BoardState = {
   [string]: { title: string, id: string, lists: Array<string> }
 };
 
-// type AddCardAction = {
-//   type: string,
-//   payload: { listId: string, cardId: string, cardTitle: string }
-// };
-
-// type EditListTitleAction = {
-//   type: string,
-//   payload: { listId: string, listTitle: string }
-// };
-
 type Action = {
   type: string,
   payload: {

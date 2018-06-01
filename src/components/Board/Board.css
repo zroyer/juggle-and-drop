@@ -122,6 +122,7 @@
 
 .edit-card-button {
   position: absolute;
+  top: 9px;
   right: 5px;
   border: 0;
   opacity: 0.1;
@@ -136,10 +137,12 @@
 .edit-card-button:hover,
 .delete-card-button:active {
   opacity: 1;
+  background-color: #FFFFFF;
 }
 
 .delete-card-button {
   position: absolute;
+  top: 8.5px;
   right: 28px;
   border: 0;
   opacity: 0.1;

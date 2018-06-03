@@ -55,24 +55,32 @@ const initialCardState = {
   aaag: {
     title:"buy more toothpaste",
     id: "aaag"
+  },
+  aaah: {
+    title:"go to the gas station, fill up the gas tank (Supreme), check the tire pressure, and fill up the low tires",
+    id: "aaah"
+  },
+  aaai: {
+    title:"implement MongoDB for this app",
+    id: "aaai"
   }
 };
 
 const initialListState = {
-  list1: {
+  to_do: {
     title: "To Do",
-    id: "list1",
+    id: "to_do",
     cards: ["aaaa", "aaab", "aaac", "aaag"]
   },
-  list2: {
+  in_progress: {
     title: "In Progress",
-    id: "list2",
-    cards: ["aaad"]
+    id: "in_progress",
+    cards: ["aaad", "aaai"]
   },
-  list3: {
+  done: {
     title: "Done",
-    id: "list3",
-    cards: ["aaaf", "aaae"]
+    id: "done",
+    cards: ["aaaf", "aaae", "aaah"]
   }
 };
 
@@ -80,7 +88,7 @@ const initialBoardState = {
   example: {
     title: "Example Board",
     id: "example",
-    lists: ["list1", "list2", "list3"]
+    lists: ["to_do", "in_progress", "done"]
   },
   new: {
     title: "New Board",

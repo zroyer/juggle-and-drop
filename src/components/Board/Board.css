@@ -123,7 +123,7 @@
 .edit-card-button {
   position: absolute;
   top: 9px;
-  right: 5px;
+  right: 8px;
   border: 0;
   opacity: 0.1;
   color: #333;
@@ -135,15 +135,15 @@
 }
 
 .edit-card-button:hover,
-.delete-card-button:active {
+.edit-card-button:active {
   opacity: 1;
-  background-color: #FFFFFF;
+  background-color: rgba(255, 255, 255, 0.6);
 }
 
 .delete-card-button {
   position: absolute;
   top: 8.5px;
-  right: 28px;
+  right: 26px;
   border: 0;
   opacity: 0.1;
   color: #333;

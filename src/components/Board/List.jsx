@@ -1,12 +1,12 @@
 // @flow
-import * as React from "react";
-import { connect } from "react-redux";
-import { Droppable, Draggable } from "react-beautiful-dnd";
-import shortid from "shortid";
-import Textarea from "react-textarea-autosize";
-import FaEdit from "react-icons/lib/fa/edit";
-import FaTimesCircle from "react-icons/lib/fa/times-circle";
-import ClickOutside from "./ClickOutside";
+import * as React from 'react';
+import { connect } from 'react-redux';
+import { Droppable, Draggable } from 'react-beautiful-dnd';
+import shortid from 'shortid';
+import Textarea from 'react-textarea-autosize';
+import FaEdit from 'react-icons/lib/fa/edit';
+import FaTimesCircle from 'react-icons/lib/fa/times-circle';
+import ClickOutside from './ClickOutside';
 
 type Props = {
   boardId: string,

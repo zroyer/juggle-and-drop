@@ -1,8 +1,8 @@
 // @flow
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import Textarea from "react-textarea-autosize";
-import shortid from "shortid";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import Textarea from 'react-textarea-autosize';
+import shortid from 'shortid';
 
 type Props = {
   dispatch: ({ type: string }) => void,

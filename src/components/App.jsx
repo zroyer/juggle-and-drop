@@ -1,18 +1,31 @@
 // @flow
-import * as React from "react";
-import { Fragment} from "react";
-import { Route } from "react-router-dom";
-import Header from "./Header";
-import Home from "./Home";
-import Board from "./Board/Board";
-import "./App.css";
+import * as React from 'react';
+import { Route } from 'react-router-dom';
+import { injectGlobal } from 'styled-components';
+import Header from './Header';
+import Home from './Home';
+import Board from './Board/Board';
+
+injectGlobal`
+  body {
+    margin: 0;
+    color: rgb(46, 68, 78);
+    background: linear-gradient(20deg, rgb(219, 112, 147), #daa357);
+    min-height: 100vh;
+    font-family: Helvetica Neue, Arial, Helvetica, sans-serif;
+  }
+
+  :focus {
+    outline: none;
+  }
+`;
 
 const App = () => (
-  <Fragment>
+  <React.Fragment>
     <Header />
     <Route exact path="/" component={Home} />
     <Route path="/:boardId" component={Board} />
-  </Fragment>
+  </React.Fragment>
 );
 
 export default App;

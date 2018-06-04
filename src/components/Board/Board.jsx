@@ -1,11 +1,11 @@
-import * as React from "react";
-import { Fragment} from "react";
-import { connect } from "react-redux";
-import { Helmet } from "react-helmet";
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-import List from "./List";
-import ListAdder from "./ListAdder";
-import "./Board.css";
+import * as React from 'react';
+import { Fragment} from 'react';
+import { connect } from 'react-redux';
+import { Helmet } from 'react-helmet';
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import List from './List';
+import ListAdder from './ListAdder';
+import './Board.css';
 
 type Props = {
   lists: Array<{ id: string }>,
@@ -16,7 +16,6 @@ type Props = {
 
 class Board extends React.Component<Props> {
   handleDragEnd = ({ source, destination, type }) => {
-    // dropped outside the list
     if (!destination) {
       return;
     }

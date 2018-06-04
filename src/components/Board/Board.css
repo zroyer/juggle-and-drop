@@ -25,7 +25,6 @@
 .list {
   width: 270px;
   background: #F8F8F8;
-  color: #333;
   border-radius: 5px;
   box-sizing: border-box;
   font-size: 14px;
@@ -49,7 +48,6 @@
   display: flex;
   justify-content: space-between;
   background: #F8F8F8;
-  color: #333;
   font-size: 14px;
   border: none;
   cursor: pointer;
@@ -59,7 +57,6 @@
 .delete-list-button {
   margin-right: 10px;
   border: 0;
-  color: #333;
   background: #F8F8F8;
   cursor: pointer;
   font-size: 18px;
@@ -126,7 +123,6 @@
   right: 8px;
   border: 0;
   opacity: 0.1;
-  color: #333;
   cursor: pointer;
   font-size: 16px;
   display: flex;
@@ -146,7 +142,6 @@
   right: 26px;
   border: 0;
   opacity: 0.1;
-  color: #333;
   cursor: pointer;
   font-size: 16px;
   display: flex;

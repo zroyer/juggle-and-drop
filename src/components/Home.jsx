@@ -1,9 +1,9 @@
 // @flow
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { Link } from "react-router-dom";
-import { Helmet } from "react-helmet";
-import slugify from "slugify";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
+import slugify from 'slugify';
 
 type Props = {
   boards: Array<{ title: string, id: string }>
@@ -17,18 +17,16 @@ class Home extends Component<Props> {
         <Helmet>
           <title>Doing Things</title>
         </Helmet>
-        <ul>
-          {boards.map(board => (
-            <li key={board.id} style={{listStyle: "none"}}>
-              <Link
-                to={`/${board.id}/${slugify(board.title, { lower: true })}`}
-                >
-                  {board.title}
-                </Link>
-            </li>
-            ))}
-
-        </ul>
+        <h1>Pick a board...</h1>
+        {boards.map(board => (
+          <h3 key={board.id} style={{listStyle: "none"}}>
+            <Link
+              to={`/${board.id}/${slugify(board.title, { lower: true })}`}
+              >
+                {board.title}
+              </Link>
+          </h3>
+          ))}
       </div>
     );
   };

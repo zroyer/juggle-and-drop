@@ -2,11 +2,10 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 
 const titleColor = '#FFFFFF';
-const wrapperColor = '#1BAAA3'
 
 const Wrapper = styled.div`
-  background-color: ${props => props.wrapperColor ||  'grey'};
   color: ${props => props.titleColor ||  'white'};
+  background-color: rgba(255, 255, 255, 0.2);
   text-align: center;
   padding: 12px;
   font-weight: 500;
@@ -17,7 +16,6 @@ class Header extends Component {
   render() {
     return (
       <Wrapper
-        wrapperColor={wrapperColor}
         titleColor={titleColor}>
           Doing Things
       </Wrapper>

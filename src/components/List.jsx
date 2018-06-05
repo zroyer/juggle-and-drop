@@ -7,6 +7,7 @@ import Textarea from 'react-textarea-autosize';
 import FaEdit from 'react-icons/lib/fa/edit';
 import FaTimesCircle from 'react-icons/lib/fa/times-circle';
 import ClickOutside from './ClickOutside';
+import Button from './Button';
 
 type Props = {
   boardId: string,
@@ -254,10 +255,10 @@ class List extends React.Component<Props, State> {
                       value={newCardTitle}
                       className="list-textarea"
                     />
-                    <input
+                    <Button
+                      add
                       type="submit"
-                      value="Add"
-                      className="action-button submit-card-button"
+                      text="Add"
                       disabled={newCardTitle === ""}
                     />
                   </form>
@@ -267,12 +268,13 @@ class List extends React.Component<Props, State> {
                 <div
                   className="open-composer-container"
                 >
-                  <button
-                    className="action-button open-composer-button"
+                  <Button
+                    card
+                    text="Add new card"
                     onClick={this.toggleCardComposer}
-                  >
-                      Add new card
-                  </button>
+                    >
+                    Add new card
+                  </Button>
                 </div>
               )}
             </div>

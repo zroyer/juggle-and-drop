@@ -2,9 +2,9 @@
 import * as React from 'react';
 import { Route } from 'react-router-dom';
 import { injectGlobal } from 'styled-components';
-import Header from './Header';
 import Home from './Home';
-import Board from './Board/Board';
+import Board from '../components/Board';
+import Header from '../components/Header';
 
 injectGlobal`
   body {

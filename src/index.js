@@ -5,7 +5,7 @@ import { Provider } from "react-redux";
 import { devToolsEnhancer } from "redux-devtools-extension";
 import { BrowserRouter } from "react-router-dom";
 import reducers from "./reducers/reducers";
-import App from "./components/App";
+import App from "./containers/App";
 import registerServiceWorker from './registerServiceWorker';
 
 const preloadedState = window.PRELOADED_STATE;

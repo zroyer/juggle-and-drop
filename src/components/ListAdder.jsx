@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Textarea from 'react-textarea-autosize';
 import shortid from 'shortid';
+import Button from './Button'
 
 type Props = {
   dispatch: ({ type: string }) => void,
@@ -46,12 +47,11 @@ class ListAdder extends Component<Props, State> {
     const { isListInEdit, newListTitle } = this.state;
     if (!isListInEdit) {
       return (
-        <button
+        <Button
+          list
+          text='Add new list'
           onClick={() => this.setState({ isListInEdit: true })}
-          className="action-button add-list-button"
-        >
-          Add new list
-        </button>
+        />
       );
     }
     return (

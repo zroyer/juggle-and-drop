@@ -2,7 +2,7 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-  // overflow: auto;
+  overflow: auto;
 }
 
 .board-header {
@@ -166,44 +166,6 @@
   border-bottom-right-radius: 4px;
 }
 
-.action-button {
-  color: #4d4d4d;
-  font-size: 13px;
-  font-weight: 500;
-  line-height: 18px;
-  border-radius: 3px;
-  border: none;
-  padding: 4px 8px;
-  transition-duration: 0.085s;
-  transition-timing-function: ease-in;
-}
-
-.action-button:hover,
-.action-button:focus,
-.action-button:active {
-  box-shadow: inset 0 0 0 2px rgba(0,0,0,0.1);
-}
-
-.open-composer-button {
-  background-color: #d0f0fd;
-  color: #4d4d4d;
-}
-
-.add-list-button {
-  background: #ede2fe;
-  color: #4d4d4d;
-  display: flex;
-  font-size: 14px;
-  font-weight: 600;
-  border-radius: 5px;
-  justify-content: center;
-  align-items: center;
-  width: 270px;
-  height: 48px;
-  transition: background 0.2s;
-  margin: 8px;
-}
-
 .textarea-wrapper {
   display: flex;
   flex-direction: column;
@@ -217,6 +179,7 @@
   box-shadow: inset 0 0 0 2px rgba(0,0,0,0.1);
   border: none;
   padding: 8px;
+  margin-bottom: 10px;
   overflow: hidden;
   width: 100%;
   box-sizing: border-box;
@@ -225,11 +188,6 @@
   color: inherit;
   outline: none;
   resize: none;
-}
-
-.submit-card-button {
-  background: #d1f7c4;
-  margin: 10px 0 0 0;
 }
 
 .add-list-icon {

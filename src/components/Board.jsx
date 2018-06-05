@@ -3,6 +3,7 @@ import { Fragment} from 'react';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import styled from 'styled-components';
 import List from './List';
 import ListAdder from './ListAdder';
 import './Board.css';
@@ -13,6 +14,20 @@ type Props = {
   boardId: string,
   dispatch: ({ type: string }) => void
 };
+
+const StyledBoard = styled.div`
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+`
+
+const ListsWrapper = styled.div`
+  display: flex;
+  align-items: flex-start;
+  margin: 8px;
+  height: 100%;
+`
 
 class Board extends React.Component<Props> {
   handleDragEnd = ({ source, destination, type }) => {
@@ -47,14 +62,14 @@ class Board extends React.Component<Props> {
   render = () => {
     const { lists, boardTitle, boardId } = this.props;
     return (
-      <div className="board">
+      <StyledBoard>
         <Helmet>
           <title>Doing Things // {boardTitle}</title>
         </Helmet>
         <DragDropContext onDragEnd={this.handleDragEnd}>
           <Droppable droppableId={boardId} type="COLUMN" direction="horizontal">
             {droppableProvided => (
-              <div className="lists" ref={droppableProvided.innerRef}>
+              <ListsWrapper ref={droppableProvided.innerRef}>
                 {lists.map((list, index) => (
                   <Draggable key={list.id} draggableId={list.id} index={index}>
                     {provided => (
@@ -76,11 +91,11 @@ class Board extends React.Component<Props> {
                 ))}
                 {droppableProvided.placeholder}
                 <ListAdder boardId={boardId} />
-              </div>
+              </ListsWrapper>
             )}
           </Droppable>
         </DragDropContext>
-      </div>
+      </StyledBoard>
     );
   };
 }

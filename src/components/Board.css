@@ -1,27 +1,3 @@
-.board {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  overflow: auto;
-}
-
-.board-header {
-  color: #FFFFFF;
-  margin: 12px 12px 9px 12px;
-}
-
-.board-title {
-  font-size: 18px;
-  margin: 0 0 0 8px;
-}
-
-.lists {
-  display: flex;
-  align-items: flex-start;
-  margin: 8px;
-  height: 100%;
-}
-
 .list {
   width: 270px;
   background: #F8F8F8;
@@ -188,8 +164,4 @@
   color: inherit;
   outline: none;
   resize: none;
-}
-
-.add-list-icon {
-  padding-right: 4px;
 }

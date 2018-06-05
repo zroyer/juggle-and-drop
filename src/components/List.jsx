@@ -211,14 +211,14 @@ class List extends React.Component<Props, State> {
                           data-react-beautiful-dnd-drag-handle="0"
                         >
                           <span>{card.title}</span>
-                            <FaTimesCircle
-                              onClick={() => this.deleteCard(card.id)}
-                              className="delete-card-button"
-                            />
-                            <FaEdit
-                              onClick={() => this.openCardEditor(card)}
-                              className="edit-card-button"
-                            />
+                          <FaTimesCircle
+                            onClick={() => this.deleteCard(card.id)}
+                            className="delete-card-button"
+                          />
+                          <FaEdit
+                            onClick={() => this.openCardEditor(card)}
+                            className="edit-card-button"
+                          />
                         </div>
                       ) : (
                         <div className="textarea-wrapper">

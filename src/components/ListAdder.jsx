@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import Textarea from 'react-textarea-autosize';
 import shortid from 'shortid';
 import Button from './Button';
-import ListWrapper from './ListWrapper';
 
 type Props = {
   dispatch: ({ type: string }) => void,

@@ -8,6 +8,7 @@ const StyledListTitleButton = styled.button`
   display: flex;
   justify-content: space-between;
   background: #F8F8F8;
+  color: rgb(46,68,78);
   font-size: 14px;
   border: none;
   cursor: pointer;

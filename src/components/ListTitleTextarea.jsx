@@ -7,6 +7,7 @@ const StyledListTitleTextarea = styled.textarea`
   border-radius: 5px;
   border: none;
   padding: 8px;
+  font-size: 14px;
   overflow: hidden;
   width: 100%;
   box-sizing: border-box;

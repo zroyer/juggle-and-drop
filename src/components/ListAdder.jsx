@@ -18,11 +18,11 @@ type State = {
 };
 
 const ListAdderTextareaWrapper = styled.div`
-height: 48px;
-display: flex;
-flex-direction: column;
-justify-content: center;
-padding: 0 10px;
+  height: 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 10px;
 `;
 
 class ListAdder extends Component<Props, State> {
@@ -55,12 +55,14 @@ class ListAdder extends Component<Props, State> {
     this.setState({ isListInEdit: false, newListTitle: "" });
   };
   render = () => {
+    console.log(this.props)
     const { isListInEdit, newListTitle } = this.state;
+
     if (!isListInEdit) {
       return (
         <Button
-          list
-          text='Add new list'
+          list='true'
+          text={`Add a new list (${this.props.numLeft})`}
           onClick={() => this.setState({ isListInEdit: true })}
         />
       );

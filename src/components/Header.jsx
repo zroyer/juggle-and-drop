@@ -2,12 +2,16 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 
 const titleColor = '#FFFFFF';
+const navbarHeight = '50px';
 
 const Wrapper = styled.div`
   color: ${props => props.titleColor ||  'white'};
+  height: 50px;
   background-color: rgba(255, 255, 255, 0.2);
-  text-align: center;
-  padding: 12px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
   font-weight: 500;
   font-size: 1.15rem;
 `

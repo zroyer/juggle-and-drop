@@ -7,6 +7,7 @@ const StyledDeleteListButton = styled.button`
   padding: 0;
   margin-right: 10px;
   background: #F8F8F8;
+  color: rgb(46,68,78);
   cursor: pointer;
   font-size: 18px;
 

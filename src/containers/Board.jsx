@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { Fragment} from 'react';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
@@ -16,17 +15,36 @@ type Props = {
 };
 
 const StyledBoard = styled.div`
-  height: 100%;
+  height: calc(100vh - 50px);
   display: flex;
-  flex-direction: column;
-  overflow: auto;
+  justify-content: center;
+
+  @media (max-width: 1436px) {
+    justify-content: ${props => props.numLists > 3 && 'flex-start'};
+  }
+
+  @media (max-width: 1152px) {
+    justify-content: ${props => props.numLists > 2 && 'flex-start'};
+  }
+
+  @media (max-width: 868px) {
+    justify-content: ${props => props.numLists > 1 && 'flex-start'};
+  }
+
+  @media (max-width: 768px) {
+    justify-content: center;
+    height: 100%;
+  }
 `
 
 const ListsWrapper = styled.div`
   display: flex;
   align-items: flex-start;
   margin: 8px;
-  height: 100%;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
 `
 
 class Board extends React.Component<Props> {
@@ -62,7 +80,7 @@ class Board extends React.Component<Props> {
   render = () => {
     const { lists, boardTitle, boardId } = this.props;
     return (
-      <StyledBoard>
+      <StyledBoard numLists={lists.length}>
         <Helmet>
           <title>Doing Things // {boardTitle}</title>
         </Helmet>
@@ -73,7 +91,7 @@ class Board extends React.Component<Props> {
                 {lists.map((list, index) => (
                   <Draggable key={list.id} draggableId={list.id} index={index}>
                     {provided => (
-                      <Fragment>
+                      <React.Fragment>
                         <div
                           ref={provided.innerRef}
                           {...provided.draggableProps}
@@ -82,15 +100,19 @@ class Board extends React.Component<Props> {
                           data-react-beautiful-dnd-drag-handle="0"
                           style={{ height: "100%" }}
                         >
-                          <List list={list} boardId={boardId} />
+                          <List list={list} boardId={boardId} style={{height: 'initial'}}/>
                         </div>
                         {provided.placeholder}
-                      </Fragment>
+                      </React.Fragment>
                     )}
                   </Draggable>
                 ))}
                 {droppableProvided.placeholder}
-                <ListAdder boardId={boardId} />
+
+                {/* Let's try capping this at 5 lists */}
+                {lists.length < 5 &&
+                  <ListAdder boardId={boardId} numLeft={5-lists.length} style={{height: 'initial'}}/>
+                }
               </ListsWrapper>
             )}
           </Droppable>

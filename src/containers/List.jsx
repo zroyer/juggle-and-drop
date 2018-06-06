@@ -42,6 +42,14 @@ const TextareaWrapper = styled.div`
   margin: 0 10px;
 `;
 
+const ListTitleTextareaWrapper = styled.div`
+  height: 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 10px;
+`;
+
 const CardTextareaForm = styled(TextareaWrapper.withComponent('form'))`
   margin: 0 10px 10px 10px;
 `;
@@ -62,6 +70,7 @@ const ListTitle = styled.div`
   flex-shrink: 0;
   height: 48px;
   align-items: center;
+  color: rgb(46,68,78);
 `;
 
 class List extends React.Component<Props, State> {
@@ -201,7 +210,7 @@ class List extends React.Component<Props, State> {
     return (
       <div className="list">
         {isListTitleInEdit ? (
-          <TextareaWrapper>
+          <ListTitleTextareaWrapper>
             <ListTitleTextarea
               autoFocus
               useCacheForDOMMeasurements
@@ -210,7 +219,7 @@ class List extends React.Component<Props, State> {
               onKeyDown={this.handleListTitleKeyDown}
               onBlur={this.handleSubmitListTitle}
             />
-          </TextareaWrapper>
+          </ListTitleTextareaWrapper>
         ) : (
           <ListTitle>
             <ListTitleButton

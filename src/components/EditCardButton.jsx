@@ -14,6 +14,7 @@ const StyledEditCardButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
+  color: rgb(46,68,78);
 
   &:hover,
   &:focus,

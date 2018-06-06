@@ -5,7 +5,7 @@ const StyledButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  color: #4d4d4d;
+  color: rgb(46,68,78);
   line-height: 18px;
   border: none;
   transition-duration: 0.085s;
@@ -14,7 +14,7 @@ const StyledButton = styled.button`
   font-weight: ${props => props.list ? '600' : '500'};
   font-size: ${props => props.list ? '14px' : '13px'};
   margin: ${props => props.list ? '8px' : '0'};
-  width: ${props => props.list ? '270px' : 'auto'};
+  width: ${props => props.list ? '268px' : 'auto'};
   height: ${props => props.list ? '48px' : 'auto'};
   transition-timing-function: ease-in;
   background-color: ${props =>

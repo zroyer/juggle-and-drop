@@ -2,12 +2,15 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
+import styled from 'styled-components';
 import shortid from 'shortid';
 import Textarea from 'react-textarea-autosize';
-import FaEdit from 'react-icons/lib/fa/edit';
-import FaTimesCircle from 'react-icons/lib/fa/times-circle';
-import ClickOutside from './ClickOutside';
-import Button from './Button';
+import ClickOutside from '../components/ClickOutside';
+import Button from '../components/Button';
+import ListTitleButton from '../components/ListTitleButton';
+import DeleteListButton from '../components/DeleteListButton';
+import DeleteCardButton from '../components/DeleteCardButton';
+import EditCardButton from '../components/EditCardButton';
 
 type Props = {
   boardId: string,
@@ -28,6 +31,24 @@ type State = {
   isListTitleInEdit: boolean,
   newListTitle: string
 };
+
+const ComposerWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  background: #F8F8F8;
+  padding: 0 0 10px 0;
+  border: none;
+  cursor: pointer;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+`
+
+const ListTitle = styled.div`
+  display: flex;
+  flex-shrink: 0;
+  height: 48px;
+  align-items: center;
+`
 
 class List extends React.Component<Props, State> {
   constructor() {
@@ -178,20 +199,18 @@ class List extends React.Component<Props, State> {
             />
           </div>
         ) : (
-          <div className="list-title">
-            <button
+          <ListTitle>
+            <ListTitleButton
               onFocus={this.openTitleEditor}
               onClick={this.openTitleEditor}
-              className="list-title-button"
-            >
-              {list.title}
-            </button>
-            <FaTimesCircle onClick={this.deleteList} className="delete-list-button" />
-          </div>
+              text={list.title}
+            />
+            <DeleteListButton onClick={this.deleteList} />
+          </ListTitle>
         )}
         <Droppable droppableId={list.id}>
           {provided => (
-            <div className="cards" ref={provided.innerRef}>
+            <div ref={provided.innerRef}>
               {cards.map((card, index) => (
                 <Draggable key={card.id} draggableId={card.id} index={index}>
                   {({
@@ -211,14 +230,8 @@ class List extends React.Component<Props, State> {
                           data-react-beautiful-dnd-drag-handle="0"
                         >
                           <span>{card.title}</span>
-                          <FaTimesCircle
-                            onClick={() => this.deleteCard(card.id)}
-                            className="delete-card-button"
-                          />
-                          <FaEdit
-                            onClick={() => this.openCardEditor(card)}
-                            className="edit-card-button"
-                          />
+                          <DeleteCardButton onClick={() => this.deleteCard(card.id)} />
+                          <EditCardButton onClick={() => this.openCardEditor(card)} />
                         </div>
                       ) : (
                         <div className="textarea-wrapper">
@@ -265,9 +278,7 @@ class List extends React.Component<Props, State> {
                 </ClickOutside>
               )}
               {cardComposerIsOpen || (
-                <div
-                  className="open-composer-container"
-                >
+                <ComposerWrapper>
                   <Button
                     card
                     text="Add new card"
@@ -275,7 +286,7 @@ class List extends React.Component<Props, State> {
                     >
                     Add new card
                   </Button>
-                </div>
+                </ComposerWrapper>
               )}
             </div>
           )}

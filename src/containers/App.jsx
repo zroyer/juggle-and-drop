@@ -3,7 +3,7 @@ import * as React from 'react';
 import { Route } from 'react-router-dom';
 import { injectGlobal } from 'styled-components';
 import Home from './Home';
-import Board from '../components/Board';
+import Board from './Board';
 import Header from '../components/Header';
 
 injectGlobal`

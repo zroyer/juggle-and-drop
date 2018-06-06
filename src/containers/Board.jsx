@@ -5,7 +5,7 @@ import { Helmet } from 'react-helmet';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import styled from 'styled-components';
 import List from './List';
-import ListAdder from './ListAdder';
+import ListAdder from '../components/ListAdder';
 import './Board.css';
 
 type Props = {

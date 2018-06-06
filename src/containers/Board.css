@@ -10,39 +10,6 @@
   max-height: 100%;
 }
 
-.list-title {
-  display: flex;
-  flex-shrink: 0;
-  height: 48px;
-  align-items: center;
-}
-
-.list-title-button {
-  flex-grow: 1;
-  padding: 10px;
-  font-weight: 600;
-  display: flex;
-  justify-content: space-between;
-  background: #F8F8F8;
-  font-size: 14px;
-  border: none;
-  cursor: pointer;
-  border-top-left-radius: 3px;
-}
-
-.delete-list-button {
-  margin-right: 10px;
-  border: 0;
-  background: #F8F8F8;
-  cursor: pointer;
-  font-size: 18px;
-}
-
-.delete-list-button:hover,
-.delete-list-button:active {
-  color: #DA3849;
-}
-
 .list-title-textarea-wrapper {
   height: 48px;
   display: flex;
@@ -67,11 +34,6 @@
   resize: none;
 }
 
-.cards {
-  overflow-y: auto;
-  overflow-x: hidden;
-}
-
 .card-title {
   background: #FFFFFF;
   box-shadow: inset 0 0 0 2px rgba(0,0,0,0.1);
@@ -91,55 +53,6 @@
 .card-title:active,
 .card-title:focus {
   box-shadow: inset 0 0 0 2px rgba(0,0,0,0.3);
-}
-
-.edit-card-button {
-  position: absolute;
-  top: 9px;
-  right: 8px;
-  border: 0;
-  opacity: 0.1;
-  cursor: pointer;
-  font-size: 16px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.edit-card-button:hover,
-.edit-card-button:active {
-  opacity: 1;
-  background-color: rgba(255, 255, 255, 0.6);
-}
-
-.delete-card-button {
-  position: absolute;
-  top: 8.5px;
-  right: 26px;
-  border: 0;
-  opacity: 0.1;
-  cursor: pointer;
-  font-size: 16px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.delete-card-button:hover,
-.delete-card-button:active {
-  color: #DA3849;
-  opacity: 1;
-}
-
-.open-composer-container {
-  display: flex;
-  justify-content: center;
-  background: #F8F8F8;
-  padding: 0 0 10px 0;
-  border: none;
-  cursor: pointer;
-  border-bottom-left-radius: 4px;
-  border-bottom-right-radius: 4px;
 }
 
 .textarea-wrapper {

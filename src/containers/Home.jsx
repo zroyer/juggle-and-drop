@@ -21,7 +21,7 @@ class Home extends Component<Props> {
         {boards.map(board => (
           <h3 key={board.id} style={{listStyle: "none"}}>
             <Link
-              to={`/${board.id}/${slugify(board.title, { lower: true })}`}
+              to={`/${board.id}`}
               >
                 {board.title}
               </Link>

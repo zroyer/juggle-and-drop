@@ -11,6 +11,8 @@ import ListTitleButton from '../components/ListTitleButton';
 import DeleteListButton from '../components/DeleteListButton';
 import DeleteCardButton from '../components/DeleteCardButton';
 import EditCardButton from '../components/EditCardButton';
+import CardTextarea from '../components/CardTextarea';
+import ListTitleTextarea from '../components/ListTitleTextarea';
 
 type Props = {
   boardId: string,
@@ -32,6 +34,18 @@ type State = {
   newListTitle: string
 };
 
+const TextareaWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin: 0 10px;
+`;
+
+const CardTextareaForm = styled(TextareaWrapper.withComponent('form'))`
+  margin: 0 10px 10px 10px;
+`;
+
 const ComposerWrapper = styled.div`
   display: flex;
   justify-content: center;
@@ -41,14 +55,14 @@ const ComposerWrapper = styled.div`
   cursor: pointer;
   border-bottom-left-radius: 4px;
   border-bottom-right-radius: 4px;
-`
+`;
 
 const ListTitle = styled.div`
   display: flex;
   flex-shrink: 0;
   height: 48px;
   align-items: center;
-`
+`;
 
 class List extends React.Component<Props, State> {
   constructor() {
@@ -187,17 +201,16 @@ class List extends React.Component<Props, State> {
     return (
       <div className="list">
         {isListTitleInEdit ? (
-          <div className="list-title-textarea-wrapper">
-            <Textarea
+          <TextareaWrapper>
+            <ListTitleTextarea
               autoFocus
               useCacheForDOMMeasurements
               value={newListTitle}
               onChange={this.handleListTitleEditorChange}
               onKeyDown={this.handleListTitleKeyDown}
-              className="list-title-textarea"
               onBlur={this.handleSubmitListTitle}
             />
-          </div>
+          </TextareaWrapper>
         ) : (
           <ListTitle>
             <ListTitleButton
@@ -234,18 +247,17 @@ class List extends React.Component<Props, State> {
                           <EditCardButton onClick={() => this.openCardEditor(card)} />
                         </div>
                       ) : (
-                        <div className="textarea-wrapper">
-                          <Textarea
+                        <TextareaWrapper>
+                          <CardTextarea
                             autoFocus
                             useCacheForDOMMeasurements
                             minRows={3}
                             value={editableCardTitle}
                             onChange={this.handleCardEditorChange}
                             onKeyDown={this.handleEditKeyDown}
-                            className="list-textarea"
                             onBlur={this.handleSubmitCardEdit}
                           />
-                        </div>
+                        </TextareaWrapper>
                       )}
                       {placeholder}
                     </div>
@@ -255,18 +267,16 @@ class List extends React.Component<Props, State> {
               {provided.placeholder}
               {cardComposerIsOpen && (
                 <ClickOutside handleClickOutside={this.toggleCardComposer}>
-                  <form
+                  <CardTextareaForm
                     onSubmit={this.handleSubmitCard}
-                    className="textarea-wrapper"
                   >
-                    <Textarea
+                    <CardTextarea
                       autoFocus
                       useCacheForDOMMeasurements
                       minRows={3}
                       onChange={this.handleCardComposerChange}
                       onKeyDown={this.handleKeyDown}
                       value={newCardTitle}
-                      className="list-textarea"
                     />
                     <Button
                       add
@@ -274,7 +284,7 @@ class List extends React.Component<Props, State> {
                       text="Add"
                       disabled={newCardTitle === ""}
                     />
-                  </form>
+                  </CardTextareaForm>
                 </ClickOutside>
               )}
               {cardComposerIsOpen || (

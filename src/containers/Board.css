@@ -10,14 +10,6 @@
   max-height: 100%;
 }
 
-.list-title-textarea-wrapper {
-  height: 48px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 0 10px;
-}
-
 .list-title-textarea {
   box-shadow: inset 0 0 0 2px rgba(0,0,0,0.1);
   height: 32px;
@@ -53,28 +45,4 @@
 .card-title:active,
 .card-title:focus {
   box-shadow: inset 0 0 0 2px rgba(0,0,0,0.3);
-}
-
-.textarea-wrapper {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: flex-end;
-  margin: 10px;
-}
-
-.list-textarea {
-  border-radius: 4px;
-  box-shadow: inset 0 0 0 2px rgba(0,0,0,0.1);
-  border: none;
-  padding: 8px;
-  margin-bottom: 10px;
-  overflow: hidden;
-  width: 100%;
-  box-sizing: border-box;
-  font-family: inherit;
-  font-size: inherit;
-  color: inherit;
-  outline: none;
-  resize: none;
 }

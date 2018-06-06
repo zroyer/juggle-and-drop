@@ -1,9 +1,11 @@
 // @flow
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import styled from 'styled-components';
 import Textarea from 'react-textarea-autosize';
 import shortid from 'shortid';
 import Button from './Button';
+import ListTitleTextarea from './ListTitleTextarea';
 
 type Props = {
   dispatch: ({ type: string }) => void,
@@ -15,7 +17,13 @@ type State = {
   newListTitle: string
 };
 
-
+const ListAdderTextareaWrapper = styled.div`
+height: 48px;
+display: flex;
+flex-direction: column;
+justify-content: center;
+padding: 0 10px;
+`;
 
 class ListAdder extends Component<Props, State> {
   constructor() {
@@ -59,17 +67,16 @@ class ListAdder extends Component<Props, State> {
     }
     return (
       <div className="list">
-        <div className="list-title-textarea-wrapper">
-          <Textarea
+        <ListAdderTextareaWrapper>
+          <ListTitleTextarea
             autoFocus
             useCacheForDOMMeasurements
             value={newListTitle}
             onChange={this.handleChange}
             onKeyDown={this.handleKeyDown}
-            className="list-title-textarea"
             onBlur={this.handleBlur}
           />
-        </div>
+        </ListAdderTextareaWrapper>
       </div>
     );
   };

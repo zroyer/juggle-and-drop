@@ -2,7 +2,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
-import Textarea from 'react-textarea-autosize';
 import shortid from 'shortid';
 import Button from './Button';
 import ListTitleTextarea from './ListTitleTextarea';

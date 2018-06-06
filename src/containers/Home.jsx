@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
-import slugify from 'slugify';
 
 type Props = {
   boards: Array<{ title: string, id: string }>

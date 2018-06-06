@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 
 const titleColor = '#FFFFFF';
-const navbarHeight = '50px';
 
 const Wrapper = styled.div`
   color: ${props => props.titleColor ||  'white'};

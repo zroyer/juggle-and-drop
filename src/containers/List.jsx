@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 import styled from 'styled-components';
 import shortid from 'shortid';
-import Textarea from 'react-textarea-autosize';
 import ClickOutside from '../components/ClickOutside';
 import Button from '../components/Button';
 import ListTitleButton from '../components/ListTitleButton';

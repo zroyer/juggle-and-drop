@@ -87,7 +87,7 @@ class Board extends React.Component<Props> {
         <DragDropContext onDragEnd={this.handleDragEnd}>
           <Droppable droppableId={boardId} type="COLUMN" direction="horizontal">
             {droppableProvided => (
-              <ListsWrapper ref={droppableProvided.innerRef}>
+              <div className="lists-wrapper" ref={droppableProvided.innerRef}>
                 {lists.map((list, index) => (
                   <Draggable key={list.id} draggableId={list.id} index={index}>
                     {provided => (
@@ -98,7 +98,6 @@ class Board extends React.Component<Props> {
                           {...provided.dragHandleProps}
                           data-react-beautiful-dnd-draggable="0"
                           data-react-beautiful-dnd-drag-handle="0"
-                          style={{ height: "100%" }}
                         >
                           <List list={list} boardId={boardId} style={{height: 'initial'}}/>
                         </div>
@@ -113,7 +112,7 @@ class Board extends React.Component<Props> {
                 {lists.length < 5 &&
                   <ListAdder boardId={boardId} numLeft={5-lists.length} style={{height: 'initial'}}/>
                 }
-              </ListsWrapper>
+              </div>
             )}
           </Droppable>
         </DragDropContext>

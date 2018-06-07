@@ -37,16 +37,6 @@ const StyledBoard = styled.div`
   }
 `
 
-const ListsWrapper = styled.div`
-  display: flex;
-  align-items: flex-start;
-  margin: 8px;
-
-  @media (max-width: 768px) {
-    flex-direction: column;
-  }
-`
-
 class Board extends React.Component<Props> {
   handleDragEnd = ({ source, destination, type }) => {
     if (!destination) {

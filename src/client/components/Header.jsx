@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import {withRouter} from 'react-router-dom';
 import styled from 'styled-components';
 
 const titleColor = '#FFFFFF';
@@ -15,8 +14,6 @@ const Wrapper = styled.div`
   font-weight: 500;
   font-size: 1.15rem;
 `
-
-const routedHeader = withRouter(props => <Header {...props}/>);
 
 class Header extends Component {
   render() {

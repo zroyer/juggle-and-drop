@@ -5,6 +5,7 @@ A workflow app made with [react-beautiful-dnd](https://github.com/atlassian/reac
 ### Features (WIP)
 * Add, edit, and delete cards and lists
 * Drag and drop cards between and within lists
+* Drag and drop cards lists on the board
 
 
 ### Development

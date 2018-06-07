@@ -54,7 +54,6 @@ class ListAdder extends Component<Props, State> {
     this.setState({ isListInEdit: false, newListTitle: "" });
   };
   render = () => {
-    console.log(this.props)
     const { isListInEdit, newListTitle } = this.state;
 
     if (!isListInEdit) {

@@ -12,7 +12,7 @@ injectGlobal`
     overflow-x: auto;
     overflow-y: hidden;
     color: rgb(46, 68, 78);
-    background: linear-gradient(20deg, rgb(219, 112, 147), #daa357);
+    background-image: linear-gradient(to top, #764ba2 0%, #667eea 100%);
     min-height: 100vh;
     font-family: Helvetica Neue, Arial, Helvetica, sans-serif;
   }

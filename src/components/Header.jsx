@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {withRouter} from 'react-router-dom';
 import styled from 'styled-components';
 
 const titleColor = '#FFFFFF';
@@ -15,12 +16,15 @@ const Wrapper = styled.div`
   font-size: 1.15rem;
 `
 
+const routedHeader = withRouter(props => <Header {...props}/>);
+
 class Header extends Component {
   render() {
+    console.log(this.props)
     return (
       <Wrapper
         titleColor={titleColor}>
-          Doing Things
+          <div>doing things</div>
       </Wrapper>
     );
   }

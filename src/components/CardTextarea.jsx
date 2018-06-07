@@ -7,20 +7,21 @@ const StyledCardTextarea = styled.textarea`
   border: none;
   padding: 8px;
   margin-bottom: 10px;
-  overflow: hidden;
+  overflow: ;
   width: 100%;
+  height: 100%;
   box-sizing: border-box;
   font-family: inherit;
   font-size: inherit;
   color: inherit;
   outline: none;
-  resize: none;
+  resize: vertical;
 `
 
 class CardTextarea extends Component {
   render() {
     return (
-      <StyledCardTextarea {...this.props} />
+      <StyledCardTextarea {...this.props} rows="4" />
     );
   }
 }

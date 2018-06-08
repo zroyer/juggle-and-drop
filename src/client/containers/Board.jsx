@@ -16,7 +16,8 @@ type Props = {
 
 const StyledBoard = styled.div`
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 
   @media (max-width: 1436px) {
     justify-content: ${props => props.numLists > 3 && 'flex-start'};
@@ -34,6 +35,14 @@ const StyledBoard = styled.div`
     justify-content: center;
     height: 100%;
   }
+`
+
+const BoardTitle = styled.div`
+  margin-top: 1rem;
+  padding: 0.5rem;
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: white;
 `
 
 class Board extends React.Component<Props> {
@@ -69,10 +78,11 @@ class Board extends React.Component<Props> {
   render = () => {
     const { lists, boardTitle, boardId } = this.props;
     return (
-      <StyledBoard numLists={lists.length}>
+      <StyledBoard>
         <Helmet>
           <title>juggle & drop</title>
         </Helmet>
+        <BoardTitle>{boardTitle}</BoardTitle>
         <DragDropContext onDragEnd={this.handleDragEnd}>
           <Droppable droppableId={boardId} type="COLUMN" direction="horizontal">
             {droppableProvided => (

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-
+import Github from 'react-icons/lib/fa/github';
 const titleColor = '#FFFFFF';
 
 const Wrapper = styled.div`
@@ -9,11 +9,12 @@ const Wrapper = styled.div`
   background-color: rgba(255, 255, 255, 0.2);
   display: flex;
   flex-direction: row;
-  justify-content: center;
   align-items: center;
+  justify-content: space-between;
+  padding: 0 1.1111111111111112rem;
 `;
 
-const StyledLink = styled(Link)`
+const HomeLink = styled(Link)`
   text-decoration: none;
   display: flex;
   flex-direction: row;
@@ -21,16 +22,32 @@ const StyledLink = styled(Link)`
   align-items: center;
 `;
 
-const StyledLinkText = styled.div`
+const HomeLinkText = styled.div`
   padding: 4px;
   color: ${props => props.titleColor ||  'white'};
   font-weight: 500;
   width: 50px;
   font-size: 0.85rem;
 `;
-const StyledLinkEmoji = styled.div`
+
+const HomeLinkEmoji = styled.div`
   font-size: 2rem;
   padding: 4px;
+`;
+
+const GithubLink = styled.a`
+  color: white;
+  height: 50px;
+  width: 17px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  &:hover,
+  &:focus,
+  &:active {
+    opacity: 0.8;
+  }
 `;
 
 class Header extends Component {
@@ -39,10 +56,13 @@ class Header extends Component {
     return (
       <Wrapper
         titleColor={titleColor}>
-          <StyledLink to={'/'}>
-            <StyledLinkEmoji>🤹‍</StyledLinkEmoji>
-            <StyledLinkText>juggle & drop</StyledLinkText>
-          </StyledLink>
+          <HomeLink to={'/'}>
+            <HomeLinkEmoji>🤹‍</HomeLinkEmoji>
+            <HomeLinkText>juggle & drop</HomeLinkText>
+          </HomeLink>
+          <GithubLink href="https://github.com/zroyer/juggle" target="_blank">
+            <Github size={20}/>
+          </GithubLink>
       </Wrapper>
     );
   }

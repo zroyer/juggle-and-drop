@@ -1,9 +1,11 @@
 # juggle & drop
+Keep track of all the things you have going on in your life with this fun drag & drop app!
 
-Keep track of all the things you have going on in your life with this fun drag and drop apps!
-
+### Built with
 * [react-beautiful-dnd](https://github.com/atlassian/react-beautiful-dnd)     
 * [styled-components](https://www.styled-components.com/)     
+* [React](https://github.com/facebook/react)
+* [Redux](https://github.com/reduxjs/redux)
 
 ### Features (WIP)
 * Add, edit, and delete cards and lists
@@ -12,7 +14,6 @@ Keep track of all the things you have going on in your life with this fun drag a
 
 
 ### Development
-
 * clone and `npm install`
-* `npm start`
+* `npm start` to start the client
 * [check it out](http://localhost:3000) in your favorite browser

@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import Textarea from 'react-textarea-autosize';
 
-const StyledCardTextarea = styled.textarea`
+const StyledCardTextarea = styled(Textarea)`
   border-radius: 4px;
   box-shadow: inset 0 0 0 2px rgba(0,0,0,0.1);
   border: none;

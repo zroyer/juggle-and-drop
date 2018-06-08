@@ -71,7 +71,7 @@ class Board extends React.Component<Props> {
     return (
       <StyledBoard numLists={lists.length}>
         <Helmet>
-          <title>Doing Things // {boardTitle}</title>
+          <title>juggle & drop</title>
         </Helmet>
         <DragDropContext onDragEnd={this.handleDragEnd}>
           <Droppable droppableId={boardId} type="COLUMN" direction="horizontal">

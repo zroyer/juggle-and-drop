@@ -10,6 +10,7 @@ const StyledButton = styled.button`
   border: none;
   transition-duration: 0.085s;
   padding: 4px 8px;
+  cursor: pointer;
   border-radius: ${props => props.list ? '5px' : '3px'};
   font-weight: ${props => props.list ? '600' : '500'};
   font-size: ${props => props.list ? '14px' : '13px'};

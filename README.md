@@ -1,6 +1,9 @@
-# [Doing Things](doing-things.surge.sh)
+# juggle & drop
 
-A workflow app made with [react-beautiful-dnd](https://github.com/atlassian/react-beautiful-dnd)     
+Keep track of all the things you have going on in your life with this fun drag and drop apps!
+
+* [react-beautiful-dnd](https://github.com/atlassian/react-beautiful-dnd)     
+* [styled-components](https://www.styled-components.com/)     
 
 ### Features (WIP)
 * Add, edit, and delete cards and lists

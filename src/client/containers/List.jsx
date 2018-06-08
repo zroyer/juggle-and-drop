@@ -59,7 +59,6 @@ const ComposerWrapper = styled.div`
   background: #F8F8F8;
   padding: 0 0 10px 0;
   border: none;
-  cursor: pointer;
   border-bottom-left-radius: 4px;
   border-bottom-right-radius: 4px;
 `;

@@ -14,7 +14,7 @@ class Home extends Component<Props> {
     return (
       <div style={{padding: 16, textAlign: "center"}}>
         <Helmet>
-          <title>juggle</title>
+          <title>juggle & drop</title>
         </Helmet>
         <h1>Pick a board...</h1>
         {boards.map(board => (

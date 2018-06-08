@@ -57,7 +57,9 @@ class Header extends Component {
       <Wrapper
         titleColor={titleColor}>
           <HomeLink to={'/'}>
-            <HomeLinkEmoji>🤹‍</HomeLinkEmoji>
+            <HomeLinkEmoji>
+              <span role="img" aria-label="juggler">🤹‍</span>
+            </HomeLinkEmoji>
             <HomeLinkText>juggle & drop</HomeLinkText>
           </HomeLink>
           <GithubLink href="https://github.com/zroyer/juggle" target="_blank">

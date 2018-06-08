@@ -10,7 +10,6 @@ injectGlobal`
   body {
     margin: 0;
     overflow-x: auto;
-    overflow-y: hidden;
     color: rgb(46, 68, 78);
     background-image: linear-gradient(to top, #764ba2 0%, #667eea 100%);
     min-height: 100vh;

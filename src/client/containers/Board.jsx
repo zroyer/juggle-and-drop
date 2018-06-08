@@ -15,7 +15,6 @@ type Props = {
 };
 
 const StyledBoard = styled.div`
-  height: calc(100vh - 50px);
   display: flex;
   justify-content: center;
 

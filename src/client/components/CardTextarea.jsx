@@ -16,13 +16,13 @@ const StyledCardTextarea = styled(Textarea)`
   font-size: inherit;
   color: inherit;
   outline: none;
-  resize: vertical;
+  resize: none;
 `
 
 class CardTextarea extends Component {
   render() {
     return (
-      <StyledCardTextarea {...this.props} rows="4" />
+      <StyledCardTextarea {...this.props} />
     );
   }
 }

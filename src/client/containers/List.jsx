@@ -259,7 +259,6 @@ class List extends React.Component<Props, State> {
                           <CardTextarea
                             autoFocus
                             useCacheForDOMMeasurements
-                            minRows={3}
                             value={editableCardTitle}
                             onChange={this.handleCardEditorChange}
                             onKeyDown={this.handleEditKeyDown}
@@ -281,7 +280,6 @@ class List extends React.Component<Props, State> {
                     <CardTextarea
                       autoFocus
                       useCacheForDOMMeasurements
-                      minRows={3}
                       onChange={this.handleCardComposerChange}
                       onKeyDown={this.handleKeyDown}
                       value={newCardTitle}

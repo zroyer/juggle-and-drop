@@ -62,7 +62,7 @@ class Header extends Component {
             </HomeLinkEmoji>
             <HomeLinkText>juggle & drop</HomeLinkText>
           </HomeLink>
-          <GithubLink href="https://github.com/zroyer/juggle" target="_blank">
+          <GithubLink href="https://github.com/zroyer/juggle-and-drop" target="_blank">
             <Github size={20}/>
           </GithubLink>
       </Wrapper>

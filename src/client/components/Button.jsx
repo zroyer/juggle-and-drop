@@ -20,10 +20,10 @@ const StyledButton = styled.button`
   transition-timing-function: ease-in;
   background-color: ${props =>
     props.card ? (
-      '#d0f0fd'
+      '#fcd1f0'
       ) : (
     props.list ? (
-      '#ede2fe'
+      '#fcddd1'
     ) : props.add ? (
       '#d1f7c4'
     ) : ('white'))

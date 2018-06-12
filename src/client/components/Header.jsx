@@ -52,7 +52,6 @@ const GithubLink = styled.a`
 
 class Header extends Component {
   render() {
-    console.log(this.props)
     return (
       <Wrapper
         titleColor={titleColor}>

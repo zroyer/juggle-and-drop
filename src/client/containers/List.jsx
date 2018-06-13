@@ -1,9 +1,7 @@
-// @flow
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 import styled from 'styled-components';
-import shortid from 'shortid';
 import ClickOutside from '../components/ClickOutside';
 import Button from '../components/Button';
 import ListTitleButton from '../components/ListTitleButton';
@@ -12,26 +10,14 @@ import DeleteCardButton from '../components/DeleteCardButton';
 import EditCardButton from '../components/EditCardButton';
 import CardTextarea from '../components/CardTextarea';
 import ListTitleTextarea from '../components/ListTitleTextarea';
+import {
+  addCard,
+  editCardTitle,
+  deleteCard,
+  editListTitle,
+  deleteList
+} from '../actions/actionCreators';
 
-type Props = {
-  boardId: string,
-  list: {
-    title: string,
-    id: string,
-    cards: Array<string>
-  },
-  cards: Array<{ title: string, id: string }>,
-  dispatch: ({ type: string }) => void
-};
-
-type State = {
-  cardComposerIsOpen: boolean,
-  newCardTitle: string,
-  cardInEdit: ?string,
-  editableCardTitle: string,
-  isListTitleInEdit: boolean,
-  newListTitle: string
-};
 
 const TextareaWrapper = styled.div`
   display: flex;
@@ -75,7 +61,7 @@ class List extends React.Component<Props, State> {
   constructor() {
     super();
     this.state = {
-      cardComposerIsOpen: false,
+      newCardFormIsOpen: false,
       newCardTitle: "",
       cardInEdit: null,
       editableCardTitle: "",
@@ -85,13 +71,13 @@ class List extends React.Component<Props, State> {
   }
 
   toggleCardComposer = () =>
-    this.setState({ cardComposerIsOpen: !this.state.cardComposerIsOpen });
+    this.setState({ newCardFormIsOpen: !this.state.newCardFormIsOpen });
 
-  handleCardComposerChange = (event: { target: { value: string } }) => {
+  handleCardComposerChange = (event) => {
     this.setState({ newCardTitle: event.target.value });
   };
 
-  handleKeyDown = (event: SyntheticEvent<>) => {
+  handleKeyDown = (event) => {
     if (event.keyCode === 13) {
       this.handleSubmitCard(event);
     }
@@ -100,28 +86,21 @@ class List extends React.Component<Props, State> {
   handleSubmitCard = event => {
     event.preventDefault();
     const { newCardTitle } = this.state;
-    const { list, dispatch } = this.props;
+    const { list, boardId, dispatch } = this.props;
     if (newCardTitle === "") return;
-    dispatch({
-      type: "ADD_CARD",
-      payload: {
-        cardId: shortid.generate(),
-        cardTitle: newCardTitle,
-        listId: list.id
-      }
-    });
-    this.setState({ newCardTitle: "", cardComposerIsOpen: false });
+    dispatch(addCard(newCardTitle, list._id, boardId));
+    this.setState({ newCardTitle: "", newCardFormIsOpen: false });
   };
 
   openCardEditor = card => {
-    this.setState({ cardInEdit: card.id, editableCardTitle: card.title });
+    this.setState({ cardInEdit: card._id, editableCardTitle: card.title });
   };
 
-  handleCardEditorChange = (event: { target: { value: string } }) => {
+  handleCardEditorChange = (event) => {
     this.setState({ editableCardTitle: event.target.value });
   };
 
-  handleEditKeyDown = (event: SyntheticEvent<>) => {
+  handleEditKeyDown = (event) => {
     if (event.keyCode === 13) {
       event.preventDefault();
       this.handleSubmitCardEdit();
@@ -130,22 +109,18 @@ class List extends React.Component<Props, State> {
 
   handleSubmitCardEdit = () => {
     const { editableCardTitle, cardInEdit } = this.state;
-    const { list, dispatch } = this.props;
-    if (editableCardTitle === "") return;
-    dispatch({
-      type: "EDIT_CARD_TITLE",
-      payload: {
-        cardId: cardInEdit,
-        cardTitle: editableCardTitle,
-        listId: list.id
-      }
-    });
+    const { list, boardId, dispatch } = this.props;
+    if (editableCardTitle === "") {
+      this.deleteCard(cardInEdit);
+    } else {
+      dispatch(editCardTitle(editableCardTitle, cardInEdit, list, boardId));
+    }
     this.setState({ editableCardTitle: "", cardInEdit: null });
   };
 
   deleteCard = cardId => {
-    const { dispatch, list } = this.props;
-    dispatch({ type: "DELETE_CARD", payload: { cardId, listId: list.id } });
+    const { dispatch, list, boardId } = this.props;
+    dispatch(deleteCard(cardId, list._id, boardId));
   };
 
   openTitleEditor = () => {
@@ -155,11 +130,11 @@ class List extends React.Component<Props, State> {
     });
   };
 
-  handleListTitleEditorChange = (event: { target: { value: string } }) => {
+  handleListTitleEditorChange = (event) => {
     this.setState({ newListTitle: event.target.value });
   };
 
-  handleListTitleKeyDown = (event: SyntheticEvent<>) => {
+  handleListTitleKeyDown = (event) => {
     if (event.keyCode === 13) {
       event.preventDefault();
       this.handleSubmitListTitle();
@@ -168,15 +143,9 @@ class List extends React.Component<Props, State> {
 
   handleSubmitListTitle = () => {
     const { newListTitle } = this.state;
-    const { list, dispatch } = this.props;
+    const { list, boardId, dispatch } = this.props;
     if (newListTitle === "") return;
-    dispatch({
-      type: "EDIT_LIST_TITLE",
-      payload: {
-        listTitle: newListTitle,
-        listId: list.id
-      }
-    });
+    dispatch(editListTitle(newListTitle, list._id, boardId));
     this.setState({
       isListTitleInEdit: false,
       newListTitle: ""
@@ -185,20 +154,13 @@ class List extends React.Component<Props, State> {
 
   deleteList = () => {
     const { list, boardId, dispatch } = this.props;
-    dispatch({
-      type: "DELETE_LIST",
-      payload: {
-        listId: list.id,
-        boardId,
-        cards: list.cards
-      }
-    });
+    dispatch(deleteList(list.cards, list._id, boardId));
   };
 
   render = () => {
     const { cards, list } = this.props;
     const {
-      cardComposerIsOpen,
+      newCardFormIsOpen,
       newCardTitle,
       cardInEdit,
       editableCardTitle,
@@ -228,11 +190,11 @@ class List extends React.Component<Props, State> {
             <DeleteListButton onClick={this.deleteList} />
           </ListTitle>
         )}
-        <Droppable droppableId={list.id}>
+        <Droppable droppableId={list._id}>
           {provided => (
-            <div ref={provided.innerRef}>
+            <div className="cards" ref={provided.innerRef}>
               {cards.map((card, index) => (
-                <Draggable key={card.id} draggableId={card.id} index={index}>
+                <Draggable key={card._id} draggableId={card._id} index={index}>
                   {({
                     innerRef,
                     draggableProps,
@@ -240,7 +202,7 @@ class List extends React.Component<Props, State> {
                     placeholder
                   }) => (
                     <div>
-                      {cardInEdit !== card.id ? (
+                      {cardInEdit !== card._id ? (
                         <div
                           className="card-title"
                           ref={innerRef}
@@ -250,7 +212,7 @@ class List extends React.Component<Props, State> {
                           data-react-beautiful-dnd-drag-handle="0"
                         >
                           <span>{card.title}</span>
-                          <DeleteCardButton onClick={() => this.deleteCard(card.id)} />
+                          <DeleteCardButton onClick={() => this.deleteCard(card._id)} />
                           <EditCardButton onClick={() => this.openCardEditor(card)} />
                         </div>
                       ) : (
@@ -271,7 +233,7 @@ class List extends React.Component<Props, State> {
                 </Draggable>
               ))}
               {provided.placeholder}
-              {cardComposerIsOpen && (
+              {newCardFormIsOpen && (
                 <ClickOutside handleClickOutside={this.toggleCardComposer}>
                   <CardTextareaForm
                     onSubmit={this.handleSubmitCard}
@@ -292,16 +254,16 @@ class List extends React.Component<Props, State> {
                   </CardTextareaForm>
                 </ClickOutside>
               )}
-              {cardComposerIsOpen || (
-                <ComposerWrapper>
-                  <Button
-                    card
-                    text="Add new card"
-                    onClick={this.toggleCardComposer}
-                    >
-                    Add new card
-                  </Button>
-                </ComposerWrapper>
+              {newCardFormIsOpen || (
+              <ComposerWrapper>
+                <Button
+                  card
+                  text="Add new card"
+                  onClick={this.toggleCardComposer}
+                  >
+                  Add new card
+                </Button>
+              </ComposerWrapper>
               )}
             </div>
           )}
@@ -312,7 +274,7 @@ class List extends React.Component<Props, State> {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-  cards: ownProps.list.cards.map(cardId => state.cards[cardId])
+  cards: ownProps.list.cards.map(cardId => state.cardsById[cardId])
 });
 
 export default connect(mapStateToProps)(List);

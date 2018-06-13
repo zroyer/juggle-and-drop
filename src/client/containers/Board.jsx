@@ -5,14 +5,7 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import styled from 'styled-components';
 import List from './List';
 import ListAdder from '../components/ListAdder';
-import './Board.css';
-
-type Props = {
-  lists: Array<{ id: string }>,
-  boardTitle: string,
-  boardId: string,
-  dispatch: ({ type: string }) => void
-};
+import { reorderList, reorderBoard } from '../actions/actionCreators';
 
 const StyledBoard = styled.div`
   display: flex;
@@ -46,34 +39,34 @@ const BoardTitle = styled.div`
 `
 
 class Board extends React.Component<Props> {
-  handleDragEnd = ({ source, destination, type }) => {
+  handleDragEnd = ({ draggableId, source, destination, type }) => {
+    // dropped outside the list
     if (!destination) {
       return;
     }
-    const { dispatch } = this.props;
+    const { dispatch, boardId } = this.props;
 
     if (type === "COLUMN") {
-      dispatch({
-        type: "REORDER_BOARD",
-        payload: {
-          sourceId: source.droppableId,
-          destinationId: destination.droppableId,
-          sourceIndex: source.index,
-          destinationIndex: destination.index
-        }
-      });
+      dispatch(
+        reorderBoard(
+          draggableId,
+          source.droppableId,
+          source.index,
+          destination.index
+        )
+      );
       return;
     }
-
-    dispatch({
-      type: "REORDER_LIST",
-      payload: {
-        sourceId: source.droppableId,
-        destinationId: destination.droppableId,
-        sourceIndex: source.index,
-        destinationIndex: destination.index
-      }
-    });
+    dispatch(
+      reorderList(
+        draggableId,
+        source.droppableId,
+        destination.droppableId,
+        source.index,
+        destination.index,
+        boardId
+      )
+    );
   };
   render = () => {
     const { lists, boardTitle, boardId } = this.props;
@@ -88,9 +81,13 @@ class Board extends React.Component<Props> {
             {droppableProvided => (
               <div className="lists-wrapper" ref={droppableProvided.innerRef}>
                 {lists.map((list, index) => (
-                  <Draggable key={list.id} draggableId={list.id} index={index}>
+                  <Draggable
+                    key={list._id}
+                    draggableId={list._id}
+                    index={index}
+                  >
                     {provided => (
-                      <React.Fragment>
+                      <>
                         <div
                           ref={provided.innerRef}
                           {...provided.draggableProps}
@@ -98,16 +95,18 @@ class Board extends React.Component<Props> {
                           data-react-beautiful-dnd-draggable="0"
                           data-react-beautiful-dnd-drag-handle="0"
                         >
-                          <List list={list} boardId={boardId} style={{height: 'initial'}}/>
+                          <List
+                            list={list}
+                            boardId={boardId}
+                            style={{height: 'initial'}}
+                          />
                         </div>
                         {provided.placeholder}
-                      </React.Fragment>
+                      </>
                     )}
                   </Draggable>
                 ))}
                 {droppableProvided.placeholder}
-
-                {/* Let's try capping this at 5 lists */}
                 {lists.length < 5 &&
                   <ListAdder boardId={boardId} numLeft={5-lists.length} style={{height: 'initial'}}/>
                 }
@@ -122,9 +121,9 @@ class Board extends React.Component<Props> {
 
 const mapStateToProps = (state, ownProps) => {
   const { boardId } = ownProps.match.params;
-  const board = state.boards[boardId];
+  const board = state.boardsById[boardId];
   return {
-    lists: board.lists.map(listId => state.lists[listId]),
+    lists: board.lists.map(listId => state.listsById[listId]),
     boardTitle: board.title,
     boardId
   };

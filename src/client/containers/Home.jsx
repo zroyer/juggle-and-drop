@@ -1,12 +1,7 @@
-// @flow
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
-
-type Props = {
-  boards: Array<{ title: string, id: string }>
-};
 
 class Home extends Component<Props> {
   render = () => {
@@ -18,9 +13,9 @@ class Home extends Component<Props> {
         </Helmet>
         <h1>Pick a board...</h1>
         {boards.map(board => (
-          <h3 key={board.id} style={{listStyle: "none"}}>
+          <h3 key={board._id} style={{listStyle: "none"}}>
             <Link
-              to={`/${board.id}`}
+              to={`board/${board._id}`}
               >
                 {board.title}
               </Link>
@@ -32,7 +27,7 @@ class Home extends Component<Props> {
 }
 
 const mapStateToProps = state => ({
-  boards: Object.values(state.boards)
+  boards: Object.values(state.boardsById)
 });
 
 export default connect(mapStateToProps)(Home);

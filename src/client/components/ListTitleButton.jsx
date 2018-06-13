@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const StyledListTitleButton = styled.button`
@@ -23,6 +24,10 @@ class ListTitleButton extends Component {
       </StyledListTitleButton>
     );
   }
+}
+
+ListTitleButton.propTypes = {
+  text: PropTypes.string.isRequired
 }
 
 export default ListTitleButton;

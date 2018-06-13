@@ -1,108 +1,9 @@
-// @flow
-type CardState = {
-  [string]: { title: string, id: string }
-};
-
-type ListState = {
-  [string]: { title: string, id: string, cards: Array<string> }
-};
-
-type BoardState = {
-  [string]: { title: string, id: string, lists: Array<string> }
-};
-
-type Action = {
-  type: string,
-  payload: {
-    listId: string,
-    listTitle: string,
-    cards: Array<string>,
-    cardId: string,
-    cardTitle: string,
-    boardId: string,
-    sourceIndex: number,
-    destinationIndex: number,
-    sourceId: string,
-    destinationId: string
-  }
-};
-
-const initialCardState = {
-  aaaa: {
-    title: "water the plants",
-    id: "aaaa"
-  },
-  aaab: {
-    title: "oil change for the Grom",
-    id: "aaab"
-  },
-  aaac: {
-    title: "fold my laundry",
-    id: "aaac"
-  },
-  aaad: {
-    title:"Set up new workstation",
-    id: "aaad"
-  },
-  aaae: {
-    title:"get a haircut",
-    id: "aaae"
-  },
-  aaaf: {
-    title:"call mom",
-    id: "aaaf"
-  },
-  aaag: {
-    title:"buy more toothpaste",
-    id: "aaag"
-  },
-  aaah: {
-    title:"go to the gas station, fill up the gas tank (Supreme), check the tire pressure, and fill up the low tires",
-    id: "aaah"
-  },
-  aaai: {
-    title:"implement MongoDB for this app",
-    id: "aaai"
-  }
-};
-
-const initialListState = {
-  to_do: {
-    title: "To Do",
-    id: "to_do",
-    cards: ["aaaa", "aaab", "aaac", "aaag"]
-  },
-  in_progress: {
-    title: "In Progress",
-    id: "in_progress",
-    cards: ["aaad", "aaai"]
-  },
-  done: {
-    title: "Done",
-    id: "done",
-    cards: ["aaaf", "aaae", "aaah"]
-  }
-};
-
-const initialBoardState = {
-  example: {
-    title: "Example Board",
-    id: "example",
-    lists: ["to_do", "in_progress", "done"]
-  },
-  new: {
-    title: "New Board",
-    id: "new",
-    lists: []
-  }
-};
-
-const cards = (state: CardState = initialCardState, action: Action) => {
+const cardsById = (state = {}, action) => {
   switch (action.type) {
     case "ADD_CARD":
     case "EDIT_CARD_TITLE": {
       const { cardTitle, cardId } = action.payload;
-      return { ...state, [cardId]: { title: cardTitle, id: cardId } };
+      return { ...state, [cardId]: { title: cardTitle, _id: cardId } };
     }
     case "DELETE_CARD": {
       const { cardId } = action.payload;
@@ -123,7 +24,7 @@ const cards = (state: CardState = initialCardState, action: Action) => {
   }
 };
 
-const lists = (state: ListState = initialListState, action: Action) => {
+const listsById = (state = {}, action) => {
   switch (action.type) {
     case "ADD_CARD": {
       const { listId, cardId } = action.payload;
@@ -146,7 +47,7 @@ const lists = (state: ListState = initialListState, action: Action) => {
       const { listId, listTitle } = action.payload;
       return {
         ...state,
-        [listId]: { id: listId, title: listTitle, cards: [] }
+        [listId]: { _id: listId, title: listTitle, cards: [] }
       };
     }
     case "DELETE_LIST": {
@@ -194,7 +95,7 @@ const lists = (state: ListState = initialListState, action: Action) => {
   }
 };
 
-const boards = (state: BoardState = initialBoardState, action: Action) => {
+const boardsById = (state = {}, action) => {
   switch (action.type) {
     case "ADD_LIST": {
       const { boardId, listId } = action.payload;
@@ -231,14 +132,4 @@ const boards = (state: BoardState = initialBoardState, action: Action) => {
   }
 };
 
-const counter = (state: number = 1, action: Action) => {
-  switch (action.type) {
-    case "INCREMENT": {
-      return state + 2;
-    }
-    default:
-      return state;
-  }
-};
-
-export default { counter, cards, lists, boards };
+export default { cardsById, listsById, boardsById };

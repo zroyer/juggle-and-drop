@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import Github from 'react-icons/lib/fa/github';
+
 const titleColor = '#FFFFFF';
 
 const Wrapper = styled.div`
@@ -55,7 +56,7 @@ class Header extends Component {
     return (
       <Wrapper
         titleColor={titleColor}>
-          <HomeLink to={'/'}>
+          <HomeLink to="/">
             <HomeLinkEmoji>
               <span role="img" aria-label="juggler">🤹‍</span>
             </HomeLinkEmoji>

@@ -1,20 +1,9 @@
-// @flow
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
-import shortid from 'shortid';
+import { addList } from '../actions/actionCreators';
 import Button from './Button';
 import ListTitleTextarea from './ListTitleTextarea';
-
-type Props = {
-  dispatch: ({ type: string }) => void,
-  boardId: string
-};
-
-type State = {
-  isListInEdit: boolean,
-  newListTitle: string
-};
 
 const ListAdderTextareaWrapper = styled.div`
   height: 48px;
@@ -47,27 +36,23 @@ class ListAdder extends Component<Props, State> {
   handleSubmit = () => {
     const { dispatch, boardId } = this.props;
     const { newListTitle } = this.state;
-    dispatch({
-      type: "ADD_LIST",
-      payload: { listTitle: newListTitle, listId: shortid.generate(), boardId }
-    });
+    dispatch(addList(newListTitle, boardId));
     this.setState({ isListInEdit: false, newListTitle: "" });
   };
   render = () => {
     const { isListInEdit, newListTitle } = this.state;
-
     if (!isListInEdit) {
       return (
         <Button
           list='true'
-          text={`Add a new list (${this.props.numLeft})`}
           onClick={() => this.setState({ isListInEdit: true })}
+          text={`Add a new list (${this.props.numLeft})`}
         />
       );
     }
     return (
       <div className="list">
-        <ListAdderTextareaWrapper>
+        <ListAdderTextareaWrapper className="list-title-textarea-wrapper">
           <ListTitleTextarea
             autoFocus
             useCacheForDOMMeasurements

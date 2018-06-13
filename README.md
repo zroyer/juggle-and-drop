@@ -1,4 +1,5 @@
 # juggle & drop
+[![CircleCI](https://circleci.com/gh/zroyer/juggle-and-drop/tree/master.svg?style=svg)](https://circleci.com/gh/zroyer/juggle-and-drop/tree/master)
 Keep track of all the things you have going on in your life with this fun drag & drop app!
 
 ### Built with

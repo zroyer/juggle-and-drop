@@ -110,7 +110,7 @@ export const reorderBoard = (
   destinationIndex
 ) => dispatch => {
   dispatch({
-    type: "REORDER_BOARD",
+    type: "REORDER_LISTS",
     payload: {
       sourceId,
       sourceIndex,

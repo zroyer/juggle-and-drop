@@ -117,7 +117,7 @@ const boardsById = (state = {}, action) => {
         }
       };
     }
-    case "REORDER_BOARD": {
+    case "REORDER_LISTS": {
       const { sourceIndex, destinationIndex, sourceId } = action.payload;
       const newLists = Array.from(state[sourceId].lists);
       const [removedList] = newLists.splice(sourceIndex, 1);

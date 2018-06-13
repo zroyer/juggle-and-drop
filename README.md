@@ -16,7 +16,7 @@ Aesthetic, intuitive, and fun drag and drop task management with [`react-beautif
 * Add, edit, and delete cards and lists
 * Drag and drop cards between and within lists
 * Drag and drop cards lists on the board
-* Add new boards (WIP)
+* Add, delete, and rename boards (WIP)
 * User authentication (WIP)
 * Card content with markup, images, dates, etc (WIP)
 

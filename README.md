@@ -19,6 +19,7 @@ Aesthetic, intuitive, and fun drag and drop task management with [`react-beautif
 * Add, delete, and rename boards (WIP)
 * User authentication (WIP)
 * Card content with markup, images, dates, etc (WIP)
+* Tags/labels
 
 ## Development 🚀
 * clone, navigate to the root directory, and `npm install`

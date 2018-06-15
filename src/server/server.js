@@ -5,7 +5,7 @@ import api from './api';
 import getBoard from './getBoard';
 
 const app = express();
-const port = process.env.PORT || "1738";
+const port = process.env.PORT || '1738';
 
 mongoose.connect('mongodb://user:password123@ds151970.mlab.com:51970/doing-things-example');
 const db = mongoose.connection;
@@ -20,4 +20,4 @@ app.use(getBoard(db));
 app.get("*", render);
 
 /* eslint-disable no-console */
-app.listen(port, () => console.log(`Server listening on port ${port}`));
+app.listen(port, () => console.log(`🚂 server chugging along on port ${port}`));

@@ -7,7 +7,7 @@ import getBoard from './getBoard';
 const app = express();
 const port = process.env.PORT || '1738';
 
-mongoose.connect('mongodb://user:password123@ds151970.mlab.com:51970/doing-things-example');
+mongoose.connect('mongodb://user:password123@ds263670.mlab.com:63670/juggle-and-drop');
 const db = mongoose.connection;
 
 /* eslint-disable no-console */

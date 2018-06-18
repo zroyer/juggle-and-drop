@@ -10,7 +10,18 @@ const StyledHome = styled.div`
   flex-direction: column;
   align-items: center;
   color: #fff;
-  padding: 1rem;
+`
+
+const HomeTitle = styled.div`
+  margin-top: 1rem;
+  padding: 0.5rem;
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: white;
+`
+
+const StyledLink = styled(Link)`
+  margin-top: 1rem;
 `
 
 class Home extends Component<Props> {
@@ -21,13 +32,13 @@ class Home extends Component<Props> {
         <Helmet>
           <title>juggle & drop</title>
         </Helmet>
-        <h2>Pick a board...</h2>
+        <HomeTitle>Pick a board...</HomeTitle>
         {boards.map(board => (
-          <Link
+          <StyledLink
             to={`board/${board._id}`}
             >
               <Button key={board._id} text={board.title} style={{listStyle: "none"}} />
-          </Link>
+          </StyledLink>
           ))}
       </StyledHome>
     );

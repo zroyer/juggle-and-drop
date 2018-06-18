@@ -2,26 +2,34 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
+import styled from 'styled-components';
+import Button from '../components/Button';
+
+const StyledHome = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #fff;
+  padding: 1rem;
+`
 
 class Home extends Component<Props> {
   render = () => {
     const { boards } = this.props;
     return (
-      <div style={{padding: 16, textAlign: "center"}}>
+      <StyledHome>
         <Helmet>
           <title>juggle & drop</title>
         </Helmet>
-        <h1>Pick a board...</h1>
+        <h2>Pick a board...</h2>
         {boards.map(board => (
-          <h3 key={board._id} style={{listStyle: "none"}}>
-            <Link
-              to={`board/${board._id}`}
-              >
-                {board.title}
-              </Link>
-          </h3>
+          <Link
+            to={`board/${board._id}`}
+            >
+              <Button key={board._id} text={board.title} style={{listStyle: "none"}} />
+          </Link>
           ))}
-      </div>
+      </StyledHome>
     );
   };
 }

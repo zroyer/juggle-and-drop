@@ -2,9 +2,13 @@
   "presets": [
     "@babel/flow",
     "@babel/env",
-    "@babel/stage-2",
+    ["@babel/stage-2", {
+      "useBuiltIns": true,
+      "decoratorsLegacy": true
+    }],
     ["@babel/react", {
       "useBuiltIns": true,
       "decoratorsLegacy": true
-    }]]
+    }]
+  ]
 }

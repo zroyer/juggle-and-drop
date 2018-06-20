@@ -7,8 +7,10 @@ body {
   font-family: Helvetica Neue, Arial, Helvetica, sans-serif;
 }
 
-a {
+a:-webkit-any-link {
   text-decoration: none;
+  text-decoration-color: none;
+  color: rgb(46, 68, 78);
 }
 
 :focus {

@@ -8,7 +8,6 @@ export const addCard = (cardTitle, listId, boardId) => dispatch => {
     type: "ADD_CARD",
     payload: { cardTitle, cardId, listId }
   });
-
   axios
     .post("/api/card", { cardTitle, cardId, listId, boardId })
     .then(({ data }) => console.log(data));
@@ -23,7 +22,6 @@ export const editCardTitle = (cardTitle, cardId, list, boardId) => dispatch => {
       listId: list._id
     }
   });
-
   const cardIndex = list.cards.indexOf(cardId);
   axios
     .put("/api/card", { cardTitle, cardIndex, listId: list._id, boardId })
@@ -100,6 +98,18 @@ export const deleteList = (cards, listId, boardId) => dispatch => {
   });
   axios
     .delete("/api/list", { data: { listId, boardId } })
+    .then(({ data }) => console.log(data));
+};
+
+export const deleteBoard = (boardId) => dispatch => {
+  console.log('hello')
+  console.log(boardId)
+  dispatch({
+    type: "DELETE_BOARD",
+    payload: { boardId }
+  });
+  axios
+    .delete("/api/board", { data: { boardId } })
     .then(({ data }) => console.log(data));
 };
 

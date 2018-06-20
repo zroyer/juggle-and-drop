@@ -4,6 +4,14 @@ const api = db => {
   const router = Router();
   const boards = db.collection("boards");
 
+  router.delete("/board", (req, res) => {
+    const { boardId } = req.body;
+
+    boards
+      .findOneAndDelete({ _id: boardId })
+      .then(result => res.send(result));
+  });
+
   router.post("/card", (req, res) => {
     const {
       cardTitle,

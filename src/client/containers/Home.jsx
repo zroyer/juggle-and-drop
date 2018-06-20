@@ -36,6 +36,7 @@ class Home extends Component<Props> {
         {boards.map(board => (
           <StyledLink
             to={`board/${board._id}`}
+            key={board._id}
             >
               <Button key={board._id} text={board.title} style={{listStyle: "none"}} />
           </StyledLink>

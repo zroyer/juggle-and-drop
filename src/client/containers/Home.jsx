@@ -25,7 +25,7 @@ const StyledLink = styled(Link)`
   &:hover,
   &:focus,
   &:active {
-    opacity: 0.8;
+    opacity: 0.85;
   }
 `
 
@@ -67,7 +67,7 @@ const StyledDeleteBoardButton = styled.button`
   color: rgb(46,68,78);
   cursor: pointer;
   font-size: 16px;
-  opacity: 0.7;
+  opacity: 0.8;
 
   &:hover,
   &:focus,

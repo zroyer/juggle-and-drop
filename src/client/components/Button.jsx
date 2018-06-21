@@ -27,7 +27,7 @@ const StyledButton = styled.button`
       '#fcddd1'
     ) : props.add ? (
       '#d1f7c4'
-    ) : ('white'))
+    ) : ('#ffffff'))
   };
 
   &:hover,

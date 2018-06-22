@@ -20,14 +20,10 @@ const StyledButton = styled.button`
   height: ${props => props.list ? '48px' : 'auto'};
   transition-timing-function: ease-in;
   background-color: ${props =>
-    props.card ? (
-      '#fcd1f0'
-      ) : (
-    props.list ? (
-      '#fcddd1'
-    ) : props.add ? (
-      '#d1f7c4'
-    ) : ('#ffffff'))
+    (props.card && '#fcd1f0')
+    || (props.list && '#fcddd1')
+    || (props.add && '#d1f7c4')
+    || '#fff'
   };
 
   &:hover,

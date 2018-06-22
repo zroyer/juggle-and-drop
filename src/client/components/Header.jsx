@@ -25,7 +25,7 @@ const HomeLink = styled(Link)`
 
 const HomeLinkText = styled.div`
   padding: 4px;
-  color: ${props => props.titleColor ||  'white'};
+  color: ${props => props.titleColor ||  '#fff'};
   font-weight: 500;
   width: 50px;
   font-size: 0.85rem;

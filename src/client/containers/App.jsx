@@ -3,7 +3,7 @@ import { Route } from 'react-router-dom';
 import Home from './Home';
 import Board from './Board';
 import Header from '../components/Header';
-import './App.scss';
+import './base.scss';
 
 const App = () => (
   <React.Fragment>

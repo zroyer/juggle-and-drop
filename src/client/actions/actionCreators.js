@@ -101,8 +101,19 @@ export const deleteList = (cards, listId, boardId) => dispatch => {
     .then(({ data }) => console.log(data));
 };
 
+export const addBoard = (boardTitle) => dispatch => {
+  const boardId = shortid.generate();
+  dispatch({
+    type: "ADD_BOARD",
+    payload: { boardTitle, boardId }
+  });
+
+  axios
+    .post("/api/board", { boardTitle, boardId })
+    .then(({ data }) => console.log(data));
+};
+
 export const deleteBoard = (boardId) => dispatch => {
-  console.log('hello')
   console.log(boardId)
   dispatch({
     type: "DELETE_BOARD",

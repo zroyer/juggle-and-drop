@@ -14,14 +14,27 @@ const StyledButton = styled.button`
   cursor: pointer;
   border-radius: ${props => props.list ? '5px' : '3px'};
   font-weight: ${props => props.list ? '600' : '500'};
-  font-size: ${props => props.list ? '14px' : '13px'};
+  font-size: ${props =>
+    (props.list && '14px')
+    || (props.board && '14px')
+    || '13px'
+  };
   margin: ${props => props.list ? '8px' : '0'};
-  width: ${props => props.list ? '268px' : 'auto'};
-  height: ${props => props.list ? '48px' : 'auto'};
+  width: ${props =>
+    (props.list && '268px')
+    || (props.board && '70px')
+    || 'auto'
+  };
+  height: ${props =>
+    (props.list && '48px')
+    || (props.board && '34px')
+    || 'auto'
+  };
   transition-timing-function: ease-in;
   background-color: ${props =>
     (props.card && '#fcd1f0')
     || (props.list && '#fcddd1')
+    || (props.board && '#d1f7c4')
     || (props.add && '#d1f7c4')
     || '#fff'
   };

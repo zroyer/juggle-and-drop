@@ -4,13 +4,13 @@ import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import styled from 'styled-components';
 import FaTimesCircle from 'react-icons/lib/fa/times-circle';
-import { deleteBoard } from '../actions/actionCreators';
+import Button from '../components/Button'
+import { addBoard, deleteBoard } from '../actions/actionCreators';
 
 const StyledHome = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  color: #ffffff;
 `
 
 const HomeTitle = styled.div`
@@ -19,6 +19,10 @@ const HomeTitle = styled.div`
   font-size: 1.5rem;
   font-weight: 500;
   color: white;
+
+  @media (max-width: 768px) {
+      font-size: 1.25rem;
+  }
 `
 
 const StyledLink = styled(Link)`
@@ -26,6 +30,40 @@ const StyledLink = styled(Link)`
   &:focus,
   &:active {
     opacity: 0.85;
+  }
+`
+
+const StyledForm = styled.form`
+  margin: 12px 0 0 0;
+  width: 100%;
+  padding: 12px 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+`
+
+const StyledInput = styled.input`
+  width: 400px;
+  color: rgb(46, 68, 78);
+  border-radius: 4px;
+  box-shadow: inset 0 0 0 2px rgba(0,0,0,0.1);
+  border: none;
+  padding: 8px;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  font-family: inherit;
+  outline: none;
+  resize: none;
+  font-size: 16px;
+  margin-right: 12px;
+
+  &:hover,
+  &:focus,
+  &:active {
+    box-shadow: inset 0 0 0 2px rgba(0,0,0,0.3);
   }
 `
 
@@ -78,6 +116,23 @@ const StyledDeleteBoardButton = styled.button`
 `
 
 class Home extends Component<Props> {
+  constructor(props) {
+    super(props);
+    this.state = {
+      newBoardTitle: '',
+    };
+  }
+
+  handleTitleChange = (event) => {
+    this.setState({newBoardTitle: event.target.value});
+  }
+
+  addBoard = (boardTitle, event) => {
+    event.preventDefault();
+    const { dispatch } = this.props;
+    dispatch(addBoard(boardTitle));
+  };
+
   deleteBoard = boardId => {
     const { dispatch } = this.props;
     dispatch(deleteBoard(boardId));
@@ -108,6 +163,19 @@ class Home extends Component<Props> {
               </StyledDeleteBoardButton>
             </Row>
           ))}
+          <StyledForm onSubmit={(e) => this.addBoard(this.state.newBoardTitle, e)}>
+            <StyledInput
+              value={this.state.newBoardTitle}
+              onChange={this.handleTitleChange}
+              placeholder="Add a new board"
+            />
+            <Button
+              type="submit"
+              value="Submit"
+              text="Add"
+              board
+            />
+          </StyledForm>
         </List>
       </StyledHome>
     );

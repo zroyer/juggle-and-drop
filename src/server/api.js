@@ -4,6 +4,19 @@ const api = db => {
   const router = Router();
   const boards = db.collection("boards");
 
+  router.post("/board", (req, res) => {
+    const {
+      boardTitle,
+      boardId
+    } = req.body;
+
+    boards
+      .insert(
+        { _id: boardId, title: boardTitle, lists: [] },
+      )
+      .then(result => res.send(result));
+  });
+
   router.delete("/board", (req, res) => {
     const { boardId } = req.body;
 

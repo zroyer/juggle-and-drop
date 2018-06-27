@@ -97,6 +97,18 @@ const listsById = (state = {}, action) => {
 
 const boardsById = (state = {}, action) => {
   switch (action.type) {
+    case "ADD_BOARD": {
+      const { boardId, boardTitle } = action.payload;
+      return {
+        ...state,
+        [boardId]: { _id: boardId, title: boardTitle, lists: [] }
+      };
+    }
+    case "DELETE_BOARD": {
+      const { boardId } = action.payload;
+      const { [boardId]: deletedBoard, ...restOfBoards } = state;
+      return restOfBoards;
+    }
     case "ADD_LIST": {
       const { boardId, listId } = action.payload;
       return {
@@ -106,11 +118,6 @@ const boardsById = (state = {}, action) => {
           lists: [...state[boardId].lists, listId]
         }
       };
-    }
-    case "DELETE_BOARD": {
-      const { boardId } = action.payload;
-      const { [boardId]: deletedBoard, ...restOfBoards } = state;
-      return restOfBoards;
     }
     case "DELETE_LIST": {
       const { listId: newListId, boardId } = action.payload;

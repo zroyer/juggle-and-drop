@@ -1,8 +1,8 @@
 # juggle & drop 🤹‍♂️
 
-Aesthetic, intuitive, and fun drag and drop task management with [`react-beautiful-dnd`](https://github.com/atlassian/react-beautiful-dnd)
-
+drag-and-drop task management with [`react-beautiful-dnd`](https://github.com/atlassian/react-beautiful-dnd)
 [![CircleCI](https://circleci.com/gh/zroyer/juggle-and-drop/tree/master.svg?style=svg)](https://circleci.com/gh/zroyer/juggle-and-drop/tree/master)
+![Demo](http://i.imgur.com/zCkv3kg.gif)
 
 ## Built with 🏗
 * [react-beautiful-dnd](https://github.com/atlassian/react-beautiful-dnd)     

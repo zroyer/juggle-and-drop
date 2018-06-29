@@ -19,9 +19,6 @@ drag-and-drop task management with [`react-beautiful-dnd`](https://github.com/at
 * Drag and drop cards between and within lists
 * Drag and drop cards lists on the board
 * Add and delete boards
-* User authentication (WIP)
-* Card content with markup, images, dates, etc (WIP)
-* Tags/labels (WIP)
 
 ## Development 🚀
 * clone, navigate to the root directory, and `npm install`

@@ -129,6 +129,7 @@ class Home extends Component<Props> {
 
   addBoard = (boardTitle, event) => {
     event.preventDefault();
+    this.setState({newBoardTitle: ''});
     const { dispatch } = this.props;
     dispatch(addBoard(boardTitle));
   };

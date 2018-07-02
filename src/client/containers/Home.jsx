@@ -174,6 +174,7 @@ class Home extends Component<Props> {
               type="submit"
               value="Submit"
               text="Add"
+              disabled={!this.state.newBoardTitle}
               board
             />
           </StyledForm>

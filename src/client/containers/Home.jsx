@@ -152,12 +152,10 @@ class Home extends Component<Props> {
             <Row key={`row-${board._id}`}>
               <StyledLink
                 to={`board/${board._id}`}
-                key={board._id}
                 >
                   {board.title}
               </StyledLink>
               <StyledDeleteBoardButton
-                key={`delete-${board._id}`}
                 onClick={() => this.deleteBoard(board._id)}
                 >
                 <FaTimesCircle />

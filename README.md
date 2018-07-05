@@ -20,7 +20,7 @@ drag-and-drop task management with [`react-beautiful-dnd`](https://github.com/at
 * Drag and drop cards lists on the board
 * Add and delete boards
 
-## Development 🚀
+## Setup 🚀
 * clone, navigate to the root directory, and `npm install`
 * build webpack with `npm run build`
 * open a new tab, navigate to the same directory, and `npm run serve`

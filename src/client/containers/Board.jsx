@@ -11,21 +11,24 @@ const StyledBoard = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  height: calc(100vh - 111px);
+  overflow-x: auto;
+  overflow-y: auto;
 
   @media (max-width: 1436px) {
-    justify-content: ${props => props.numLists > 3 && 'flex-start'};
+    align-items: ${props => props.numLists > 3 && 'self-start'};
   }
 
   @media (max-width: 1152px) {
-    justify-content: ${props => props.numLists > 2 && 'flex-start'};
+    align-items: ${props => props.numLists > 2 && 'self-start'};
   }
 
   @media (max-width: 868px) {
-    justify-content: ${props => props.numLists > 1 && 'flex-start'};
+    align-items: ${props => props.numLists > 1 && 'self-start'};
   }
 
   @media (max-width: 768px) {
-    justify-content: center;
+    align-items: center;
     height: 100%;
   }
 `
@@ -36,6 +39,12 @@ const BoardTitle = styled.div`
   font-size: 1.5rem;
   font-weight: 500;
   color: white;
+`
+
+const BoardTitleWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
 `
 
 class Board extends React.Component<Props> {
@@ -71,50 +80,54 @@ class Board extends React.Component<Props> {
   render = () => {
     const { lists, boardTitle, boardId } = this.props;
     return (
-      <StyledBoard>
+      <React.Fragment>
         <Helmet>
           <title>juggle & drop</title>
         </Helmet>
-        <BoardTitle>{boardTitle}</BoardTitle>
-        <DragDropContext onDragEnd={this.handleDragEnd}>
-          <Droppable droppableId={boardId} type="COLUMN" direction="horizontal">
-            {droppableProvided => (
-              <div className="lists-wrapper" ref={droppableProvided.innerRef}>
-                {lists.map((list, index) => (
-                  <Draggable
-                    key={list._id}
-                    draggableId={list._id}
-                    index={index}
-                  >
-                    {provided => (
-                      <>
-                        <div
-                          ref={provided.innerRef}
-                          {...provided.draggableProps}
-                          {...provided.dragHandleProps}
-                          data-react-beautiful-dnd-draggable="0"
-                          data-react-beautiful-dnd-drag-handle="0"
-                        >
-                          <List
-                            list={list}
-                            boardId={boardId}
-                            style={{height: 'initial'}}
-                          />
-                        </div>
-                        {provided.placeholder}
-                      </>
-                    )}
-                  </Draggable>
-                ))}
-                {droppableProvided.placeholder}
-                {lists.length < 5 &&
-                  <ListAdder boardId={boardId} numLeft={5-lists.length} style={{height: 'initial'}}/>
-                }
-              </div>
-            )}
-          </Droppable>
-        </DragDropContext>
-      </StyledBoard>
+        <BoardTitleWrapper>
+          <BoardTitle>{boardTitle}</BoardTitle>
+        </BoardTitleWrapper>
+        <StyledBoard numLists={lists.length}>
+          <DragDropContext onDragEnd={this.handleDragEnd}>
+            <Droppable droppableId={boardId} type="COLUMN" direction="horizontal">
+              {droppableProvided => (
+                <div className="lists-wrapper" ref={droppableProvided.innerRef}>
+                  {lists.map((list, index) => (
+                    <Draggable
+                      key={list._id}
+                      draggableId={list._id}
+                      index={index}
+                    >
+                      {provided => (
+                        <React.Fragment>
+                          <div
+                            ref={provided.innerRef}
+                            {...provided.draggableProps}
+                            {...provided.dragHandleProps}
+                            data-react-beautiful-dnd-draggable="0"
+                            data-react-beautiful-dnd-drag-handle="0"
+                          >
+                            <List
+                              list={list}
+                              boardId={boardId}
+                              style={{height: 'initial'}}
+                            />
+                          </div>
+                          {provided.placeholder}
+                        </React.Fragment>
+                      )}
+                    </Draggable>
+                  ))}
+                  {droppableProvided.placeholder}
+                  {lists.length < 5 &&
+                    <ListAdder boardId={boardId} numLeft={5-lists.length} style={{height: 'initial'}}/>
+                  }
+                </div>
+              )}
+            </Droppable>
+          </DragDropContext>
+        </StyledBoard>
+      </React.Fragment>
     );
   };
 }

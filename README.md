@@ -12,7 +12,7 @@ drag-and-drop task management with [`react-beautiful-dnd`](https://github.com/at
 * [React](https://github.com/facebook/react)
 * [Redux](https://github.com/reduxjs/redux)
 * [Express.js](https://github.com/expressjs)
-* [MLab](https://mlab.com/) (Database-as-a-Service for MongoDB)
+* [MLab](https://mlab.com/)
 
 ## Features 👀
 * Add, edit, and delete cards and lists

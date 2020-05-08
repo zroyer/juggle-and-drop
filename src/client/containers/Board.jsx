@@ -47,7 +47,7 @@ const BoardTitleWrapper = styled.div`
   justify-content: center;
 `
 
-class Board extends React.Component<Props> {
+class Board extends React.Component {
   handleDragEnd = ({ draggableId, source, destination, type }) => {
     // dropped outside the list
     if (!destination) {

@@ -13,7 +13,7 @@ const ListAdderTextareaWrapper = styled.div`
   padding: 0 10px;
 `;
 
-class ListAdder extends Component<Props, State> {
+class ListAdder extends Component {
   constructor() {
     super();
     this.state = {

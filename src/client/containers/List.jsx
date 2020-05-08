@@ -57,7 +57,7 @@ const ListTitle = styled.div`
   color: rgb(46,68,78);
 `;
 
-class List extends React.Component<Props, State> {
+class List extends React.Component {
   constructor() {
     super();
     this.state = {

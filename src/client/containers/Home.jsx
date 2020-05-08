@@ -115,7 +115,7 @@ const StyledDeleteBoardButton = styled.button`
   }
 `
 
-class Home extends Component<Props> {
+class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {

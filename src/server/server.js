@@ -20,4 +20,4 @@ app.use(getBoard(db));
 app.get("*", render);
 
 /* eslint-disable no-console */
-app.listen(port, () => console.log(`🚂 server chugging along on port ${port}`));
+app.listen(port, () => console.log(`🚂 chugging along on port ${port}`));

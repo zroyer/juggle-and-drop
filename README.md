@@ -1,15 +1,15 @@
 # juggle & drop 🤹‍♂️
-[![CircleCI](https://circleci.com/gh/zroyer/juggle-and-drop/tree/master.svg?style=svg)](https://circleci.com/gh/zroyer/juggle-and-drop/tree/master)    
+[![CircleCI](https://circleci.com/gh/zroyer/juggle-and-drop/tree/master.svg?style=svg)](https://circleci.com/gh/zroyer/juggle-and-drop/tree/master)
 drag-and-drop task management with [`react-beautiful-dnd`](https://github.com/atlassian/react-beautiful-dnd)
 
 ![Demo](http://i.imgur.com/zCkv3kg.gif)
 
 ## Built with 🏗
-* [react-beautiful-dnd](https://github.com/atlassian/react-beautiful-dnd)     
-* [styled-components](https://www.styled-components.com/)     
 * [React](https://github.com/facebook/react)
 * [Redux](https://github.com/reduxjs/redux)
 * [Express.js](https://github.com/expressjs)
+* [react-beautiful-dnd](https://github.com/atlassian/react-beautiful-dnd)
+* [styled-components](https://www.styled-components.com/)
 * [MLab](https://mlab.com/)
 
 ## Features 👀

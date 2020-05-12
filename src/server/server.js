@@ -24,4 +24,4 @@ app.use('/api', api(db));
 app.use(getBoard(db));
 app.get('*', render);
 
-app.listen(port, () => console.log(`Server is 🆗 and running: http://localhost:${port}`));
+app.listen(port, () => console.log(`🆗 👉 http://localhost:${port}`));

@@ -1,18 +1,14 @@
 import React from 'react';
-import { createStore, combineReducers, applyMiddleware } from 'redux';
-import { Provider } from 'react-redux';
+import {createStore, combineReducers, applyMiddleware} from 'redux';
+import {Provider} from 'react-redux';
 import thunk from 'redux-thunk';
-import { renderToString } from 'react-dom/server';
-import { StaticRouter } from 'react-router';
+import {renderToString} from 'react-dom/server';
+import {StaticRouter} from 'react-router';
 import App from '../client/containers/App';
 import reducers from '../client/reducers/reducers';
 
 export default function renderPage(req, res) {
-  const store = createStore(
-    combineReducers(reducers),
-    req.initialState,
-    applyMiddleware(thunk)
-  );
+  const store = createStore(combineReducers(reducers), req.initialState, applyMiddleware(thunk));
 
   const context = {};
 

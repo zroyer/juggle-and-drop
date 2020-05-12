@@ -44,6 +44,10 @@ const StyledButton = styled.button`
   &:active {
     box-shadow: inset 0 0 0 2px rgba(0,0,0,0.2);
   }
+  &:disabled {
+    cursor: not-allowed;
+    box-shadow: none;
+  }
 `
 
 class Button extends Component {

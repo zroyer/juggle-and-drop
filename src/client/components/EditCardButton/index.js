@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import FaEdit from 'react-icons/lib/fa/edit';
 
@@ -14,23 +14,21 @@ const StyledEditCardButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  color: rgb(46,68,78);
+  color: rgb(46, 68, 78);
 
   &:hover,
   &:focus,
   &:active {
     opacity: 1;
   }
-`
+`;
 
-class EditCardButton extends Component {
-  render() {
-    return (
-      <StyledEditCardButton {...this.props}>
-        <FaEdit />
-      </StyledEditCardButton>
-    );
-  }
-}
+const EditCardButton = ({...props}) => {
+  return (
+    <StyledEditCardButton {...props}>
+      <FaEdit />
+    </StyledEditCardButton>
+  );
+};
 
 export default EditCardButton;

@@ -9,7 +9,6 @@ import reducers from '../client/reducers/reducers';
 
 export default function renderPage(req, res) {
   const store = createStore(combineReducers(reducers), req.initialState, applyMiddleware(thunk));
-
   const context = {};
 
   const renderedApp = renderToString(

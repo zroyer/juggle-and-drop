@@ -1,9 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import Github from 'react-icons/lib/fa/github';
-
-const titleColor = '#FFFFFF';
 
 const Wrapper = styled.div`
   height: 50px;
@@ -25,7 +23,7 @@ const HomeLink = styled(Link)`
 
 const HomeLinkText = styled.div`
   padding: 4px;
-  color: ${props => props.titleColor ||  '#fff'};
+  color: #fff;
   font-weight: 500;
   width: 50px;
   font-size: 0.85rem;
@@ -51,23 +49,22 @@ const GithubLink = styled.a`
   }
 `;
 
-class Header extends Component {
-  render() {
-    return (
-      <Wrapper
-        titleColor={titleColor}>
-          <HomeLink to="/">
-            <HomeLinkEmoji>
-              <span role="img" aria-label="juggler">🤹‍</span>
-            </HomeLinkEmoji>
-            <HomeLinkText>juggle & drop</HomeLinkText>
-          </HomeLink>
-          <GithubLink href="https://github.com/zroyer/juggle-and-drop" target="_blank">
-            <Github size={20}/>
-          </GithubLink>
-      </Wrapper>
-    );
-  }
-}
+const Header = () => {
+  return (
+    <Wrapper>
+      <HomeLink to="/">
+        <HomeLinkEmoji>
+          <span role="img" aria-label="juggler">
+            🤹‍
+          </span>
+        </HomeLinkEmoji>
+        <HomeLinkText>juggle & drop</HomeLinkText>
+      </HomeLink>
+      <GithubLink href="https://github.com/zroyer/juggle-and-drop" target="_blank">
+        <Github size={20} />
+      </GithubLink>
+    </Wrapper>
+  );
+};
 
 export default Header;

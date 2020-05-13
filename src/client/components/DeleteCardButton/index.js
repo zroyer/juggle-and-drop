@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import FaTimesCircle from 'react-icons/lib/fa/times-circle';
 
@@ -14,24 +14,22 @@ const StyledDeleteCardButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  color: rgb(46,68,78);
+  color: rgb(46, 68, 78);
 
   &:hover,
   &:focus,
   &:active {
-    color: #DA3849;
+    color: #da3849;
     opacity: 1;
   }
-`
+`;
 
-class DeleteCardButton extends Component {
-  render() {
-    return (
-      <StyledDeleteCardButton {...this.props}>
-        <FaTimesCircle />
-      </StyledDeleteCardButton>
-    );
-  }
-}
+const DeleteCardButton = ({...props}) => {
+  return (
+    <StyledDeleteCardButton {...props}>
+      <FaTimesCircle />
+    </StyledDeleteCardButton>
+  );
+};
 
 export default DeleteCardButton;

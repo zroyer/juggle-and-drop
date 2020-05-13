@@ -1,26 +1,26 @@
-const path = require("path");
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
-const CopyWebpackPlugin = require("copy-webpack-plugin");
-const DashboardPlugin = require("webpack-dashboard/plugin");
-const nodeExternals = require("webpack-node-externals");
-const autoprefixer = require("autoprefixer");
+const path = require('path');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const DashboardPlugin = require('webpack-dashboard/plugin');
+const nodeExternals = require('webpack-node-externals');
+const autoprefixer = require('autoprefixer');
 
 module.exports = [
   {
-    name: "client",
-    target: "web",
-    entry: path.join(__dirname, "src/client.jsx"),
+    name: 'client',
+    target: 'web',
+    entry: path.join(__dirname, 'src/client.js'),
     output: {
-      path: path.join(__dirname, "dist/public"),
-      publicPath: "/static/",
-      filename: "bundle.js"
+      path: path.join(__dirname, 'dist/public'),
+      publicPath: '/static/',
+      filename: 'bundle.js'
     },
     module: {
       rules: [
         {
           test: /\.(js|jsx)$/,
           use: {
-            loader: "babel-loader"
+            loader: 'babel-loader'
           },
           exclude: /node_modules/
         },
@@ -28,20 +28,20 @@ module.exports = [
           test: /\.(css|scss)$/,
           use: ExtractTextPlugin.extract([
             {
-              loader: "css-loader",
+              loader: 'css-loader',
               options: {
                 importLoaders: 1
               }
             },
             {
-              loader: "postcss-loader",
+              loader: 'postcss-loader',
               options: {
-                ident: "postcss",
+                ident: 'postcss',
                 plugins: [autoprefixer()]
               }
             },
             {
-              loader: "sass-loader"
+              loader: 'sass-loader'
             }
           ])
         },
@@ -49,63 +49,63 @@ module.exports = [
           test: /\.(png|jpg|gif|svg)$/,
           use: [
             {
-              loader: "url-loader",
+              loader: 'url-loader',
               options: {
                 limit: 4096,
-                name: "[name].[ext]",
-                outputPath: "images/"
+                name: '[name].[ext]',
+                outputPath: 'images/'
               }
             },
             {
-              loader: "image-webpack-loader"
+              loader: 'image-webpack-loader'
             }
           ]
         }
       ]
     },
     plugins: [
-      new ExtractTextPlugin("bundle.css"),
-      new CopyWebpackPlugin([{ from: "src/assets/favicons", to: "favicons" }]),
+      new ExtractTextPlugin('bundle.css'),
+      new CopyWebpackPlugin([{from: 'src/assets/favicons', to: 'favicons'}]),
       new DashboardPlugin()
     ],
     resolve: {
-      extensions: [".js", ".jsx"]
+      extensions: ['.js', '.jsx']
     }
   },
   {
-    name: "server",
-    target: "node",
+    name: 'server',
+    target: 'node',
     externals: [nodeExternals()],
-    entry: path.join(__dirname, "src/server/server.js"),
+    entry: path.join(__dirname, 'src/server/server.js'),
     output: {
-      path: path.join(__dirname, "dist"),
-      filename: "server.js",
-      libraryTarget: "commonjs2"
+      path: path.join(__dirname, 'dist'),
+      filename: 'server.js',
+      libraryTarget: 'commonjs2'
     },
     module: {
       rules: [
         {
           test: /\.(js|jsx)$/,
           use: {
-            loader: "babel-loader"
+            loader: 'babel-loader'
           },
           exclude: /node_modules/
         },
         {
           test: /\.(css|scss)$/,
-          loader: "ignore-loader"
+          loader: 'ignore-loader'
         },
         {
           test: /\.(png|jpg|gif|svg)$/,
           use: [
             {
-              loader: "url-loader",
+              loader: 'url-loader',
               options: {
                 emitFile: false,
                 limit: 4096,
-                name: "[name].[ext]",
-                outputPath: "images/",
-                publicPath: "/static/"
+                name: '[name].[ext]',
+                outputPath: 'images/',
+                publicPath: '/static/'
               }
             }
           ]
@@ -113,7 +113,7 @@ module.exports = [
       ]
     },
     resolve: {
-      extensions: [".js", ".jsx"]
+      extensions: ['.js', '.jsx']
     }
   }
 ];

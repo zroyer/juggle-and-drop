@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import Textarea from 'react-textarea-autosize';
 
 const StyledCardTextarea = styled(Textarea)`
   border-radius: 4px;
-  box-shadow: inset 0 0 0 2px rgba(0,0,0,0.1);
+  box-shadow: inset 0 0 0 2px rgba(0, 0, 0, 0.1);
   border: none;
   padding: 8px;
   margin-bottom: 10px;
@@ -17,14 +17,10 @@ const StyledCardTextarea = styled(Textarea)`
   color: inherit;
   outline: none;
   resize: none;
-`
+`;
 
-class CardTextarea extends Component {
-  render() {
-    return (
-      <StyledCardTextarea {...this.props} />
-    );
-  }
-}
+const CardTextarea = ({...props}) => {
+  return <StyledCardTextarea {...props} />;
+};
 
 export default CardTextarea;

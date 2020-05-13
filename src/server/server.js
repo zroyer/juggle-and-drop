@@ -8,7 +8,7 @@ import getBoard from './getBoard';
 
 dotenv.config();
 const app = express();
-const port = process.env.PORT;
+const port = process.env.PORT || 1738;
 
 mongoose.connect(
   process.env.MLAB_URL,

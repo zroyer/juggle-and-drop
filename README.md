@@ -17,12 +17,11 @@ drag-and-drop task management with [`react-beautiful-dnd`](https://github.com/at
 
 - [ ] Turn this list into Github issues
 - [ ] Card body: text and images
-- [ ] Fully migrate to hooks
-- [ ] Fully migrate to styled-components
+- [x] Fully migrate to hooks
+- [x] Fully migrate to styled-components
 - [ ] Build styled-components theme
 - [ ] Implement light/dark mode
 - [ ] Generate example boards with a button click
-- [ ] Deploy to Netlify
 - [ ] Separate databases for environment
 
 ## Built with 🏗

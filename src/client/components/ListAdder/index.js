@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import {addList} from '../../actions/actionCreators';
 import Button from '../Button';
 import ListTitleTextarea from '../ListTitleTextarea';
+import ListCard from '../ListCard';
 
 const ListAdderTextareaWrapper = styled.div`
   height: 48px;
@@ -38,11 +39,11 @@ const ListAdder = ({dispatch, boardId, numLeft}) => {
     return <Button variant="list" onClick={() => setIsListInEdit(true)} text={`Add a new list (${numLeft})`} />;
   }
   return (
-    <div className="list">
-      <ListAdderTextareaWrapper className="list-title-textarea-wrapper">
+    <ListCard>
+      <ListAdderTextareaWrapper>
         <ListTitleTextarea value={newListTitle} onChange={handleChange} onKeyDown={handleKeyDown} onBlur={handleBlur} />
       </ListAdderTextareaWrapper>
-    </div>
+    </ListCard>
   );
 };
 

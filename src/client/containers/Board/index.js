@@ -47,6 +47,16 @@ const BoardTitleWrapper = styled.div`
   justify-content: center;
 `;
 
+const ListsWrapper = styled.div`
+  display: flex;
+  align-items: flex-start;
+  padding: 8px;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
+`;
+
 class Board extends React.Component {
   handleDragEnd = ({draggableId, source, destination, type}) => {
     // dropped outside the list
@@ -77,7 +87,7 @@ class Board extends React.Component {
           <DragDropContext onDragEnd={this.handleDragEnd}>
             <Droppable droppableId={boardId} type="COLUMN" direction="horizontal">
               {(droppableProvided) => (
-                <div className="lists-wrapper" ref={droppableProvided.innerRef}>
+                <ListsWrapper ref={droppableProvided.innerRef}>
                   {lists.map((list, index) => (
                     <Draggable key={list._id} draggableId={list._id} index={index}>
                       {(provided) => (
@@ -99,7 +109,7 @@ class Board extends React.Component {
                   {lists.length < 5 && (
                     <ListAdder boardId={boardId} numLeft={5 - lists.length} style={{height: 'initial'}} />
                   )}
-                </div>
+                </ListsWrapper>
               )}
             </Droppable>
           </DragDropContext>

@@ -4,6 +4,7 @@ import {Droppable, Draggable} from 'react-beautiful-dnd';
 import styled from 'styled-components';
 import ClickOutside from '../../components/ClickOutside';
 import Button from '../../components/Button';
+import ListCard from '../../components/ListCard';
 import ListTitleButton from '../../components/ListTitleButton';
 import DeleteListButton from '../../components/DeleteListButton';
 import DeleteCardButton from '../../components/DeleteCardButton';
@@ -189,7 +190,7 @@ class List extends React.Component {
       newListTitle
     } = this.state;
     return (
-      <div className="list">
+      <ListCard>
         {isListTitleInEdit ? (
           <ListTitleTextareaWrapper>
             <ListTitleTextarea
@@ -207,20 +208,19 @@ class List extends React.Component {
         )}
         <Droppable droppableId={list._id}>
           {(provided) => (
-            <div className="cards" ref={provided.innerRef}>
+            <div ref={provided.innerRef}>
               {cards.map((card, index) => (
                 <Draggable key={card._id} draggableId={card._id} index={index}>
                   {({innerRef, draggableProps, dragHandleProps, placeholder}) => (
                     <div>
                       {cardInEdit !== card._id ? (
                         <CardTitle
-                          className="card-title"
                           ref={innerRef}
                           {...draggableProps}
                           {...dragHandleProps}
                           data-react-beautiful-dnd-draggable="0"
                           data-react-beautiful-dnd-drag-handle="0">
-                          <span>{card.title}</span>
+                          {card.title}
                           <ButtonWrapper>
                             <DeleteCardButton onClick={() => this.deleteCard(card._id)} />
                             <EditCardButton onClick={() => this.openCardEditor(card)} />
@@ -268,7 +268,7 @@ class List extends React.Component {
             </div>
           )}
         </Droppable>
-      </div>
+      </ListCard>
     );
   };
 }

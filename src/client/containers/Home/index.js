@@ -1,7 +1,6 @@
-import React, {Component} from 'react';
+import React, {useState} from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
-import {Helmet} from 'react-helmet';
 import styled from 'styled-components';
 import {FaTimesCircle} from 'react-icons/fa';
 import Button from '../../components/Button';
@@ -115,60 +114,42 @@ const StyledDeleteBoardButton = styled.button`
   }
 `;
 
-class Home extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      newBoardTitle: ''
-    };
-  }
+const Home = ({dispatch, boards}) => {
+  const [newBoardTitle, setNewBoardTitle] = useState('');
 
-  handleTitleChange = (event) => {
-    this.setState({newBoardTitle: event.target.value});
-  };
+  const handleTitleChange = (event) => setNewBoardTitle(event.target.value);
 
-  addBoard = (boardTitle, event) => {
+  const handleDeleteBoard = (event, boardId) => {
     event.preventDefault();
-    this.setState({newBoardTitle: ''});
-    const {dispatch} = this.props;
-    dispatch(addBoard(boardTitle));
-  };
-
-  deleteBoard = (boardId) => {
-    const {dispatch} = this.props;
     dispatch(deleteBoard(boardId));
   };
 
-  render = () => {
-    const {boards} = this.props;
-    return (
-      <StyledHome>
-        <Helmet>
-          <title>juggle & drop</title>
-        </Helmet>
-        <HomeTitle>Pick a board...</HomeTitle>
-        <List>
-          {boards.map((board) => (
-            <Row key={`row-${board._id}`}>
-              <StyledLink to={`board/${board._id}`}>{board.title}</StyledLink>
-              <StyledDeleteBoardButton onClick={() => this.deleteBoard(board._id)}>
-                <FaTimesCircle size={18} />
-              </StyledDeleteBoardButton>
-            </Row>
-          ))}
-          <StyledForm onSubmit={(e) => this.addBoard(this.state.newBoardTitle, e)}>
-            <StyledInput
-              value={this.state.newBoardTitle}
-              onChange={this.handleTitleChange}
-              placeholder="Add a new board"
-            />
-            <Button variant="board" type="submit" value="Submit" text="Add" disabled={!this.state.newBoardTitle} />
-          </StyledForm>
-        </List>
-      </StyledHome>
-    );
+  const handleAddBoard = (event, boardTitle) => {
+    event.preventDefault();
+    dispatch(addBoard(boardTitle));
+    setNewBoardTitle('');
   };
-}
+
+  return (
+    <StyledHome>
+      <HomeTitle>Pick a board...</HomeTitle>
+      <List>
+        {boards.map((board) => (
+          <Row key={`row-${board._id}`}>
+            <StyledLink to={`board/${board._id}`}>{board.title}</StyledLink>
+            <StyledDeleteBoardButton onClick={() => handleDeleteBoard(event, board._id)}>
+              <FaTimesCircle size={18} />
+            </StyledDeleteBoardButton>
+          </Row>
+        ))}
+        <StyledForm onSubmit={(e) => handleAddBoard(e, newBoardTitle)}>
+          <StyledInput value={newBoardTitle} onChange={(e) => handleTitleChange(e)} placeholder="Add a new board" />
+          <Button variant="board" type="submit" value="Submit" text="Add" disabled={!newBoardTitle} />
+        </StyledForm>
+      </List>
+    </StyledHome>
+  );
+};
 
 const mapStateToProps = (state) => ({
   boards: Object.values(state.boardsById)

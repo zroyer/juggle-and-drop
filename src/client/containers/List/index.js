@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, {useState} from 'react';
 import {connect} from 'react-redux';
 import {Droppable, Draggable} from 'react-beautiful-dnd';
 import styled from 'styled-components';
@@ -80,201 +80,158 @@ const ButtonWrapper = styled.div`
   align-items: center;
 `;
 
-class List extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      newCardFormIsOpen: false,
-      newCardTitle: '',
-      cardInEdit: null,
-      editableCardTitle: '',
-      isListTitleInEdit: false,
-      newListTitle: ''
-    };
-  }
+const List = ({dispatch, boardId, cards, list}) => {
+  const [newCardFormIsOpen, setNewCardFormIsOpen] = useState(false);
+  const [isListTitleInEdit, setIsListTitleInEdit] = useState(false);
+  const [cardInEdit, setCardInEdit] = useState(null);
+  const [newCardTitle, setNewCardTitle] = useState('');
+  const [newListTitle, setNewListTitle] = useState('');
+  const [tempCardTitle, setTempCardTitle] = useState('');
 
-  toggleCardComposer = () => this.setState({newCardFormIsOpen: !this.state.newCardFormIsOpen});
+  const toggleCardComposer = () => setNewCardFormIsOpen(!newCardFormIsOpen);
 
-  handleCardComposerChange = (event) => {
-    this.setState({newCardTitle: event.target.value});
+  const handleCardComposerChange = (event) => {
+    setNewCardTitle(event.target.value.trim());
   };
 
-  handleKeyDown = (event) => {
+  const handleKeyDown = (event, callback) => {
     if (event.keyCode === 13) {
-      this.handleSubmitCard(event);
+      callback(event);
     }
   };
 
-  handleSubmitCard = (event) => {
+  const handleSubmitCard = (event) => {
     event.preventDefault();
-    const {newCardTitle} = this.state;
-    const {list, boardId, dispatch} = this.props;
-    if (newCardTitle === '') return;
+    if (newCardTitle.length < 1) return;
     dispatch(addCard(newCardTitle, list._id, boardId));
-    this.setState({newCardTitle: '', newCardFormIsOpen: false});
+    setNewCardTitle('');
+    setNewCardFormIsOpen(false);
   };
 
-  openCardEditor = (card) => {
-    this.setState({cardInEdit: card._id, editableCardTitle: card.title});
+  const openCardEditor = (card) => {
+    setCardInEdit(card._id);
+    setTempCardTitle(card.title);
   };
 
-  handleCardEditorChange = (event) => {
-    this.setState({editableCardTitle: event.target.value});
+  const handleCardEditorChange = (event) => {
+    setTempCardTitle(event.target.value.trim());
   };
 
-  handleEditKeyDown = (event) => {
-    if (event.keyCode === 13) {
-      event.preventDefault();
-      this.handleSubmitCardEdit();
-    }
+  const handleListTitleEditorChange = (event) => {
+    setNewListTitle(event.target.value.trim());
   };
 
-  handleSubmitCardEdit = () => {
-    const {editableCardTitle, cardInEdit} = this.state;
-    const {list, boardId, dispatch} = this.props;
-    if (editableCardTitle === '') {
-      this.deleteCard(cardInEdit);
+  const handleCardEdit = () => {
+    if (tempCardTitle.length < 1) {
+      handleDeleteCard(cardInEdit);
     } else {
-      dispatch(editCardTitle(editableCardTitle, cardInEdit, list, boardId));
+      dispatch(editCardTitle(tempCardTitle, cardInEdit, list, boardId));
     }
-    this.setState({editableCardTitle: '', cardInEdit: null});
+    setTempCardTitle('');
+    setCardInEdit(null);
   };
 
-  deleteCard = (cardId) => {
-    const {dispatch, list, boardId} = this.props;
+  const handleDeleteCard = (cardId) => {
     dispatch(deleteCard(cardId, list._id, boardId));
   };
 
-  openTitleEditor = () => {
-    this.setState({
-      isListTitleInEdit: true,
-      newListTitle: this.props.list.title
-    });
+  const openTitleEditor = () => {
+    setIsListTitleInEdit(true);
+    setNewListTitle(list.title);
   };
 
-  handleListTitleEditorChange = (event) => {
-    this.setState({newListTitle: event.target.value});
-  };
-
-  handleListTitleKeyDown = (event) => {
-    if (event.keyCode === 13) {
-      event.preventDefault();
-      this.handleSubmitListTitle();
-    }
-  };
-
-  handleSubmitListTitle = () => {
-    const {newListTitle} = this.state;
-    const {list, boardId, dispatch} = this.props;
-    if (newListTitle === '') return;
+  const handleSubmitListTitle = () => {
+    if (newListTitle.length < 1) return;
     dispatch(editListTitle(newListTitle, list._id, boardId));
-    this.setState({
-      isListTitleInEdit: false,
-      newListTitle: ''
-    });
+    setNewListTitle('');
+    setIsListTitleInEdit(false);
   };
 
-  deleteList = () => {
-    const {list, boardId, dispatch} = this.props;
+  const handleDeleteListButtonClick = (event) => {
+    event.preventDefault();
     dispatch(deleteList(list.cards, list._id, boardId));
   };
 
-  render = () => {
-    const {cards, list} = this.props;
-    const {
-      newCardFormIsOpen,
-      newCardTitle,
-      cardInEdit,
-      editableCardTitle,
-      isListTitleInEdit,
-      newListTitle
-    } = this.state;
-    return (
-      <ListCard>
-        {isListTitleInEdit ? (
-          <ListTitleTextareaWrapper>
-            <ListTitleTextarea
-              value={newListTitle}
-              onChange={this.handleListTitleEditorChange}
-              onKeyDown={this.handleListTitleKeyDown}
-              onBlur={this.handleSubmitListTitle}
-            />
-          </ListTitleTextareaWrapper>
-        ) : (
-          <ListTitle>
-            <ListTitleButton onFocus={this.openTitleEditor} onClick={this.openTitleEditor} text={list.title} />
-            <DeleteListButton onClick={this.deleteList} />
-          </ListTitle>
+  return (
+    <ListCard>
+      {isListTitleInEdit ? (
+        <ListTitleTextareaWrapper>
+          <ListTitleTextarea
+            value={newListTitle}
+            onChange={handleListTitleEditorChange}
+            onKeyDown={(e) => handleKeyDown(e, handleSubmitListTitle)}
+          />
+        </ListTitleTextareaWrapper>
+      ) : (
+        <ListTitle>
+          <ListTitleButton onFocus={openTitleEditor} onClick={openTitleEditor} text={list.title} />
+          <DeleteListButton onClick={(e) => handleDeleteListButtonClick(e)} />
+        </ListTitle>
+      )}
+      <Droppable droppableId={list._id}>
+        {(provided) => (
+          <div ref={provided.innerRef}>
+            {cards.map((card, index) => (
+              <Draggable key={card._id} draggableId={card._id} index={index}>
+                {({innerRef, draggableProps, dragHandleProps, placeholder}) => (
+                  <div>
+                    {cardInEdit !== card._id ? (
+                      <CardTitle
+                        ref={innerRef}
+                        {...draggableProps}
+                        {...dragHandleProps}
+                        data-react-beautiful-dnd-draggable="0"
+                        data-react-beautiful-dnd-drag-handle="0">
+                        {card.title}
+                        <ButtonWrapper>
+                          <DeleteCardButton onClick={() => handleDeleteCard(card._id)} />
+                          <EditCardButton onClick={() => openCardEditor(card)} />
+                        </ButtonWrapper>
+                      </CardTitle>
+                    ) : (
+                      <TextareaWrapper>
+                        <CardTextarea
+                          value={tempCardTitle}
+                          onChange={handleCardEditorChange}
+                          onKeyDown={(e) => handleKeyDown(e, handleCardEdit)}
+                          onBlur={handleCardEdit}
+                        />
+                      </TextareaWrapper>
+                    )}
+                    {placeholder}
+                  </div>
+                )}
+              </Draggable>
+            ))}
+            {provided.placeholder}
+            {newCardFormIsOpen && (
+              <ClickOutside handleClickOutside={toggleCardComposer}>
+                <CardTextareaForm onSubmit={handleSubmitCard}>
+                  <CardTextarea
+                    value={newCardTitle}
+                    onChange={handleCardComposerChange}
+                    onKeyDown={(e) => handleKeyDown(e, handleSubmitCard)}
+                  />
+                  <Button variant="add" type="submit" text="Add" disabled={newCardTitle === ''} />
+                </CardTextareaForm>
+              </ClickOutside>
+            )}
+            {newCardFormIsOpen || (
+              <ComposerWrapper>
+                <Button variant="card" text="Add new card" onClick={toggleCardComposer}>
+                  Add new card
+                </Button>
+              </ComposerWrapper>
+            )}
+          </div>
         )}
-        <Droppable droppableId={list._id}>
-          {(provided) => (
-            <div ref={provided.innerRef}>
-              {cards.map((card, index) => (
-                <Draggable key={card._id} draggableId={card._id} index={index}>
-                  {({innerRef, draggableProps, dragHandleProps, placeholder}) => (
-                    <div>
-                      {cardInEdit !== card._id ? (
-                        <CardTitle
-                          ref={innerRef}
-                          {...draggableProps}
-                          {...dragHandleProps}
-                          data-react-beautiful-dnd-draggable="0"
-                          data-react-beautiful-dnd-drag-handle="0">
-                          {card.title}
-                          <ButtonWrapper>
-                            <DeleteCardButton onClick={() => this.deleteCard(card._id)} />
-                            <EditCardButton onClick={() => this.openCardEditor(card)} />
-                          </ButtonWrapper>
-                        </CardTitle>
-                      ) : (
-                        <TextareaWrapper>
-                          <CardTextarea
-                            autoFocus
-                            useCacheForDOMMeasurements
-                            value={editableCardTitle}
-                            onChange={this.handleCardEditorChange}
-                            onKeyDown={this.handleEditKeyDown}
-                            onBlur={this.handleSubmitCardEdit}
-                          />
-                        </TextareaWrapper>
-                      )}
-                      {placeholder}
-                    </div>
-                  )}
-                </Draggable>
-              ))}
-              {provided.placeholder}
-              {newCardFormIsOpen && (
-                <ClickOutside handleClickOutside={this.toggleCardComposer}>
-                  <CardTextareaForm onSubmit={this.handleSubmitCard}>
-                    <CardTextarea
-                      autoFocus
-                      useCacheForDOMMeasurements
-                      onChange={this.handleCardComposerChange}
-                      onKeyDown={this.handleKeyDown}
-                      value={newCardTitle}
-                    />
-                    <Button variant="add" type="submit" text="Add" disabled={newCardTitle === ''} />
-                  </CardTextareaForm>
-                </ClickOutside>
-              )}
-              {newCardFormIsOpen || (
-                <ComposerWrapper>
-                  <Button variant="card" text="Add new card" onClick={this.toggleCardComposer}>
-                    Add new card
-                  </Button>
-                </ComposerWrapper>
-              )}
-            </div>
-          )}
-        </Droppable>
-      </ListCard>
-    );
-  };
-}
+      </Droppable>
+    </ListCard>
+  );
+};
 
-const mapStateToProps = (state, ownProps) => ({
-  cards: ownProps.list.cards.map((cardId) => state.cardsById[cardId])
+const mapStateToProps = (state, props) => ({
+  cards: props.list.cards.map((cardId) => state.cardsById[cardId])
 });
 
 export default connect(mapStateToProps)(List);

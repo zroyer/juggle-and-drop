@@ -1,6 +1,6 @@
 {
-  "name": "juggle",
-  "version": "0.1.0",
+  "name": "juggle-and-drop",
+  "version": "0.1.1",
   "main": "dist/server.js",
   "scripts": {
     "build": "webpack-dashboard -- webpack --watch",
@@ -8,9 +8,6 @@
     "serve": "nodemon dist/server.js",
     "serve:prod": "NODE_ENV=production node dist/server.js",
     "start": "NODE_ENV=production node dist/server.js",
-    "analyze-bundle": "webpack -p --profile --json > stats.json && webpack-bundle-analyzer stats.json dist/public -s gzip",
-    "lint": "eslint --ext .js,.jsx src/",
-    "format": "prettier --write '**/*.{js,jsx,css,scss,json,md}'",
     "heroku-postbuild": "webpack -p --config ./webpack.prod.config.js --progress"
   },
   "dependencies": {

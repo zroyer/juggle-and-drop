@@ -35,7 +35,7 @@ const ListAdder = ({dispatch, boardId, numLeft}) => {
   };
 
   if (!isListInEdit) {
-    return <Button list="true" onClick={() => setIsListInEdit(true)} text={`Add a new list (${numLeft})`} />;
+    return <Button variant="list" onClick={() => setIsListInEdit(true)} text={`Add a new list (${numLeft})`} />;
   }
   return (
     <div className="list">

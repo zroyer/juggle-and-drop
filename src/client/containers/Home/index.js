@@ -4,8 +4,8 @@ import {Link} from 'react-router-dom';
 import {Helmet} from 'react-helmet';
 import styled from 'styled-components';
 import {FaTimesCircle} from 'react-icons/fa';
-import Button from '../components/Button';
-import {addBoard, deleteBoard} from '../actions/actionCreators';
+import Button from '../../components/Button';
+import {addBoard, deleteBoard} from '../../actions/actionCreators';
 
 const StyledHome = styled.div`
   display: flex;
@@ -152,7 +152,7 @@ class Home extends Component {
             <Row key={`row-${board._id}`}>
               <StyledLink to={`board/${board._id}`}>{board.title}</StyledLink>
               <StyledDeleteBoardButton onClick={() => this.deleteBoard(board._id)}>
-                <FaTimesCircle />
+                <FaTimesCircle size={18} />
               </StyledDeleteBoardButton>
             </Row>
           ))}
@@ -162,7 +162,7 @@ class Home extends Component {
               onChange={this.handleTitleChange}
               placeholder="Add a new board"
             />
-            <Button type="submit" value="Submit" text="Add" disabled={!this.state.newBoardTitle} board />
+            <Button variant="board" type="submit" value="Submit" text="Add" disabled={!this.state.newBoardTitle} />
           </StyledForm>
         </List>
       </StyledHome>

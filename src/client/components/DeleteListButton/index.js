@@ -9,7 +9,6 @@ const StyledDeleteListButton = styled.button`
   background: #f8f8f8;
   color: rgb(46, 68, 78);
   cursor: pointer;
-  font-size: 18px;
   opacity: 0.8;
 
   &:hover,
@@ -23,7 +22,7 @@ const StyledDeleteListButton = styled.button`
 const DeleteListButton = ({...props}) => {
   return (
     <StyledDeleteListButton {...props}>
-      <FaTimesCircle />
+      <FaTimesCircle size={18} />
     </StyledDeleteListButton>
   );
 };

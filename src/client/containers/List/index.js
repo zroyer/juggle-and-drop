@@ -2,15 +2,15 @@ import * as React from 'react';
 import {connect} from 'react-redux';
 import {Droppable, Draggable} from 'react-beautiful-dnd';
 import styled from 'styled-components';
-import ClickOutside from '../components/ClickOutside';
-import Button from '../components/Button';
-import ListTitleButton from '../components/ListTitleButton';
-import DeleteListButton from '../components/DeleteListButton';
-import DeleteCardButton from '../components/DeleteCardButton';
-import EditCardButton from '../components/EditCardButton';
-import CardTextarea from '../components/CardTextarea';
-import ListTitleTextarea from '../components/ListTitleTextarea';
-import {addCard, editCardTitle, deleteCard, editListTitle, deleteList} from '../actions/actionCreators';
+import ClickOutside from '../../components/ClickOutside';
+import Button from '../../components/Button';
+import ListTitleButton from '../../components/ListTitleButton';
+import DeleteListButton from '../../components/DeleteListButton';
+import DeleteCardButton from '../../components/DeleteCardButton';
+import EditCardButton from '../../components/EditCardButton';
+import CardTextarea from '../../components/CardTextarea';
+import ListTitleTextarea from '../../components/ListTitleTextarea';
+import {addCard, editCardTitle, deleteCard, editListTitle, deleteList} from '../../actions/actionCreators';
 
 const TextareaWrapper = styled.div`
   display: flex;
@@ -254,13 +254,13 @@ class List extends React.Component {
                       onKeyDown={this.handleKeyDown}
                       value={newCardTitle}
                     />
-                    <Button add type="submit" text="Add" disabled={newCardTitle === ''} />
+                    <Button variant="add" type="submit" text="Add" disabled={newCardTitle === ''} />
                   </CardTextareaForm>
                 </ClickOutside>
               )}
               {newCardFormIsOpen || (
                 <ComposerWrapper>
-                  <Button card text="Add new card" onClick={this.toggleCardComposer}>
+                  <Button variant="card" text="Add new card" onClick={this.toggleCardComposer}>
                     Add new card
                   </Button>
                 </ComposerWrapper>

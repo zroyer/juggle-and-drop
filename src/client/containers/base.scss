@@ -43,23 +43,5 @@ a:-webkit-any-link {
   max-height: 100%;
 
   & .card-title {
-    background: $white;
-    box-shadow: $brand-box-shadow;
-    margin: 0 10px 10px 10px;
-    padding: 8px;
-    border-radius: 5px;
-    position: relative;
-    overflow-wrap: break-word;
-    overflow: visible;
-    word-wrap: break-word;
-    box-sizing: border-box;
-    display: flex;
-    align-items: center;
-  }
-
-  .card-title:hover,
-  .card-title:active,
-  .card-title:focus {
-    box-shadow: $brand-box-shadow-hover;
   }
 }

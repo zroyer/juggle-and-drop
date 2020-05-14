@@ -18,8 +18,14 @@ const StyledListTitleTextarea = styled.textarea`
   resize: none;
 `;
 
+const handleOnFocus = (e) => {
+  const val = e.target.value;
+  e.target.value = '';
+  e.target.value = val;
+};
+
 const ListTitleTextarea = ({...props}) => {
-  return <StyledListTitleTextarea autoFocus useCacheForDOMMeasurements {...props} />;
+  return <StyledListTitleTextarea autoFocus useCacheForDOMMeasurements onFocus={handleOnFocus} {...props} />;
 };
 
 export default ListTitleTextarea;

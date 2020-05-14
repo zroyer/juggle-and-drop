@@ -50,6 +50,35 @@ const ListTitle = styled.div`
   color: rgb(46, 68, 78);
 `;
 
+const CardTitle = styled.div`
+  background: white;
+  box-shadow: inset 0 0 0 2px rgba(0, 0, 0, 0.1);
+  margin: 0 10px 10px 10px;
+  padding: 8px;
+  border-radius: 5px;
+  position: relative;
+  overflow-wrap: break-word;
+  overflow: visible;
+  word-wrap: break-word;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  &:hover,
+  &:active,
+  &:focus {
+    box-shadow: inset 0 0 0 2px rgba(0, 0, 0, 0.3);
+  }
+`;
+
+const ButtonWrapper = styled.div`
+  height: 16px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`;
+
 class List extends React.Component {
   constructor() {
     super();
@@ -184,7 +213,7 @@ class List extends React.Component {
                   {({innerRef, draggableProps, dragHandleProps, placeholder}) => (
                     <div>
                       {cardInEdit !== card._id ? (
-                        <div
+                        <CardTitle
                           className="card-title"
                           ref={innerRef}
                           {...draggableProps}
@@ -192,9 +221,11 @@ class List extends React.Component {
                           data-react-beautiful-dnd-draggable="0"
                           data-react-beautiful-dnd-drag-handle="0">
                           <span>{card.title}</span>
-                          <DeleteCardButton onClick={() => this.deleteCard(card._id)} />
-                          <EditCardButton onClick={() => this.openCardEditor(card)} />
-                        </div>
+                          <ButtonWrapper>
+                            <DeleteCardButton onClick={() => this.deleteCard(card._id)} />
+                            <EditCardButton onClick={() => this.openCardEditor(card)} />
+                          </ButtonWrapper>
+                        </CardTitle>
                       ) : (
                         <TextareaWrapper>
                           <CardTextarea

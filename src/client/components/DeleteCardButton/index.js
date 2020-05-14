@@ -1,16 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
-import FaTimesCircle from 'react-icons/lib/fa/times-circle';
+import {FaTimesCircle} from 'react-icons/fa';
 
 const StyledDeleteCardButton = styled.button`
   padding: 0;
-  position: absolute;
-  top: 7.5px;
-  right: 27px;
+  position: relative;
   border: 0;
   opacity: 0.1;
   cursor: pointer;
-  font-size: 16px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -27,7 +24,7 @@ const StyledDeleteCardButton = styled.button`
 const DeleteCardButton = ({...props}) => {
   return (
     <StyledDeleteCardButton {...props}>
-      <FaTimesCircle />
+      <FaTimesCircle size={16} />
     </StyledDeleteCardButton>
   );
 };

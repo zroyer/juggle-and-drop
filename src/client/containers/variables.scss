@@ -1,11 +1,7 @@
 // Colors
-$white: rgb(255,255,255);
+$white: rgb(255, 255, 255);
 $text-grey: rgb(46, 68, 78);
 $background-grey: rgb(248, 248, 248);
-$gradient-nil: rgb(118,75,162);
-$gradient-hunnit: rgb(102,126,234);
+$gradient-nil: rgb(118, 75, 162);
+$gradient-hunnit: rgb(102, 126, 234);
 $background-gradient: linear-gradient(to top, $gradient-nil 0%, $gradient-hunnit 100%);
-
-// Box Shadows
-$brand-box-shadow: inset 0 0 0 2px rgba(0,0,0,0.1);
-$brand-box-shadow-hover: inset 0 0 0 2px rgba(0,0,0,0.3);

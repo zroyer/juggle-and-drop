@@ -1,16 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
-import FaEdit from 'react-icons/lib/fa/edit';
+import {FaEdit} from 'react-icons/fa';
 
 const StyledEditCardButton = styled.button`
+  position: relative;
   padding: 0;
-  position: absolute;
-  top: 8.5px;
-  right: 8px;
+  margin: 0 0 1.5px 4px;
   border: 0;
   opacity: 0.1;
   cursor: pointer;
-  font-size: 16px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -26,7 +24,7 @@ const StyledEditCardButton = styled.button`
 const EditCardButton = ({...props}) => {
   return (
     <StyledEditCardButton {...props}>
-      <FaEdit />
+      <FaEdit size={18} />
     </StyledEditCardButton>
   );
 };

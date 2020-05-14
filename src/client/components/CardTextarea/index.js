@@ -19,8 +19,14 @@ const StyledCardTextarea = styled(Textarea)`
   resize: none;
 `;
 
+const handleOnFocus = (e) => {
+  const val = e.target.value;
+  e.target.value = '';
+  e.target.value = val;
+};
+
 const CardTextarea = ({...props}) => {
-  return <StyledCardTextarea {...props} />;
+  return <StyledCardTextarea onFocus={handleOnFocus} {...props} />;
 };
 
 export default CardTextarea;

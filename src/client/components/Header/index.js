@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import {Link} from 'react-router-dom';
-import Github from 'react-icons/lib/fa/github';
+import {FaGithub} from 'react-icons/fa';
 
 const Wrapper = styled.div`
   height: 50px;
@@ -61,7 +61,7 @@ const Header = () => {
         <HomeLinkText>juggle & drop</HomeLinkText>
       </HomeLink>
       <GithubLink href="https://github.com/zroyer/juggle-and-drop" target="_blank">
-        <Github size={20} />
+        <FaGithub size={20} />
       </GithubLink>
     </Wrapper>
   );

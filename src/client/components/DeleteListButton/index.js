@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import FaTimesCircle from 'react-icons/lib/fa/times-circle';
+import {FaTimesCircle} from 'react-icons/fa';
 
 const StyledDeleteListButton = styled.button`
   border: 0;

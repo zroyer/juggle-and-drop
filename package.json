@@ -3,11 +3,10 @@
   "version": "0.1.1",
   "main": "dist/server.js",
   "scripts": {
-    "build": "webpack-dashboard -- webpack --watch",
+    "build": "webpack --mode development --watch",
     "build:prod": "webpack -p",
-    "serve": "nodemon dist/server.js",
+    "serve": "NODE_ENV=development nodemon dist/server.js",
     "serve:prod": "NODE_ENV=production node dist/server.js",
-    "start": "NODE_ENV=production node dist/server.js",
     "heroku-postbuild": "webpack -p --config ./webpack.prod.config.js --progress"
   },
   "dependencies": {
@@ -22,6 +21,7 @@
     "react": "^16.13.1",
     "react-beautiful-dnd": "^13.0.0",
     "react-dom": "^16.13.1",
+    "react-ga": "^2.7.0",
     "react-icons": "^3.10.0",
     "react-onclickoutside": "^6.7.1",
     "react-redux": "^5.0.6",

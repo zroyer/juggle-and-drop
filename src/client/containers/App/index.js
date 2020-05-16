@@ -1,9 +1,17 @@
 import React from 'react';
 import {Route} from 'react-router-dom';
 import {createGlobalStyle} from 'styled-components';
+import ReactGA from 'react-ga';
 import Home from '../Home';
 import Board from '../Board';
 import Header from '../../components/Header';
+
+if (process.env.GA_TRACKINGID) {
+  ReactGA.initialize(process.env.GA_TRACKINGID, {
+    debug: true,
+    gaOptions: {env: process.env.NODE_ENV}
+  });
+}
 
 const GlobalStyle = createGlobalStyle`
   body {

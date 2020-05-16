@@ -5,11 +5,12 @@ import ReactGA from 'react-ga';
 import Home from '../Home';
 import Board from '../Board';
 import Header from '../../components/Header';
-
+console.log(process.env.NODE_ENV === 'development');
 ReactGA.initialize('UA-166871159-1', {
-  debug: true,
+  debug: process.env.NODE_ENV === 'development',
   gaOptions: {env: process.env.NODE_ENV}
 });
+ReactGA.pageview('/');
 
 const GlobalStyle = createGlobalStyle`
   body {

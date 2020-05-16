@@ -2,9 +2,10 @@ import React, {useState} from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 import styled from 'styled-components';
+import ReactGA from 'react-ga';
 import {FaTimesCircle} from 'react-icons/fa';
-import Button from '../../components/Button';
 import {addBoard, deleteBoard} from '../../actions/actionCreators';
+import Button from '../../components/Button';
 
 const StyledHome = styled.div`
   display: flex;

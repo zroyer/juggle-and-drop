@@ -1,8 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {DragDropContext, Droppable, Draggable} from 'react-beautiful-dnd';
-import styled from 'styled-components';
 import ReactGA from 'react-ga';
+import styled from 'styled-components';
+import {DragDropContext, Droppable, Draggable} from 'react-beautiful-dnd';
 import List from '../List';
 import ListAdder from '../../components/ListAdder';
 import {reorderList, reorderBoard} from '../../actions/actionCreators';

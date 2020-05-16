@@ -6,12 +6,10 @@ import Home from '../Home';
 import Board from '../Board';
 import Header from '../../components/Header';
 
-if (process.env.GA_TRACKINGID) {
-  ReactGA.initialize(process.env.GA_TRACKINGID, {
-    debug: true,
-    gaOptions: {env: process.env.NODE_ENV}
-  });
-}
+ReactGA.initialize('UA-166871159-1', {
+  debug: true,
+  gaOptions: {env: process.env.NODE_ENV}
+});
 
 const GlobalStyle = createGlobalStyle`
   body {

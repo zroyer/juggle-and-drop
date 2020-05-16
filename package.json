@@ -7,6 +7,7 @@
     "build:prod": "webpack -p",
     "serve": "NODE_ENV=development nodemon dist/server.js",
     "serve:prod": "NODE_ENV=production node dist/server.js",
+    "start": "webpack -p NODE_ENV=production node dist/server.js",
     "heroku-postbuild": "webpack -p --config ./webpack.prod.config.js --progress"
   },
   "dependencies": {

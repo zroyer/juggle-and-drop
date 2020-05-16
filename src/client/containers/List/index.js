@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import {connect} from 'react-redux';
 import {Droppable, Draggable} from 'react-beautiful-dnd';
 import styled from 'styled-components';
-import ClickOutside from '../../components/ClickOutside';
 import Button from '../../components/Button';
 import ListCard from '../../components/ListCard';
 import ListTitleButton from '../../components/ListTitleButton';
@@ -29,7 +28,7 @@ const ListTitleTextareaWrapper = styled.div`
   padding: 0 10px;
 `;
 
-const CardTextareaForm = styled(TextareaWrapper.withComponent('form'))`
+const CardTextareaWrapper = styled(TextareaWrapper)`
   margin: 0 10px 10px 10px;
 `;
 
@@ -102,10 +101,10 @@ const List = ({dispatch, boardId, cards, list}) => {
 
   const handleSubmitCard = (event) => {
     event.preventDefault();
+    setNewCardFormIsOpen(false);
     if (newCardTitle.length < 1) return;
     dispatch(addCard(newCardTitle, list._id, boardId));
     setNewCardTitle('');
-    setNewCardFormIsOpen(false);
   };
 
   const openCardEditor = (card) => {
@@ -160,6 +159,7 @@ const List = ({dispatch, boardId, cards, list}) => {
             value={newListTitle}
             onChange={handleListTitleEditorChange}
             onKeyDown={(e) => handleKeyDown(e, handleSubmitListTitle)}
+            onBlur={handleSubmitListTitle}
           />
         </ListTitleTextareaWrapper>
       ) : (
@@ -205,16 +205,15 @@ const List = ({dispatch, boardId, cards, list}) => {
             ))}
             {provided.placeholder}
             {newCardFormIsOpen && (
-              <ClickOutside handleClickOutside={toggleCardComposer}>
-                <CardTextareaForm onSubmit={handleSubmitCard}>
-                  <CardTextarea
-                    value={newCardTitle}
-                    onChange={handleCardComposerChange}
-                    onKeyDown={(e) => handleKeyDown(e, handleSubmitCard)}
-                  />
-                  <Button variant="add" type="submit" text="Add" disabled={newCardTitle === ''} />
-                </CardTextareaForm>
-              </ClickOutside>
+              <CardTextareaWrapper>
+                <CardTextarea
+                  value={newCardTitle}
+                  onChange={handleCardComposerChange}
+                  onKeyDown={(e) => handleKeyDown(e, handleSubmitCard)}
+                  onBlur={handleSubmitCard}
+                />
+                <Button variant="add" onClick={handleSubmitCard} text="Add" disabled={newCardTitle === ''} />
+              </CardTextareaWrapper>
             )}
             {newCardFormIsOpen || (
               <ComposerWrapper>

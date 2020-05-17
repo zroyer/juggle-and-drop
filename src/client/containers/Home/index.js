@@ -133,7 +133,7 @@ const Home = ({dispatch, boards}) => {
 
   const onAddBoard = async (boardTitle) => {
     setIsLoading(true);
-    await dispatch(addBoard(boardTitle)).then(() => {
+    await dispatch(addBoard({boardTitle})).then(() => {
       setNewBoardTitle('');
       setIsLoading(false);
     });
@@ -141,7 +141,7 @@ const Home = ({dispatch, boards}) => {
 
   const onDeleteBoard = async (boardId) => {
     setIsLoading(true);
-    await dispatch(deleteBoard(boardId)).then(() => {
+    await dispatch(deleteBoard({boardId})).then(() => {
       setIsLoading(false);
     });
   };

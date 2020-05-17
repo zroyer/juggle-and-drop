@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import {DragDropContext, Droppable, Draggable} from 'react-beautiful-dnd';
 import List from '../List';
 import ListAdder from '../../components/ListAdder';
-import {reorderList, reorderBoard} from '../../actions/actionCreators';
+import {addList, reorderList, reorderBoard} from '../../actions/actionCreators';
 
 const StyledBoard = styled.div`
   display: flex;
@@ -58,8 +58,15 @@ const ListsWrapper = styled.div`
 `;
 
 const Board = ({dispatch, lists, boardTitle, boardId}) => {
+  const [showListAdder, setShowListAdder] = useState(false);
+  const [newListTitle, setNewListTitle] = useState('');
+
   const handleDragEnd = ({draggableId, source, destination, type}) => {
     if (!destination) {
+      return;
+    }
+
+    if (destination.droppableId === source.droppableId && destination.index === source.index) {
       return;
     }
 
@@ -85,6 +92,18 @@ const Board = ({dispatch, lists, boardTitle, boardId}) => {
         })
       );
     }
+  };
+
+  const onAddList = async () => {
+    await dispatch(
+      addList({
+        listTitle: newListTitle,
+        boardId
+      })
+    ).then(() => {
+      setShowListAdder(false);
+      setNewListTitle('');
+    });
   };
 
   return (
@@ -114,7 +133,14 @@ const Board = ({dispatch, lists, boardTitle, boardId}) => {
                 ))}
                 {droppableProvided.placeholder}
                 {lists.length < 5 && (
-                  <ListAdder boardId={boardId} numLeft={5 - lists.length} style={{height: 'initial'}} />
+                  <ListAdder
+                    numLeft={5 - lists.length}
+                    onAddList={onAddList}
+                    showListAdder={showListAdder}
+                    setShowListAdder={setShowListAdder}
+                    newListTitle={newListTitle}
+                    setNewListTitle={setNewListTitle}
+                  />
                 )}
               </ListsWrapper>
             )}

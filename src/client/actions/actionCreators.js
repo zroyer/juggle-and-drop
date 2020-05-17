@@ -6,7 +6,7 @@ import shortid from 'shortid';
  * Board action creators
  */
 
-export const addBoard = (boardTitle) => (dispatch) => {
+export const addBoard = ({boardTitle}) => (dispatch) => {
   return axios.post('/api/board', {boardTitle}).then(({data}) => {
     dispatch({
       type: 'ADD_BOARD',
@@ -15,7 +15,7 @@ export const addBoard = (boardTitle) => (dispatch) => {
   });
 };
 
-export const deleteBoard = (boardId) => (dispatch) => {
+export const deleteBoard = ({boardId}) => (dispatch) => {
   return axios.delete('/api/board', {data: {boardId}}).then(() => {
     dispatch({
       type: 'DELETE_BOARD',
@@ -46,34 +46,34 @@ export const reorderBoard = ({listId, sourceId, sourceIndex, destinationIndex}) 
  * List action creators
  */
 
-export const addList = (listTitle, boardId) => (dispatch) => {
-  const listId = shortid.generate();
-  dispatch({
-    type: 'ADD_LIST',
-    payload: {listTitle, listId, boardId}
+export const addList = ({listTitle, boardId}) => (dispatch) => {
+  return axios.post('/api/list', {listTitle, boardId}).then(({data}) => {
+    dispatch({
+      type: 'ADD_LIST',
+      payload: {listTitle, boardId, listId: data.listId}
+    });
   });
-
-  axios.post('/api/list', {listTitle, listId, boardId}).then(({data}) => console.log(data));
 };
 
-export const editListTitle = (listTitle, listId, boardId) => (dispatch) => {
-  dispatch({
-    type: 'EDIT_LIST_TITLE',
-    payload: {
-      listTitle,
-      listId
-    }
+export const editListTitle = ({listTitle, listId, boardId}) => (dispatch) => {
+  return axios.put('/api/list', {listTitle, listId, boardId}).then(() => {
+    dispatch({
+      type: 'EDIT_LIST_TITLE',
+      payload: {
+        listTitle,
+        listId
+      }
+    });
   });
-
-  axios.put('/api/list', {listTitle, listId, boardId}).then(({data}) => console.log(data));
 };
 
-export const deleteList = (cards, listId, boardId) => (dispatch) => {
+export const deleteList = ({cards, listId, boardId}) => (dispatch) => {
+  // We need this to be syncronous to prevent the UI from flickering
   dispatch({
     type: 'DELETE_LIST',
     payload: {cards, listId, boardId}
   });
-  axios.delete('/api/list', {data: {listId, boardId}}).then(({data}) => console.log(data));
+  axios.delete('/api/list', {data: {listId, boardId}});
 };
 
 export const reorderList = ({cardId, sourceId, destinationId, sourceIndex, destinationIndex, boardId}) => (

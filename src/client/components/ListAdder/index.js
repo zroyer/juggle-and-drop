@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import {connect} from 'react-redux';
 import styled from 'styled-components';
-import {addList} from '../../actions/actionCreators';
 import Button from '../Button';
 import ListTitleTextarea from '../ListTitleTextarea';
 import ListCard from '../ListCard';
@@ -14,34 +13,36 @@ const ListAdderTextareaWrapper = styled.div`
   padding: 0 10px;
 `;
 
-const ListAdder = ({dispatch, boardId, numLeft}) => {
-  const [isListInEdit, setIsListInEdit] = useState(false);
-  const [newListTitle, setNewListTitle] = useState('');
-
-  const handleBlur = () => setIsListInEdit(false);
-
+const ListAdder = ({numLeft, onAddList, showListAdder, setShowListAdder, newListTitle, setNewListTitle}) => {
   const handleChange = (event) => setNewListTitle(event.target.value);
 
-  const handleKeyDown = (event) => {
+  const handleKeyDown = (event, callback) => {
     if (event.keyCode === 13) {
       event.preventDefault();
-      handleSubmit();
+      callback();
     }
   };
 
-  const handleSubmit = () => {
-    dispatch(addList(newListTitle, boardId));
-    setIsListInEdit(false);
-    setNewListTitle('');
+  const handleAddList = () => {
+    if (newListTitle.length > 0 && numLeft > 0) {
+      onAddList();
+    } else {
+      setShowListAdder(false);
+    }
   };
 
-  if (!isListInEdit) {
-    return <Button variant="list" onClick={() => setIsListInEdit(true)} text={`Add a new list (${numLeft})`} />;
+  if (!showListAdder) {
+    return <Button variant="list" onClick={() => setShowListAdder(true)} text={`Add a new list (${numLeft})`} />;
   }
   return (
     <ListCard>
       <ListAdderTextareaWrapper>
-        <ListTitleTextarea value={newListTitle} onChange={handleChange} onKeyDown={handleKeyDown} onBlur={handleBlur} />
+        <ListTitleTextarea
+          value={newListTitle}
+          onChange={handleChange}
+          onKeyDown={(e) => handleKeyDown(e, handleAddList)}
+          onBlur={handleAddList}
+        />
       </ListAdderTextareaWrapper>
     </ListCard>
   );

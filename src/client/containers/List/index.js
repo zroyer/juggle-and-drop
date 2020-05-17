@@ -82,7 +82,7 @@ const ButtonWrapper = styled.div`
 const List = ({dispatch, boardId, cards, list}) => {
   const [newCardFormIsOpen, setNewCardFormIsOpen] = useState(false);
   const [isListTitleInEdit, setIsListTitleInEdit] = useState(false);
-  const [cardIsSubmitting, setCardIsSubmitting] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [cardInEdit, setCardInEdit] = useState(null);
   const [newCardTitle, setNewCardTitle] = useState('');
   const [newListTitle, setNewListTitle] = useState('');
@@ -141,21 +141,22 @@ const List = ({dispatch, boardId, cards, list}) => {
   };
 
   const handleSubmitListTitle = () => {
-    if (newListTitle.length < 1) return;
-    dispatch(editListTitle(newListTitle.trim(), list._id, boardId));
-    setNewListTitle('');
-    setIsListTitleInEdit(false);
+    if (newListTitle.length < 1) {
+      setIsListTitleInEdit(false);
+      return;
+    }
+    onEditListTitle(newListTitle.trim(), list._id, boardId);
   };
 
   const handleDeleteListButtonClick = (event) => {
     event.preventDefault();
-    dispatch(deleteList(list.cards, list._id, boardId));
+    onDeleteList(list.cards, list._id, boardId);
   };
 
   const onSubmitCard = async () => {
-    setCardIsSubmitting(true);
+    setIsLoading(true);
     await dispatch(addCard({cardTitle: newCardTitle, listId: list._id, boardId})).then(() => {
-      setCardIsSubmitting(false);
+      setIsLoading(false);
       setNewCardTitle('');
     });
   };
@@ -175,8 +176,20 @@ const List = ({dispatch, boardId, cards, list}) => {
     });
   };
 
-  const onDeleteCard = async (cardId) => {
-    await dispatch(deleteCard({cardId, listId: list._id, boardId}));
+  const onDeleteCard = (cardId) => {
+    dispatch(deleteCard({cardId, listId: list._id, boardId}));
+  };
+
+  const onEditListTitle = async (listTitle, listId, boardId) => {
+    setIsListTitleInEdit(true);
+    await dispatch(editListTitle({listTitle, listId, boardId})).then(() => {
+      setNewListTitle('');
+      setIsListTitleInEdit(false);
+    });
+  };
+
+  const onDeleteList = (cards, listId, boardId) => {
+    dispatch(deleteList({cards, listId, boardId}));
   };
 
   return (
@@ -232,7 +245,7 @@ const List = ({dispatch, boardId, cards, list}) => {
               </Draggable>
             ))}
             {provided.placeholder}
-            {(newCardFormIsOpen || cardIsSubmitting) && (
+            {(newCardFormIsOpen || isLoading) && (
               <CardTextareaWrapper>
                 <CardTextarea
                   value={newCardTitle}
@@ -244,7 +257,7 @@ const List = ({dispatch, boardId, cards, list}) => {
               </CardTextareaWrapper>
             )}
             {!newCardFormIsOpen &&
-              !cardIsSubmitting && (
+              !isLoading && (
                 <ComposerWrapper>
                   <Button variant="card" text="Add new card" onClick={toggleCardComposer}>
                     Add new card

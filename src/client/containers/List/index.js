@@ -124,7 +124,7 @@ const List = ({dispatch, boardId, cards, list}) => {
     if (tempCardTitle.length < 1) {
       handleDeleteCard(cardInEdit);
     } else {
-      dispatch(editCardTitle(tempCardTitle, cardInEdit, list, boardId));
+      dispatch(editCardTitle(tempCardTitle.trim(), cardInEdit, list, boardId));
     }
     setTempCardTitle('');
     setCardInEdit(null);
@@ -141,7 +141,7 @@ const List = ({dispatch, boardId, cards, list}) => {
 
   const handleSubmitListTitle = () => {
     if (newListTitle.length < 1) return;
-    dispatch(editListTitle(newListTitle, list._id, boardId));
+    dispatch(editListTitle(newListTitle.trim(), list._id, boardId));
     setNewListTitle('');
     setIsListTitleInEdit(false);
   };

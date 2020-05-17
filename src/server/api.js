@@ -21,11 +21,8 @@ const api = (db) => {
     const cardId = shortid.generate();
     const {cardTitle, listId, boardId} = req.body;
     boards
-      .findOneAndUpdate(
-        {_id: boardId, 'lists._id': listId},
-        {$push: {'lists.$.cards': {_id: cardId, title: cardTitle}}}
-      )
-      .then(() => res.send({cardId}))
+      .updateOne({_id: boardId, 'lists._id': listId}, {$push: {'lists.$.cards': {_id: cardId, title: cardTitle}}})
+      .then((result) => res.send({result, cardId}))
       .catch((error) => {
         console.error(error);
       });
@@ -33,19 +30,23 @@ const api = (db) => {
 
   router.put('/card', (req, res) => {
     const {cardTitle, cardIndex, listId, boardId} = req.body;
-
     const title = `lists.$.cards.${cardIndex}.title`;
     boards
       .updateOne({_id: boardId, 'lists._id': listId}, {$set: {[title]: cardTitle}})
-      .then((result) => res.send(result));
+      .then((result) => res.send(result))
+      .catch((error) => {
+        console.error(error);
+      });
   });
 
   router.delete('/card', (req, res) => {
     const {cardId, listId, boardId} = req.body;
-
     boards
       .updateOne({_id: boardId, 'lists._id': listId}, {$pull: {'lists.$.cards': {_id: cardId}}})
-      .then((result) => res.send(result));
+      .then((result) => res.send(result))
+      .catch((error) => {
+        console.error(error);
+      });
   });
 
   router.post('/list', (req, res) => {

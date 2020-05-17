@@ -100,17 +100,15 @@ const List = ({dispatch, boardId, cards, list}) => {
     }
   };
 
-  const handleSubmitCard = async (event) => {
+  const handleSubmitCard = (event) => {
     event.preventDefault();
     setNewCardFormIsOpen(false);
     if (newCardTitle.length < 1) return;
-    setCardIsSubmitting(true);
-    await dispatch(addCard(newCardTitle, list._id, boardId));
-    setCardIsSubmitting(false);
-    setNewCardTitle('');
+    onSubmitCard();
   };
 
-  const openCardEditor = (card) => {
+  const openCardEditor = (event, card) => {
+    event.preventDefault();
     setCardInEdit(card._id);
     setTempCardTitle(card.title);
   };
@@ -123,18 +121,18 @@ const List = ({dispatch, boardId, cards, list}) => {
     setNewListTitle(event.target.value);
   };
 
-  const handleCardEdit = () => {
+  const handleCardEdit = async (e) => {
+    e.preventDefault();
     if (tempCardTitle.length < 1) {
-      handleDeleteCard(cardInEdit);
+      onDeleteCard(cardInEdit);
     } else {
-      dispatch(editCardTitle(tempCardTitle.trim(), cardInEdit, list, boardId));
+      onEditCard();
     }
-    setTempCardTitle('');
-    setCardInEdit(null);
   };
 
-  const handleDeleteCard = (cardId) => {
-    dispatch(deleteCard(cardId, list._id, boardId));
+  const handleDeleteCard = (event, cardId) => {
+    event.preventDefault();
+    onDeleteCard(cardId);
   };
 
   const openTitleEditor = () => {
@@ -152,6 +150,33 @@ const List = ({dispatch, boardId, cards, list}) => {
   const handleDeleteListButtonClick = (event) => {
     event.preventDefault();
     dispatch(deleteList(list.cards, list._id, boardId));
+  };
+
+  const onSubmitCard = async () => {
+    setCardIsSubmitting(true);
+    await dispatch(addCard({cardTitle: newCardTitle, listId: list._id, boardId})).then(() => {
+      setCardIsSubmitting(false);
+      setNewCardTitle('');
+    });
+  };
+
+  const onEditCard = async () => {
+    await dispatch(
+      editCardTitle({
+        cardTitle: tempCardTitle.trim(),
+        cardId: cardInEdit,
+        cardIndex: list.cards.indexOf(cardInEdit),
+        listId: list._id,
+        boardId
+      })
+    ).then(() => {
+      setTempCardTitle('');
+      setCardInEdit(null);
+    });
+  };
+
+  const onDeleteCard = async (cardId) => {
+    await dispatch(deleteCard({cardId, listId: list._id, boardId}));
   };
 
   return (
@@ -187,8 +212,8 @@ const List = ({dispatch, boardId, cards, list}) => {
                         data-react-beautiful-dnd-drag-handle="0">
                         {card.title}
                         <ButtonWrapper>
-                          <DeleteCardButton onClick={() => handleDeleteCard(card._id)} />
-                          <EditCardButton onClick={() => openCardEditor(card)} />
+                          <DeleteCardButton onClick={(e) => handleDeleteCard(e, card._id)} />
+                          <EditCardButton onClick={(e) => openCardEditor(e, card)} />
                         </ButtonWrapper>
                       </CardTitle>
                     ) : (

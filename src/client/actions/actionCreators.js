@@ -2,7 +2,7 @@ import axios from 'axios';
 import shortid from 'shortid';
 /* eslint-disable no-console */
 
-export const addCard = (cardTitle, listId, boardId) => (dispatch) => {
+export const addCard = ({cardTitle, listId, boardId}) => (dispatch) => {
   return axios.post('/api/card', {cardTitle, listId, boardId}).then(({data}) => {
     dispatch({
       type: 'ADD_CARD',
@@ -11,22 +11,23 @@ export const addCard = (cardTitle, listId, boardId) => (dispatch) => {
   });
 };
 
-export const editCardTitle = (cardTitle, cardId, list, boardId) => (dispatch) => {
-  dispatch({
-    type: 'EDIT_CARD_TITLE',
-    payload: {
-      cardTitle,
-      cardId,
-      listId: list._id
-    }
+export const editCardTitle = ({cardTitle, cardId, cardIndex, listId, boardId}) => (dispatch) => {
+  return axios.put('/api/card', {cardTitle, cardIndex, listId, boardId}).then(() => {
+    dispatch({
+      type: 'EDIT_CARD_TITLE',
+      payload: {
+        cardTitle,
+        cardId,
+        listId
+      }
+    });
   });
-  const cardIndex = list.cards.indexOf(cardId);
-  axios.put('/api/card', {cardTitle, cardIndex, listId: list._id, boardId}).then(({data}) => console.log(data));
 };
 
-export const deleteCard = (cardId, listId, boardId) => (dispatch) => {
-  dispatch({type: 'DELETE_CARD', payload: {cardId, listId}});
-  axios.delete('/api/card', {data: {cardId, listId, boardId}}).then(({data}) => console.log(data));
+export const deleteCard = ({cardId, listId, boardId}) => (dispatch) => {
+  return axios.delete('/api/card', {data: {cardId, listId, boardId}}).then(() => {
+    dispatch({type: 'DELETE_CARD', payload: {cardId, listId}});
+  });
 };
 
 export const reorderList = (cardId, sourceId, destinationId, sourceIndex, destinationIndex, boardId) => (dispatch) => {

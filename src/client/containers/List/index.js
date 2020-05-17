@@ -200,7 +200,7 @@ const List = ({dispatch, boardId, cards, list}) => {
         {(provided) => (
           <div ref={provided.innerRef}>
             {cards.map((card, index) => (
-              <Draggable key={card._id} draggableId={card._id} index={index} isDragDisabled={cardInEdit === card._id}>
+              <Draggable key={card._id} draggableId={card._id} index={index}>
                 {({innerRef, draggableProps, dragHandleProps, placeholder}) => (
                   <div>
                     {cardInEdit !== card._id ? (

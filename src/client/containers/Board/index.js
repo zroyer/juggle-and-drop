@@ -59,7 +59,6 @@ const ListsWrapper = styled.div`
 
 const Board = ({dispatch, lists, boardTitle, boardId}) => {
   const handleDragEnd = ({draggableId, source, destination, type}) => {
-    // dropped outside the list
     if (!destination) {
       return;
     }

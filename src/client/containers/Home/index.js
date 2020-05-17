@@ -117,18 +117,33 @@ const StyledDeleteBoardButton = styled.button`
 
 const Home = ({dispatch, boards}) => {
   const [newBoardTitle, setNewBoardTitle] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleTitleChange = (event) => setNewBoardTitle(event.target.value);
 
-  const handleDeleteBoard = (event, boardId) => {
-    event.preventDefault();
-    dispatch(deleteBoard(boardId));
-  };
-
   const handleAddBoard = (event, boardTitle) => {
     event.preventDefault();
-    dispatch(addBoard(boardTitle));
-    setNewBoardTitle('');
+    onAddBoard(boardTitle);
+  };
+
+  const handleDeleteBoard = (event, boardId) => {
+    event.preventDefault();
+    onDeleteBoard(boardId);
+  };
+
+  const onAddBoard = async (boardTitle) => {
+    setIsLoading(true);
+    await dispatch(addBoard(boardTitle)).then(() => {
+      setNewBoardTitle('');
+      setIsLoading(false);
+    });
+  };
+
+  const onDeleteBoard = async (boardId) => {
+    setIsLoading(true);
+    await dispatch(deleteBoard(boardId)).then(() => {
+      setIsLoading(false);
+    });
   };
 
   return (
@@ -145,7 +160,7 @@ const Home = ({dispatch, boards}) => {
         ))}
         <StyledForm onSubmit={(e) => handleAddBoard(e, newBoardTitle)}>
           <StyledInput value={newBoardTitle} onChange={(e) => handleTitleChange(e)} placeholder="Add a new board" />
-          <Button variant="board" type="submit" value="Submit" text="Add" disabled={!newBoardTitle} />
+          <Button variant="board" type="submit" value="Submit" text="Add" disabled={!newBoardTitle || isLoading} />
         </StyledForm>
       </List>
     </StyledHome>

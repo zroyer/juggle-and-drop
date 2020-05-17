@@ -9,8 +9,14 @@ const api = (db) => {
    * Board
    */
   router.post('/board', (req, res) => {
-    const {boardTitle, boardId} = req.body;
-    boards.insert({_id: boardId, title: boardTitle, lists: []}).then((result) => res.send(result));
+    const boardId = shortid.generate();
+    const {boardTitle} = req.body;
+    boards
+      .insert({_id: boardId, title: boardTitle, lists: []})
+      .then((result) => res.send({result, boardId}))
+      .catch((error) => {
+        console.error(error);
+      });
   });
 
   router.delete('/board', (req, res) => {

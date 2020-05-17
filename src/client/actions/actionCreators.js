@@ -7,24 +7,25 @@ import shortid from 'shortid';
  */
 
 export const addBoard = (boardTitle) => (dispatch) => {
-  const boardId = shortid.generate();
-  dispatch({
-    type: 'ADD_BOARD',
-    payload: {boardTitle, boardId}
+  return axios.post('/api/board', {boardTitle}).then(({data}) => {
+    dispatch({
+      type: 'ADD_BOARD',
+      payload: {boardTitle, boardId: data.boardId}
+    });
   });
-
-  axios.post('/api/board', {boardTitle, boardId}).then(({data}) => console.log(data));
 };
 
 export const deleteBoard = (boardId) => (dispatch) => {
-  dispatch({
-    type: 'DELETE_BOARD',
-    payload: {boardId}
+  return axios.delete('/api/board', {data: {boardId}}).then(() => {
+    dispatch({
+      type: 'DELETE_BOARD',
+      payload: {boardId}
+    });
   });
-  axios.delete('/api/board', {data: {boardId}}).then(({data}) => console.log(data));
 };
 
-export const reorderBoard = (listId, sourceId, sourceIndex, destinationIndex) => (dispatch) => {
+export const reorderBoard = ({listId, sourceId, sourceIndex, destinationIndex}) => (dispatch) => {
+  // We need this to be syncronous to prevent the UI from flickering
   dispatch({
     type: 'REORDER_LISTS',
     payload: {
@@ -33,15 +34,12 @@ export const reorderBoard = (listId, sourceId, sourceIndex, destinationIndex) =>
       destinationIndex
     }
   });
-
-  axios
-    .put('/api/reorder-board', {
-      listId,
-      sourceId,
-      sourceIndex,
-      destinationIndex
-    })
-    .then(({data}) => console.log(data));
+  axios.put('/api/reorder-board', {
+    listId,
+    sourceId,
+    sourceIndex,
+    destinationIndex
+  });
 };
 
 /**
@@ -78,7 +76,10 @@ export const deleteList = (cards, listId, boardId) => (dispatch) => {
   axios.delete('/api/list', {data: {listId, boardId}}).then(({data}) => console.log(data));
 };
 
-export const reorderList = (cardId, sourceId, destinationId, sourceIndex, destinationIndex, boardId) => (dispatch) => {
+export const reorderList = ({cardId, sourceId, destinationId, sourceIndex, destinationIndex, boardId}) => (
+  dispatch
+) => {
+  // We need this to be syncronous to prevent the UI from flickering
   dispatch({
     type: 'REORDER_LIST',
     payload: {
@@ -88,17 +89,14 @@ export const reorderList = (cardId, sourceId, destinationId, sourceIndex, destin
       destinationIndex
     }
   });
-
-  axios
-    .put('/api/reorder-list', {
-      cardId,
-      sourceId,
-      destinationId,
-      sourceIndex,
-      destinationIndex,
-      boardId
-    })
-    .then(({data}) => console.log(data));
+  axios.put('/api/reorder-list', {
+    cardId,
+    sourceId,
+    destinationId,
+    sourceIndex,
+    destinationIndex,
+    boardId
+  });
 };
 
 /**

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {connect} from 'react-redux';
 import ReactGA from 'react-ga';
 import styled from 'styled-components';
@@ -64,12 +64,27 @@ const Board = ({dispatch, lists, boardTitle, boardId}) => {
     }
 
     if (type === 'COLUMN') {
-      dispatch(reorderBoard(draggableId, source.droppableId, source.index, destination.index));
+      dispatch(
+        reorderBoard({
+          listId: draggableId,
+          sourceId: source.droppableId,
+          sourceIndex: source.index,
+          destinationIndex: destination.index
+        })
+      );
       return;
+    } else {
+      dispatch(
+        reorderList({
+          cardId: draggableId,
+          sourceId: source.droppableId,
+          destinationId: destination.droppableId,
+          sourceIndex: source.index,
+          destinationIndex: destination.index,
+          boardId
+        })
+      );
     }
-    dispatch(
-      reorderList(draggableId, source.droppableId, destination.droppableId, source.index, destination.index, boardId)
-    );
   };
 
   return (
@@ -85,10 +100,15 @@ const Board = ({dispatch, lists, boardTitle, boardId}) => {
                 {lists.map((list, index) => (
                   <Draggable key={list._id} draggableId={list._id} index={index}>
                     {(provided) => (
-                      <React.Fragment>
-                        <List list={list} boardId={boardId} style={{height: 'initial'}} provided={provided} />
+                      <div
+                        ref={provided.innerRef}
+                        {...provided.draggableProps}
+                        {...provided.dragHandleProps}
+                        data-react-beautiful-dnd-draggable="0"
+                        data-react-beautiful-dnd-drag-handle="0">
+                        <List list={list} boardId={boardId} style={{height: 'initial'}} />
                         {provided.placeholder}
-                      </React.Fragment>
+                      </div>
                     )}
                   </Draggable>
                 ))}

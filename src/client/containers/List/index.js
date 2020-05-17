@@ -79,7 +79,7 @@ const ButtonWrapper = styled.div`
   align-items: center;
 `;
 
-const List = ({dispatch, boardId, cards, list}) => {
+const List = ({dispatch, boardId, cards, list, provided}) => {
   const [newCardFormIsOpen, setNewCardFormIsOpen] = useState(false);
   const [isListTitleInEdit, setIsListTitleInEdit] = useState(false);
   const [cardIsSubmitting, setCardIsSubmitting] = useState(false);
@@ -180,7 +180,7 @@ const List = ({dispatch, boardId, cards, list}) => {
   };
 
   return (
-    <ListCard>
+    <ListCard ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
       {isListTitleInEdit ? (
         <ListTitleTextareaWrapper>
           <ListTitleTextarea
@@ -204,12 +204,7 @@ const List = ({dispatch, boardId, cards, list}) => {
                 {({innerRef, draggableProps, dragHandleProps, placeholder}) => (
                   <div>
                     {cardInEdit !== card._id ? (
-                      <CardTitle
-                        ref={innerRef}
-                        {...draggableProps}
-                        {...dragHandleProps}
-                        data-react-beautiful-dnd-draggable="0"
-                        data-react-beautiful-dnd-drag-handle="0">
+                      <CardTitle ref={innerRef} {...draggableProps} {...dragHandleProps}>
                         {card.title}
                         <ButtonWrapper>
                           <DeleteCardButton onClick={(e) => handleDeleteCard(e, card._id)} />

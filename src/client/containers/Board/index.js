@@ -86,14 +86,7 @@ const Board = ({dispatch, lists, boardTitle, boardId}) => {
                   <Draggable key={list._id} draggableId={list._id} index={index}>
                     {(provided) => (
                       <React.Fragment>
-                        <div
-                          ref={provided.innerRef}
-                          {...provided.draggableProps}
-                          {...provided.dragHandleProps}
-                          data-react-beautiful-dnd-draggable="0"
-                          data-react-beautiful-dnd-drag-handle="0">
-                          <List list={list} boardId={boardId} style={{height: 'initial'}} />
-                        </div>
+                        <List list={list} boardId={boardId} style={{height: 'initial'}} provided={provided} />
                         {provided.placeholder}
                       </React.Fragment>
                     )}

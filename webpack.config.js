@@ -39,9 +39,6 @@ module.exports = [
                 ident: 'postcss',
                 plugins: [autoprefixer()]
               }
-            },
-            {
-              loader: 'sass-loader'
             }
           ])
         },

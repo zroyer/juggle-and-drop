@@ -13,17 +13,6 @@ drag-and-drop task management with [`react-beautiful-dnd`](https://github.com/at
 - Drag-and-drop cards lists on the board
 - Add and delete boards
 
-## Todo ✅
-
-- [ ] Turn this list into Github issues
-- [ ] Card body: text and images
-- [x] Fully migrate to hooks
-- [x] Fully migrate to styled-components
-- [ ] Build styled-components theme
-- [ ] Implement light/dark mode
-- [ ] Generate example boards with a button click
-- [ ] Separate databases for environment
-
 ## Built with 🏗
 
 - [React](https://github.com/facebook/react)
@@ -32,6 +21,7 @@ drag-and-drop task management with [`react-beautiful-dnd`](https://github.com/at
 - [react-beautiful-dnd](https://github.com/atlassian/react-beautiful-dnd)
 - [styled-components](https://www.styled-components.com/)
 - [MLab](https://mlab.com/)
+- [Google Analytics](https://github.com/react-ga/react-ga)
 
 ## Setup 🚀
 

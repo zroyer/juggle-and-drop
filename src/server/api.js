@@ -20,15 +20,14 @@ const api = (db) => {
   router.post('/card', (req, res) => {
     const cardId = shortid.generate();
     const {cardTitle, listId, boardId} = req.body;
-    console.log(cardId);
     boards
       .findOneAndUpdate(
         {_id: boardId, 'lists._id': listId},
         {$push: {'lists.$.cards': {_id: cardId, title: cardTitle}}}
       )
       .then(() => res.send({cardId}))
-      .catch((err) => {
-        console.log('Error: ' + err);
+      .catch((error) => {
+        console.error(error);
       });
   });
 

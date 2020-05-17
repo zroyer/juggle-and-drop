@@ -3,12 +3,12 @@ import shortid from 'shortid';
 /* eslint-disable no-console */
 
 export const addCard = (cardTitle, listId, boardId) => (dispatch) => {
-  const cardId = shortid.generate();
-  dispatch({
-    type: 'ADD_CARD',
-    payload: {cardTitle, cardId, listId}
+  return axios.post('/api/card', {cardTitle, listId, boardId}).then(({data}) => {
+    dispatch({
+      type: 'ADD_CARD',
+      payload: {cardTitle, listId, cardId: data.cardId}
+    });
   });
-  axios.post('/api/card', {cardTitle, cardId, listId, boardId}).then(({data}) => console.log(data));
 };
 
 export const editCardTitle = (cardTitle, cardId, list, boardId) => (dispatch) => {

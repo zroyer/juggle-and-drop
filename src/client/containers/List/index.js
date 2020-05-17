@@ -82,6 +82,7 @@ const ButtonWrapper = styled.div`
 const List = ({dispatch, boardId, cards, list}) => {
   const [newCardFormIsOpen, setNewCardFormIsOpen] = useState(false);
   const [isListTitleInEdit, setIsListTitleInEdit] = useState(false);
+  const [cardIsSubmitting, setCardIsSubmitting] = useState(false);
   const [cardInEdit, setCardInEdit] = useState(null);
   const [newCardTitle, setNewCardTitle] = useState('');
   const [newListTitle, setNewListTitle] = useState('');
@@ -99,11 +100,13 @@ const List = ({dispatch, boardId, cards, list}) => {
     }
   };
 
-  const handleSubmitCard = (event) => {
+  const handleSubmitCard = async (event) => {
     event.preventDefault();
     setNewCardFormIsOpen(false);
     if (newCardTitle.length < 1) return;
-    dispatch(addCard(newCardTitle, list._id, boardId));
+    setCardIsSubmitting(true);
+    await dispatch(addCard(newCardTitle, list._id, boardId));
+    setCardIsSubmitting(false);
     setNewCardTitle('');
   };
 
@@ -204,7 +207,7 @@ const List = ({dispatch, boardId, cards, list}) => {
               </Draggable>
             ))}
             {provided.placeholder}
-            {newCardFormIsOpen && (
+            {(newCardFormIsOpen || cardIsSubmitting) && (
               <CardTextareaWrapper>
                 <CardTextarea
                   value={newCardTitle}
@@ -215,13 +218,14 @@ const List = ({dispatch, boardId, cards, list}) => {
                 <Button variant="add" onClick={handleSubmitCard} text="Add" disabled={newCardTitle === ''} />
               </CardTextareaWrapper>
             )}
-            {newCardFormIsOpen || (
-              <ComposerWrapper>
-                <Button variant="card" text="Add new card" onClick={toggleCardComposer}>
-                  Add new card
-                </Button>
-              </ComposerWrapper>
-            )}
+            {!newCardFormIsOpen &&
+              !cardIsSubmitting && (
+                <ComposerWrapper>
+                  <Button variant="card" text="Add new card" onClick={toggleCardComposer}>
+                    Add new card
+                  </Button>
+                </ComposerWrapper>
+              )}
           </div>
         )}
       </Droppable>

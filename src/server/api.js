@@ -1,4 +1,5 @@
 import {Router} from 'express';
+import shortid from 'shortid';
 
 const api = (db) => {
   const router = Router();
@@ -17,11 +18,18 @@ const api = (db) => {
   });
 
   router.post('/card', (req, res) => {
-    const {cardTitle, cardId, listId, boardId} = req.body;
-
+    const cardId = shortid.generate();
+    const {cardTitle, listId, boardId} = req.body;
+    console.log(cardId);
     boards
-      .updateOne({_id: boardId, 'lists._id': listId}, {$push: {'lists.$.cards': {_id: cardId, title: cardTitle}}})
-      .then((result) => res.send(result));
+      .findOneAndUpdate(
+        {_id: boardId, 'lists._id': listId},
+        {$push: {'lists.$.cards': {_id: cardId, title: cardTitle}}}
+      )
+      .then(() => res.send({cardId}))
+      .catch((err) => {
+        console.log('Error: ' + err);
+      });
   });
 
   router.put('/card', (req, res) => {

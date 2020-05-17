@@ -9,7 +9,7 @@ module.exports = [
   {
     name: 'client',
     target: 'web',
-    entry: path.join(__dirname, 'src/client.js'),
+    entry: ['@babel/polyfill', path.join(__dirname, 'src/client.js')],
     output: {
       path: path.join(__dirname, 'dist/public'),
       publicPath: '/static/',

@@ -90,7 +90,7 @@ const List = ({dispatch, boardId, cards, list}) => {
   const toggleCardComposer = () => setNewCardFormIsOpen(!newCardFormIsOpen);
 
   const handleCardComposerChange = (event) => {
-    setNewCardTitle(event.target.value.trim());
+    setNewCardTitle(event.target.value);
   };
 
   const handleKeyDown = (event, callback) => {
@@ -113,11 +113,11 @@ const List = ({dispatch, boardId, cards, list}) => {
   };
 
   const handleCardEditorChange = (event) => {
-    setTempCardTitle(event.target.value.trim());
+    setTempCardTitle(event.target.value);
   };
 
   const handleListTitleEditorChange = (event) => {
-    setNewListTitle(event.target.value.trim());
+    setNewListTitle(event.target.value);
   };
 
   const handleCardEdit = () => {
@@ -172,7 +172,7 @@ const List = ({dispatch, boardId, cards, list}) => {
         {(provided) => (
           <div ref={provided.innerRef}>
             {cards.map((card, index) => (
-              <Draggable key={card._id} draggableId={card._id} index={index}>
+              <Draggable key={card._id} draggableId={card._id} index={index} isDragDisabled={cardInEdit === card._id}>
                 {({innerRef, draggableProps, dragHandleProps, placeholder}) => (
                   <div>
                     {cardInEdit !== card._id ? (
@@ -189,7 +189,7 @@ const List = ({dispatch, boardId, cards, list}) => {
                         </ButtonWrapper>
                       </CardTitle>
                     ) : (
-                      <TextareaWrapper>
+                      <TextareaWrapper ref={innerRef} {...draggableProps} {...dragHandleProps}>
                         <CardTextarea
                           value={tempCardTitle}
                           onChange={handleCardEditorChange}

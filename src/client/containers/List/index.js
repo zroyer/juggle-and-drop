@@ -272,9 +272,6 @@ const List = ({dispatch, boardId, cards, list}) => {
 };
 
 const mapStateToProps = (state, props) => {
-  console.log(props);
-  console.log(props.list.cards);
-  console.log(state.cardsById);
   return {
     cards: props.list.cards.map((cardId) => state.cardsById[cardId])
   };

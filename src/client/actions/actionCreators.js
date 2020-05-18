@@ -44,10 +44,10 @@ export const reorderBoard = ({listId, sourceId, sourceIndex, destinationIndex}) 
 
 export const generateExampleBoard = () => (dispatch) => {
   return axios.post('/api/example').then(({data}) => {
-    const {boardTitle, boardId, lists} = data;
+    const {boardTitle, boardId, lists, cards} = data;
     dispatch({
       type: 'GENERATE_EXAMPLE_BOARD',
-      payload: {boardTitle, boardId, lists}
+      payload: {boardTitle, boardId, lists, cards}
     });
   });
 };
@@ -136,7 +136,6 @@ export const editCardTitle = ({cardTitle, cardId, cardIndex, listId, boardId}) =
 };
 
 export const deleteCard = ({cardId, listId, boardId}) => (dispatch) => {
-  const cardId = 'Zmm63YuUS2';
   return axios.delete('/api/card', {data: {cardId, listId, boardId}}).then(() => {
     dispatch({type: 'DELETE_CARD', payload: {cardId, listId}});
   });

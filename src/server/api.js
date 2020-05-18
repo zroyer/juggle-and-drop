@@ -1,5 +1,6 @@
 import {Router} from 'express';
 import shortid from 'shortid';
+import {generateExampleCards} from './helpers';
 
 const api = (db) => {
   const router = Router();
@@ -51,13 +52,9 @@ const api = (db) => {
   });
 
   router.post('/example', (req, res) => {
+    const exampleCards = generateExampleCards();
     const boardId = shortid.generate();
     const boardTitle = 'Example Board';
-    const cards = [
-      {_id: shortid.generate(), title: 'a'},
-      {_id: shortid.generate(), title: 'b'},
-      {_id: shortid.generate(), title: 'c'}
-    ];
     boards
       .insertOne({
         _id: boardId,
@@ -66,17 +63,17 @@ const api = (db) => {
           {
             _id: shortid.generate(),
             title: 'Todo',
-            cards: []
+            cards: exampleCards[0]
           },
           {
             _id: shortid.generate(),
             title: 'In Progress',
-            cards: []
+            cards: exampleCards[1]
           },
           {
             _id: shortid.generate(),
             title: 'Done',
-            cards: []
+            cards: exampleCards[2]
           }
         ]
       })
@@ -86,7 +83,7 @@ const api = (db) => {
           boardId,
           boardTitle,
           lists: newExampleBoard.lists,
-          cards
+          cards: exampleCards.flat(Infinity)
         });
       })
       .catch((error) => {

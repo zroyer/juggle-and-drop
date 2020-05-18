@@ -19,6 +19,13 @@ const cardsById = (state = {}, action) => {
         .filter((cardId) => !cardIds.includes(cardId))
         .reduce((newState, cardId) => ({...newState, [cardId]: state[cardId]}), {});
     }
+    case 'GENERATE_EXAMPLE_BOARD': {
+      const {cards} = action.payload;
+      return {
+        ...state,
+        ...arrayToObject(cards)
+      };
+    }
     default:
       return state;
   }

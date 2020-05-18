@@ -36,21 +36,7 @@ module.exports = {
   ],
 
   rules: {
-    // Import
     'import/no-unresolved': ['error', {ignore: ['.mock.json$']}],
-
-    // Jest
-    // jest/recommended makes these warnings, but we want errors
-    'jest/expect-expect': 'error',
-    'jest/no-commented-out-tests': 'error',
-
-    // Promises
-    // promise/recommended makes these warnings, but we want errors
-    'promise/no-callback-in-promise': 'error',
-    'promise/no-nesting': 'error',
-
-    // React
-    // no prop-type enforcment yet
-    'react/prop-types': 'off'
+    'react/prop-types': 'off' //Todo: Remove and enforce
   }
 };

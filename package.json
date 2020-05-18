@@ -11,6 +11,9 @@
     "heroku-postbuild": "webpack -p --config ./webpack.prod.config.js --progress"
   },
   "dependencies": {
+    "@babel/plugin-transform-runtime": "^7.9.6",
+    "@babel/polyfill": "^7.8.7",
+    "@babel/runtime": "^7.9.6",
     "axios": "^0.18.1",
     "dotenv": "^8.2.0",
     "express": "^4.16.2",
@@ -41,8 +44,12 @@
     "@babel/preset-react": "^7.0.0-beta.54",
     "@babel/preset-stage-2": "^7.0.0-beta.54",
     "autoprefixer": "^7.2.5",
+    "babel-core": "^6.26.3",
     "babel-eslint": "^8.2.6",
-    "babel-loader": "^8.0.0-beta.4",
+    "babel-loader": "^8.1.0",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
     "copy-webpack-plugin": "^4.5.2",
     "css-loader": "^0.28.9",
     "eslint": "^4.15.0",

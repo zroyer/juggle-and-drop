@@ -4,7 +4,7 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import render from './render';
 import api from './api';
-import getBoard from './getBoard';
+import initializeBoards from './initializeBoards';
 
 dotenv.config();
 const app = express();
@@ -21,7 +21,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use('/static', express.static('dist/public'));
 app.use('/api', api(db));
-app.use(getBoard(db));
+app.use(initializeBoards(db));
 app.get('*', render);
 
 app.listen(port, () => console.log(`🆗 👉 http://localhost:${port}`));

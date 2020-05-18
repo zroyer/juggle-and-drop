@@ -8,7 +8,7 @@ const normalizeBoards = (boards) => {
   return entities;
 };
 
-const getBoard = (db) => (req, res, next) => {
+const initializeBoards = (db) => (req, res, next) => {
   const collection = db.collection('boards');
   collection
     .find({})
@@ -19,4 +19,4 @@ const getBoard = (db) => (req, res, next) => {
     });
 };
 
-export default getBoard;
+export default initializeBoards;

@@ -1,7 +1,7 @@
 # juggle & drop 🤹‍♂️
 
 [![CircleCI](https://circleci.com/gh/zroyer/juggle-and-drop/tree/master.svg?style=svg)](https://circleci.com/gh/zroyer/juggle-and-drop/tree/master)
-[![Heroku](https://heroku-badge.herokuapp.com/?app=juggle-and-drop)]
+![Heroku](https://heroku-badge.herokuapp.com/?app=juggle-and-drop)
 
 drag-and-drop task management with [`react-beautiful-dnd`](https://github.com/atlassian/react-beautiful-dnd)
 

@@ -125,7 +125,7 @@ const Board = ({dispatch, lists, boardTitle, boardId}) => {
                         {...provided.dragHandleProps}
                         data-react-beautiful-dnd-draggable="0"
                         data-react-beautiful-dnd-drag-handle="0">
-                        <List list={list} boardId={boardId} style={{height: 'initial'}} />
+                        <List list={list} boardId={boardId} />
                         {provided.placeholder}
                       </div>
                     )}

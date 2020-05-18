@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom';
 import styled from 'styled-components';
 import ReactGA from 'react-ga';
 import {FaTimesCircle} from 'react-icons/fa';
-import {addBoard, deleteBoard} from '../../actions/actionCreators';
+import {addBoard, deleteBoard, generateExampleBoard} from '../../actions/actionCreators';
 import Button from '../../components/Button';
 
 const StyledHome = styled.div`
@@ -38,9 +38,22 @@ const StyledForm = styled.form`
   width: 100%;
   padding: 12px 0;
   display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const FormRow = styled.div`
+  width: 100%;
+  display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+`;
+
+const StyledOr = styled.div`
+  margin: 8px 0;
+  font-size: 14px;
+  font-weight: 500;
 `;
 
 const StyledInput = styled.input`
@@ -68,7 +81,7 @@ const StyledInput = styled.input`
 `;
 
 const List = styled.div`
-  margin-top: 1rem;
+  margin: 1rem 0;
   padding: 12px 12px 12px;
   background: #f8f8f8;
   border-radius: 5px;
@@ -131,6 +144,11 @@ const Home = ({dispatch, boards}) => {
     onDeleteBoard(boardId);
   };
 
+  const handleGenerateExampleBoard = (event) => {
+    event.preventDefault();
+    onGenerateExampleBoard();
+  };
+
   const onAddBoard = async (boardTitle) => {
     setIsLoading(true);
     await dispatch(addBoard({boardTitle})).then(() => {
@@ -142,6 +160,13 @@ const Home = ({dispatch, boards}) => {
   const onDeleteBoard = async (boardId) => {
     setIsLoading(true);
     await dispatch(deleteBoard({boardId})).then(() => {
+      setIsLoading(false);
+    });
+  };
+
+  const onGenerateExampleBoard = async () => {
+    setIsLoading(true);
+    await dispatch(generateExampleBoard()).then(() => {
       setIsLoading(false);
     });
   };
@@ -159,8 +184,17 @@ const Home = ({dispatch, boards}) => {
           </Row>
         ))}
         <StyledForm onSubmit={(e) => handleAddBoard(e, newBoardTitle)}>
-          <StyledInput value={newBoardTitle} onChange={(e) => handleTitleChange(e)} placeholder="Add a new board" />
-          <Button variant="board" type="submit" value="Submit" text="Add" disabled={!newBoardTitle || isLoading} />
+          <FormRow>
+            <StyledInput value={newBoardTitle} onChange={(e) => handleTitleChange(e)} placeholder="Add a new board" />
+            <Button variant="board" type="submit" value="Submit" text="Add" disabled={!newBoardTitle || isLoading} />
+          </FormRow>
+          <StyledOr>or</StyledOr>
+          <Button
+            variant="example"
+            text="Generate Example Board"
+            onClick={(e) => handleGenerateExampleBoard(e)}
+            disabled={isLoading}
+          />
         </StyledForm>
       </List>
     </StyledHome>

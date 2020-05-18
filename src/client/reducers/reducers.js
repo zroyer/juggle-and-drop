@@ -1,3 +1,6 @@
+import {arrayToObject} from '../utils';
+import {FaCommentDollar} from 'react-icons/fa';
+
 const cardsById = (state = {}, action) => {
   switch (action.type) {
     case 'ADD_CARD':
@@ -81,6 +84,19 @@ const listsById = (state = {}, action) => {
         [destinationId]: {...state[destinationId], cards: destinationCards}
       };
     }
+    case 'GENERATE_EXAMPLE_BOARD': {
+      const {lists} = action.payload;
+      const newLists = lists.map((list) => {
+        return {
+          ...list,
+          cards: list.cards.map((card) => card._id)
+        };
+      });
+      return {
+        ...state,
+        ...arrayToObject(newLists)
+      };
+    }
     default:
       return state;
   }
@@ -128,6 +144,13 @@ const boardsById = (state = {}, action) => {
       return {
         ...state,
         [sourceId]: {...state[sourceId], lists: newLists}
+      };
+    }
+    case 'GENERATE_EXAMPLE_BOARD': {
+      const {boardId, boardTitle, lists} = action.payload;
+      return {
+        ...state,
+        [boardId]: {_id: boardId, title: boardTitle, lists: lists.map((list) => list._id)}
       };
     }
     default:

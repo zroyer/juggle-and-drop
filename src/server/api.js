@@ -12,7 +12,7 @@ const api = (db) => {
     const boardId = shortid.generate();
     const {boardTitle} = req.body;
     boards
-      .insert({_id: boardId, title: boardTitle, lists: []})
+      .insertOne({_id: boardId, title: boardTitle, lists: []})
       .then(({result}) => res.send({result, boardId}))
       .catch((error) => {
         console.error(error);
@@ -44,6 +44,50 @@ const api = (db) => {
           }
         );
         res.send({value});
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  });
+
+  router.post('/example', (req, res) => {
+    const boardId = shortid.generate();
+    const boardTitle = 'Example Board';
+    const cards = [
+      {_id: shortid.generate(), title: 'a'},
+      {_id: shortid.generate(), title: 'b'},
+      {_id: shortid.generate(), title: 'c'}
+    ];
+    boards
+      .insertOne({
+        _id: boardId,
+        title: boardTitle,
+        lists: [
+          {
+            _id: shortid.generate(),
+            title: 'Todo',
+            cards: []
+          },
+          {
+            _id: shortid.generate(),
+            title: 'In Progress',
+            cards: []
+          },
+          {
+            _id: shortid.generate(),
+            title: 'Done',
+            cards: []
+          }
+        ]
+      })
+      .then(({ops}) => {
+        const newExampleBoard = ops[0];
+        res.send({
+          boardId,
+          boardTitle,
+          lists: newExampleBoard.lists,
+          cards
+        });
       })
       .catch((error) => {
         console.error(error);

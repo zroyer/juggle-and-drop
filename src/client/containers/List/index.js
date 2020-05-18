@@ -82,6 +82,7 @@ const ButtonWrapper = styled.div`
 const List = ({dispatch, boardId, cards, list}) => {
   const [newCardFormIsOpen, setNewCardFormIsOpen] = useState(false);
   const [isListTitleInEdit, setIsListTitleInEdit] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [cardInEdit, setCardInEdit] = useState(null);
   const [newCardTitle, setNewCardTitle] = useState('');
   const [newListTitle, setNewListTitle] = useState('');
@@ -103,11 +104,11 @@ const List = ({dispatch, boardId, cards, list}) => {
     event.preventDefault();
     setNewCardFormIsOpen(false);
     if (newCardTitle.length < 1) return;
-    dispatch(addCard(newCardTitle, list._id, boardId));
-    setNewCardTitle('');
+    onSubmitCard();
   };
 
-  const openCardEditor = (card) => {
+  const openCardEditor = (event, card) => {
+    event.preventDefault();
     setCardInEdit(card._id);
     setTempCardTitle(card.title);
   };
@@ -120,18 +121,18 @@ const List = ({dispatch, boardId, cards, list}) => {
     setNewListTitle(event.target.value);
   };
 
-  const handleCardEdit = () => {
+  const handleCardEdit = async (e) => {
+    e.preventDefault();
     if (tempCardTitle.length < 1) {
-      handleDeleteCard(cardInEdit);
+      onDeleteCard(cardInEdit);
     } else {
-      dispatch(editCardTitle(tempCardTitle.trim(), cardInEdit, list, boardId));
+      onEditCard();
     }
-    setTempCardTitle('');
-    setCardInEdit(null);
   };
 
-  const handleDeleteCard = (cardId) => {
-    dispatch(deleteCard(cardId, list._id, boardId));
+  const handleDeleteCard = (event, cardId) => {
+    event.preventDefault();
+    onDeleteCard(cardId);
   };
 
   const openTitleEditor = () => {
@@ -140,15 +141,55 @@ const List = ({dispatch, boardId, cards, list}) => {
   };
 
   const handleSubmitListTitle = () => {
-    if (newListTitle.length < 1) return;
-    dispatch(editListTitle(newListTitle.trim(), list._id, boardId));
-    setNewListTitle('');
-    setIsListTitleInEdit(false);
+    if (newListTitle.length < 1) {
+      setIsListTitleInEdit(false);
+      return;
+    }
+    onEditListTitle(newListTitle.trim(), list._id, boardId);
   };
 
   const handleDeleteListButtonClick = (event) => {
     event.preventDefault();
-    dispatch(deleteList(list.cards, list._id, boardId));
+    onDeleteList(list.cards, list._id, boardId);
+  };
+
+  const onSubmitCard = async () => {
+    setIsLoading(true);
+    await dispatch(addCard({cardTitle: newCardTitle, listId: list._id, boardId})).then(() => {
+      setIsLoading(false);
+      setNewCardTitle('');
+    });
+  };
+
+  const onEditCard = async () => {
+    await dispatch(
+      editCardTitle({
+        cardTitle: tempCardTitle.trim(),
+        cardId: cardInEdit,
+        cardIndex: list.cards.indexOf(cardInEdit),
+        listId: list._id,
+        boardId
+      })
+    ).then(() => {
+      setTempCardTitle('');
+      setCardInEdit(null);
+    });
+  };
+
+  const onDeleteCard = (cardId) => {
+    dispatch(deleteCard({cardId, listId: list._id, boardId}));
+  };
+
+  const onEditListTitle = async (listTitle, listId, boardId) => {
+    setIsListTitleInEdit(true);
+    await dispatch(editListTitle({listTitle, listId, boardId})).then(() => {
+      setNewListTitle('');
+      setIsListTitleInEdit(false);
+    });
+  };
+
+  const onDeleteList = (cards, listId, boardId) => {
+    dispatch(deleteList({cards, listId, boardId}));
   };
 
   return (
@@ -172,7 +213,7 @@ const List = ({dispatch, boardId, cards, list}) => {
         {(provided) => (
           <div ref={provided.innerRef}>
             {cards.map((card, index) => (
-              <Draggable key={card._id} draggableId={card._id} index={index} isDragDisabled={cardInEdit === card._id}>
+              <Draggable key={card._id} draggableId={card._id} index={index}>
                 {({innerRef, draggableProps, dragHandleProps, placeholder}) => (
                   <div>
                     {cardInEdit !== card._id ? (
@@ -184,8 +225,8 @@ const List = ({dispatch, boardId, cards, list}) => {
                         data-react-beautiful-dnd-drag-handle="0">
                         {card.title}
                         <ButtonWrapper>
-                          <DeleteCardButton onClick={() => handleDeleteCard(card._id)} />
-                          <EditCardButton onClick={() => openCardEditor(card)} />
+                          <DeleteCardButton onClick={(e) => handleDeleteCard(e, card._id)} />
+                          <EditCardButton onClick={(e) => openCardEditor(e, card)} />
                         </ButtonWrapper>
                       </CardTitle>
                     ) : (
@@ -204,7 +245,7 @@ const List = ({dispatch, boardId, cards, list}) => {
               </Draggable>
             ))}
             {provided.placeholder}
-            {newCardFormIsOpen && (
+            {(newCardFormIsOpen || isLoading) && (
               <CardTextareaWrapper>
                 <CardTextarea
                   value={newCardTitle}
@@ -215,13 +256,14 @@ const List = ({dispatch, boardId, cards, list}) => {
                 <Button variant="add" onClick={handleSubmitCard} text="Add" disabled={newCardTitle === ''} />
               </CardTextareaWrapper>
             )}
-            {newCardFormIsOpen || (
-              <ComposerWrapper>
-                <Button variant="card" text="Add new card" onClick={toggleCardComposer}>
-                  Add new card
-                </Button>
-              </ComposerWrapper>
-            )}
+            {!newCardFormIsOpen &&
+              !isLoading && (
+                <ComposerWrapper>
+                  <Button variant="card" text="Add new card" onClick={toggleCardComposer}>
+                    Add new card
+                  </Button>
+                </ComposerWrapper>
+              )}
           </div>
         )}
       </Droppable>
@@ -229,8 +271,10 @@ const List = ({dispatch, boardId, cards, list}) => {
   );
 };
 
-const mapStateToProps = (state, props) => ({
-  cards: props.list.cards.map((cardId) => state.cardsById[cardId])
-});
+const mapStateToProps = (state, props) => {
+  return {
+    cards: props.list.cards.map((cardId) => state.cardsById[cardId])
+  };
+};
 
 export default connect(mapStateToProps)(List);

@@ -1,11 +1,11 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {connect} from 'react-redux';
 import ReactGA from 'react-ga';
 import styled from 'styled-components';
 import {DragDropContext, Droppable, Draggable} from 'react-beautiful-dnd';
 import List from '../List';
 import ListAdder from '../../components/ListAdder';
-import {reorderList, reorderBoard} from '../../actions/actionCreators';
+import {addList, reorderList, reorderBoard} from '../../actions/actionCreators';
 
 const StyledBoard = styled.div`
   display: flex;
@@ -58,19 +58,52 @@ const ListsWrapper = styled.div`
 `;
 
 const Board = ({dispatch, lists, boardTitle, boardId}) => {
+  const [showListAdder, setShowListAdder] = useState(false);
+  const [newListTitle, setNewListTitle] = useState('');
+
   const handleDragEnd = ({draggableId, source, destination, type}) => {
-    // dropped outside the list
     if (!destination) {
       return;
     }
 
-    if (type === 'COLUMN') {
-      dispatch(reorderBoard(draggableId, source.droppableId, source.index, destination.index));
+    if (destination.droppableId === source.droppableId && destination.index === source.index) {
       return;
     }
-    dispatch(
-      reorderList(draggableId, source.droppableId, destination.droppableId, source.index, destination.index, boardId)
-    );
+
+    if (type === 'COLUMN') {
+      dispatch(
+        reorderBoard({
+          listId: draggableId,
+          sourceId: source.droppableId,
+          sourceIndex: source.index,
+          destinationIndex: destination.index
+        })
+      );
+      return;
+    } else {
+      dispatch(
+        reorderList({
+          cardId: draggableId,
+          sourceId: source.droppableId,
+          destinationId: destination.droppableId,
+          sourceIndex: source.index,
+          destinationIndex: destination.index,
+          boardId
+        })
+      );
+    }
+  };
+
+  const onAddList = async () => {
+    await dispatch(
+      addList({
+        listTitle: newListTitle,
+        boardId
+      })
+    ).then(() => {
+      setShowListAdder(false);
+      setNewListTitle('');
+    });
   };
 
   return (
@@ -86,23 +119,28 @@ const Board = ({dispatch, lists, boardTitle, boardId}) => {
                 {lists.map((list, index) => (
                   <Draggable key={list._id} draggableId={list._id} index={index}>
                     {(provided) => (
-                      <React.Fragment>
-                        <div
-                          ref={provided.innerRef}
-                          {...provided.draggableProps}
-                          {...provided.dragHandleProps}
-                          data-react-beautiful-dnd-draggable="0"
-                          data-react-beautiful-dnd-drag-handle="0">
-                          <List list={list} boardId={boardId} style={{height: 'initial'}} />
-                        </div>
+                      <div
+                        ref={provided.innerRef}
+                        {...provided.draggableProps}
+                        {...provided.dragHandleProps}
+                        data-react-beautiful-dnd-draggable="0"
+                        data-react-beautiful-dnd-drag-handle="0">
+                        <List list={list} boardId={boardId} />
                         {provided.placeholder}
-                      </React.Fragment>
+                      </div>
                     )}
                   </Draggable>
                 ))}
                 {droppableProvided.placeholder}
                 {lists.length < 5 && (
-                  <ListAdder boardId={boardId} numLeft={5 - lists.length} style={{height: 'initial'}} />
+                  <ListAdder
+                    numLeft={5 - lists.length}
+                    onAddList={onAddList}
+                    showListAdder={showListAdder}
+                    setShowListAdder={setShowListAdder}
+                    newListTitle={newListTitle}
+                    setNewListTitle={setNewListTitle}
+                  />
                 )}
               </ListsWrapper>
             )}

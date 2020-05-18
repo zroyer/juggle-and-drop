@@ -4,6 +4,7 @@ import {Provider} from 'react-redux';
 import thunk from 'redux-thunk';
 import {renderToString} from 'react-dom/server';
 import {StaticRouter} from 'react-router';
+import {resetServerContext} from 'react-beautiful-dnd';
 import App from '../client/containers/App';
 import reducers from '../client/reducers/reducers';
 
@@ -11,6 +12,7 @@ export default function renderPage(req, res) {
   const store = createStore(combineReducers(reducers), req.initialState, applyMiddleware(thunk));
   const context = {};
 
+  resetServerContext();
   const renderedApp = renderToString(
     <Provider store={store}>
       <StaticRouter location={req.url} context={context}>

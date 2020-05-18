@@ -1,23 +1,30 @@
+import {arrayToObject} from '../utils';
+import {FaCommentDollar} from 'react-icons/fa';
+
 const cardsById = (state = {}, action) => {
   switch (action.type) {
-    case "ADD_CARD":
-    case "EDIT_CARD_TITLE": {
-      const { cardTitle, cardId } = action.payload;
-      return { ...state, [cardId]: { title: cardTitle, _id: cardId } };
+    case 'ADD_CARD':
+    case 'EDIT_CARD_TITLE': {
+      const {cardTitle, cardId} = action.payload;
+      return {...state, [cardId]: {title: cardTitle, _id: cardId}};
     }
-    case "DELETE_CARD": {
-      const { cardId } = action.payload;
-      const { [cardId]: deletedCard, ...restOfCards } = state;
+    case 'DELETE_CARD': {
+      const {cardId} = action.payload;
+      const {[cardId]: deletedCard, ...restOfCards} = state;
       return restOfCards;
     }
-    case "DELETE_LIST": {
-      const { cards: cardIds } = action.payload;
+    case 'DELETE_LIST': {
+      const {cards: cardIds} = action.payload;
       return Object.keys(state)
-        .filter(cardId => !cardIds.includes(cardId))
-        .reduce(
-          (newState, cardId) => ({ ...newState, [cardId]: state[cardId] }),
-          {}
-        );
+        .filter((cardId) => !cardIds.includes(cardId))
+        .reduce((newState, cardId) => ({...newState, [cardId]: state[cardId]}), {});
+    }
+    case 'GENERATE_EXAMPLE_BOARD': {
+      const {cards} = action.payload;
+      return {
+        ...state,
+        ...arrayToObject(cards)
+      };
     }
     default:
       return state;
@@ -26,57 +33,51 @@ const cardsById = (state = {}, action) => {
 
 const listsById = (state = {}, action) => {
   switch (action.type) {
-    case "ADD_CARD": {
-      const { listId, cardId } = action.payload;
+    case 'ADD_CARD': {
+      const {listId, cardId} = action.payload;
       return {
         ...state,
-        [listId]: { ...state[listId], cards: [...state[listId].cards, cardId] }
+        [listId]: {...state[listId], cards: [...state[listId].cards, cardId]}
       };
     }
-    case "DELETE_CARD": {
-      const { cardId: newCardId, listId } = action.payload;
+    case 'DELETE_CARD': {
+      const {cardId: newCardId, listId} = action.payload;
       return {
         ...state,
         [listId]: {
           ...state[listId],
-          cards: state[listId].cards.filter(cardId => cardId !== newCardId)
+          cards: state[listId].cards.filter((cardId) => cardId !== newCardId)
         }
       };
     }
-    case "ADD_LIST": {
-      const { listId, listTitle } = action.payload;
+    case 'ADD_LIST': {
+      const {listId, listTitle} = action.payload;
       return {
         ...state,
-        [listId]: { _id: listId, title: listTitle, cards: [] }
+        [listId]: {_id: listId, title: listTitle, cards: []}
       };
     }
-    case "DELETE_LIST": {
-      const { listId } = action.payload;
-      const { [listId]: deletedList, ...restOfLists } = state;
+    case 'DELETE_LIST': {
+      const {listId} = action.payload;
+      const {[listId]: deletedList, ...restOfLists} = state;
       return restOfLists;
     }
-    case "EDIT_LIST_TITLE": {
-      const { listId, listTitle } = action.payload;
+    case 'EDIT_LIST_TITLE': {
+      const {listId, listTitle} = action.payload;
       return {
         ...state,
-        [listId]: { ...state[listId], title: listTitle }
+        [listId]: {...state[listId], title: listTitle}
       };
     }
-    case "REORDER_LIST": {
-      const {
-        sourceIndex,
-        destinationIndex,
-        sourceId,
-        destinationId
-      } = action.payload;
-      // Reorder within the same list
+    case 'REORDER_LIST': {
+      const {sourceIndex, destinationIndex, sourceId, destinationId} = action.payload;
       if (sourceId === destinationId) {
         const newCards = Array.from(state[sourceId].cards);
         const [removedCard] = newCards.splice(sourceIndex, 1);
         newCards.splice(destinationIndex, 0, removedCard);
         return {
           ...state,
-          [sourceId]: { ...state[sourceId], cards: newCards }
+          [sourceId]: {...state[sourceId], cards: newCards}
         };
       }
 
@@ -86,8 +87,21 @@ const listsById = (state = {}, action) => {
       destinationCards.splice(destinationIndex, 0, removedCard);
       return {
         ...state,
-        [sourceId]: { ...state[sourceId], cards: sourceCards },
-        [destinationId]: { ...state[destinationId], cards: destinationCards }
+        [sourceId]: {...state[sourceId], cards: sourceCards},
+        [destinationId]: {...state[destinationId], cards: destinationCards}
+      };
+    }
+    case 'GENERATE_EXAMPLE_BOARD': {
+      const {lists} = action.payload;
+      const newLists = lists.map((list) => {
+        return {
+          ...list,
+          cards: list.cards.map((card) => card._id)
+        };
+      });
+      return {
+        ...state,
+        ...arrayToObject(newLists)
       };
     }
     default:
@@ -97,20 +111,20 @@ const listsById = (state = {}, action) => {
 
 const boardsById = (state = {}, action) => {
   switch (action.type) {
-    case "ADD_BOARD": {
-      const { boardId, boardTitle } = action.payload;
+    case 'ADD_BOARD': {
+      const {boardId, boardTitle} = action.payload;
       return {
         ...state,
-        [boardId]: { _id: boardId, title: boardTitle, lists: [] }
+        [boardId]: {_id: boardId, title: boardTitle, lists: []}
       };
     }
-    case "DELETE_BOARD": {
-      const { boardId } = action.payload;
-      const { [boardId]: deletedBoard, ...restOfBoards } = state;
+    case 'DELETE_BOARD': {
+      const {boardId} = action.payload;
+      const {[boardId]: deletedBoard, ...restOfBoards} = state;
       return restOfBoards;
     }
-    case "ADD_LIST": {
-      const { boardId, listId } = action.payload;
+    case 'ADD_LIST': {
+      const {boardId, listId} = action.payload;
       return {
         ...state,
         [boardId]: {
@@ -119,24 +133,31 @@ const boardsById = (state = {}, action) => {
         }
       };
     }
-    case "DELETE_LIST": {
-      const { listId: newListId, boardId } = action.payload;
+    case 'DELETE_LIST': {
+      const {listId: newListId, boardId} = action.payload;
       return {
         ...state,
         [boardId]: {
           ...state[boardId],
-          lists: state[boardId].lists.filter(listId => listId !== newListId)
+          lists: state[boardId].lists.filter((listId) => listId !== newListId)
         }
       };
     }
-    case "REORDER_LISTS": {
-      const { sourceIndex, destinationIndex, sourceId } = action.payload;
+    case 'REORDER_LISTS': {
+      const {sourceIndex, destinationIndex, sourceId} = action.payload;
       const newLists = Array.from(state[sourceId].lists);
       const [removedList] = newLists.splice(sourceIndex, 1);
       newLists.splice(destinationIndex, 0, removedList);
       return {
         ...state,
-        [sourceId]: { ...state[sourceId], lists: newLists }
+        [sourceId]: {...state[sourceId], lists: newLists}
+      };
+    }
+    case 'GENERATE_EXAMPLE_BOARD': {
+      const {boardId, boardTitle, lists} = action.payload;
+      return {
+        ...state,
+        [boardId]: {_id: boardId, title: boardTitle, lists: lists.map((list) => list._id)}
       };
     }
     default:
@@ -144,4 +165,4 @@ const boardsById = (state = {}, action) => {
   }
 };
 
-export default { cardsById, listsById, boardsById };
+export default {cardsById, listsById, boardsById};

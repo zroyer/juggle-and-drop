@@ -1,6 +1,6 @@
 import {Router} from 'express';
 import shortid from 'shortid';
-import {generateExampleCards} from './helpers';
+import {generateExampleCards, getRandomEmoji} from './helpers';
 
 const api = (db) => {
   const router = Router();
@@ -54,7 +54,7 @@ const api = (db) => {
   router.post('/example', (req, res) => {
     const exampleCards = generateExampleCards();
     const boardId = shortid.generate();
-    const boardTitle = 'Example Board';
+    const boardTitle = `Example Board ${getRandomEmoji()}`;
     boards
       .insertOne({
         _id: boardId,
